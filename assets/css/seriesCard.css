@@ -1,0 +1,33 @@
+
+
+.series_list {
+  display:flex;
+  width:100%;
+  flex-flow:row wrap;
+  justify-content: center;
+}
+
+.series_card {
+  height:fit-content;
+  padding: 5px;
+  background: #00000057;
+  border: 1px solid #00000010;
+  margin: 3px;
+  color:white;
+}
+.series_card_bot {
+  max-width:175px;
+}
+
+.series_card_container {
+  position:relative;
+}
+.onImg {
+  position:absolute;
+  color:white;
+  font-size:10px;
+  background: #000000bb;
+  bottom: 2px;
+  left: 0px;
+  padding:2px;
+}

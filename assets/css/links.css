@@ -1,0 +1,69 @@
+/* feeds */
+a[href*="\.xml"],
+a[href*="\.rss"] {
+  background-image: url(../links/rss.png);
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  padding-left: 16px;
+}
+
+/* socials */
+a[href*="youtube"] {
+    background-image: url(../links/youtube.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="twitch"] {
+    background-image: url(../links/twitch.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="pixiv"] {
+    background-image: url(../links/pixiv.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="twitter"] {
+    background-image: url(../links/twitter.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="nicovideo"] {
+    background-image: url(../links/nicovideo.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+
+/* stores */
+a[href*="kobo"] {
+    background-image: url(../links/kobo.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="amazon"] {
+    background-image: url(../links/amazon.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}
+a[href*="bookwalker"] {
+    background-image: url(../links/bookwalker.png);
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 16px;
+}

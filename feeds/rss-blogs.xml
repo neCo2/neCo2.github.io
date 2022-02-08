@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+   <channel>
+      <title>neCo Translation</title>
+      <link>http://neco2.github.io</link>
+      <description>Blog Posts</description>
+      <docs>http://www.rssboard.org/rss-specification</docs>
+      <generator>a wet piece of cardboard stapled to dying chicken</generator>
+      <language>en</language>
+      <lastBuildDate>Tue, 08 Feb 2022 18:21:57 +0100</lastBuildDate>
+      
+        <item>
+          <title>About this Blog</title>
+          <link>http://neco2.github.io/blog/About-this-blog</link>
+          <description>After &lt;a href=&quot;https://mycropen.github.io&quot;&gt;anon&lt;/a&gt; in the scanlation thread
+mentioned he was generating a static site from just one text file, I was
+intrigued and tried to build something of my own. He was generous enough to give
+me his code, which was a great help.&lt;br&gt;
+This weird blog/wiki-ish hybrid thing was built using a combination of a lacking
+understanding of html, python and &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;,
+a static site generator. Similarly to what anon made, this site is generated
+from one central YAML data file containing information about the entries
+I want displayed on the page, and a couple Jekyll templates.&lt;br&gt;
+This is also the first time I&apos;ve built a website, so if you want to keep your
+sanity, I recommend you don&apos;t look at any of the html. It&apos;s an absolute mess.&lt;br&gt;
+&lt;br&gt;
+The next step will be writing some code that allows me to automatically upload
+chapters to mega and add them to the YAML file.&lt;br&gt;
+&lt;br&gt;
+In conclusion, I put in way too much work into a website that maybe 2 people will use per year. But it&apos;s my website, damn it!&lt;br&gt;
+If you want to have a look at the inner workings, I&apos;d be happy to share the source with you. Just throw me a mail and
+I&apos;ll probably notice within a couple weeks.
+</description>
+        </item>
+      
+   </channel>
+</rss>
