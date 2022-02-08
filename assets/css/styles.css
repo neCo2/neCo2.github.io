@@ -64,7 +64,7 @@ footer a:active,
   margin-top:-5px;
   margin-bottom:5px;
   font-size:10px;
-  opacity:50%;
+  color:#6b6c6a;
 }
 #volumes {
   display: flex;
