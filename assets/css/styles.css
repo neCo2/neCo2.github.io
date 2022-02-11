@@ -72,6 +72,7 @@ footer a:active,
 }
 .volumeDiv {
   min-width: 225px;
+  max-width: 48%;
   padding: 5px;
   margin-right: auto;
 }
@@ -86,7 +87,8 @@ footer a:active,
 }
 .chapterDownload {
   line-height: 1.2;
-  margin-right:8px
+  margin-right:8px;
+  min-width:76px;
 }
 
 .maintitle {
