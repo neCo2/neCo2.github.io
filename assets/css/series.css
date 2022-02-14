@@ -1,0 +1,91 @@
+
+
+.series_list {
+  display:flex;
+  width:100%;
+  flex-flow:row wrap;
+  justify-content: center;
+}
+
+.series_card {
+  height:fit-content;
+  padding: 5px;
+  background: #00000057;
+  border: 1px solid #00000010;
+  margin: 3px;
+  color:white;
+}
+.series_card_bot {
+  width:175px;
+}
+
+.series_card_container {
+  position:relative;
+}
+.onImg_bl {
+  position:absolute;
+  color:white;
+  font-size:10px;
+  background: #000000bb;
+  bottom: 3.7px;
+  left: 0px;
+  padding:2px;
+}
+.onImg_tr {
+  position:absolute;
+  color:white;
+  font-size:12px;
+  background: #000000bb;
+  top: 0px;
+  right: 0px;
+  padding:2px;
+}
+
+/* series page */
+.typo {
+  margin-top:-5px;
+  margin-bottom:5px;
+  font-size:10px;
+  color:#6b6c6a;
+}
+#volumes {
+  display: flex;
+  flex-flow: row wrap;
+}
+.volumeDiv {
+  min-width: 225px;
+  max-width: 48%;
+  padding: 5px;
+  margin-right: auto;
+}
+.volumeHeader {
+  font-size:25px;
+  font-weight:bold;
+  line-height: 1.5;
+}
+.chapterDiv {
+  display:flex;
+  flex-flow: row wrap;
+}
+.chapterDownload {
+  line-height: 1.2;
+  margin-right:8px;
+  min-width:76px;
+}
+
+.maintitle {
+  font-size:20px;
+}
+.subtitle {
+  font-size:70%;
+}
+.series_table {
+  float:right;
+  width:300px;
+  margin-left:15px;
+  vertical-align:top;
+}
+th {
+  padding: 2px;
+  border: 1px solid gray;
+}
