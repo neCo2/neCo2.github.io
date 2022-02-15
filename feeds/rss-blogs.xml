@@ -2,16 +2,16 @@
 <rss version="2.0">
    <channel>
       <title>neCo Translation</title>
-      <link>http://neco2.github.io</link>
+      <link>https://neco2.github.io</link>
       <description>Blog Posts</description>
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Mon, 14 Feb 2022 10:43:25 +0100</lastBuildDate>
+      <lastBuildDate>Tue, 15 Feb 2022 08:13:29 +0000</lastBuildDate>
       
         <item>
           <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
-          <link>http://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
+          <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
           <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
 little zashiki warashi.&lt;br&gt;
 Expected release frequency: One chapter per two weeks.&lt;br&gt;
@@ -21,9 +21,9 @@ Dumps: Saturday or Sunday around 5pm CET on /a/.
       
         <item>
           <title>About this Blog</title>
-          <link>http://neco2.github.io/blog/About-this-blog</link>
-          <description>After &lt;a href=&quot;https://mycropen.github.io&quot;&gt;anon&lt;/a&gt; in the scanlation thread
-mentioned he was generating a static site from just one text file, I was
+          <link>https://neco2.github.io/blog/About-this-blog</link>
+          <description>After anon in the scanlation thread
+mentioned he was generating &lt;a href=&quot;https://mycropen.github.io&quot;&gt;a static site&lt;/a&gt; from just one text file, I was
 intrigued &lt;span class=&quot;spoiler&quot;&gt;mostly because the wiki I set up as an archive
 on fandom kicked me out for inactivity&lt;/span&gt; and tried to build something of
 my own. He was generous enough to give me his code, which was a great help.&lt;br&gt;
