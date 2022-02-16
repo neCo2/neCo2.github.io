@@ -3,6 +3,9 @@ body {
   background:#141414 !important;
   color:rgb(208, 208, 208);
 }
+#fakeBody {
+  z-index: 1;
+}
 
 hr {
   border-top: 1px solid #0000004f;
@@ -81,6 +84,14 @@ a.external:after {
 }
 
 
+.descList {
+
+}
+.descList li {
+  line-height: 8px;
+}
+
+
 /* fun */
 .spoiler {
   color:#FFFFFF00;
@@ -89,4 +100,8 @@ a.external:after {
 .spoiler:hover {
   color:inherit;
   background:black;
+}
+.cont {
+  display: inline;
+  color: rgb(208, 208, 208) !important;
 }
