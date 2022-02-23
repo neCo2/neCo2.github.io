@@ -23,10 +23,11 @@
   position:relative;
 }
 .onImg_bl {
+  width:171px;
   position:absolute;
   color:white;
   font-size:10px;
-  background: #000000bb;
+  background: #000000aa;
   bottom: 3.7px;
   left: 0px;
   padding:2px;
