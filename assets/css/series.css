@@ -32,6 +32,20 @@
   left: 0px;
   padding:2px;
 }
+
+.series_card:hover .onImg_bl,
+.series_card:hover .onImg_tr {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s .08s, opacity .08s linear;
+}
+.series_card:not(:hover) .onImg_bl,
+.series_card:not(:hover) .onImg_tr {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .08s linear;
+}
+
 .onImg_tr {
   position:absolute;
   color:white;
