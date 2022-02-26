@@ -54,6 +54,13 @@
   top: 0px;
   right: 0px;
   padding:2px;
+  overflow:hidden;
+  white-space: nowrap;
+}
+.onImg_bl table {
+  margin: 0px;
+  padding: -3px;
+  border-spacing: 0px;
 }
 
 /* series page */
