@@ -3,6 +3,10 @@ a[href*="//"]:not([href*="localhost"]):not([href*="github"]):not([href*="mega"])
   background-repeat: no-repeat;
   background-size: 12px 12px;
 }
+.socialLink,
+.purchaseLink {
+  margin-right: 5px;
+}
 
 /* feeds */
 a[href*="\.xml"],
@@ -27,7 +31,10 @@ a[href*="pixiv"] {
   background-image: url(../links/pixiv.png);
   padding-left: 16px;
 }
-a[href*="nitter"],
+a[href*="nitter"] {
+  background-image: url(../links/nitter.png);
+  padding-left: 16px;
+}
 a[href*="twitter"] {
   background-image: url(../links/twitter.png);
   padding-left: 16px;

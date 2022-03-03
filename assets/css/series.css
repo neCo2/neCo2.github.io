@@ -23,15 +23,23 @@
   position:relative;
 }
 .onImg_bl {
-  width:171px;
+  width:175px;
   position:absolute;
   color:white;
   font-size:10px;
   background: #000000aa;
   bottom: 3.7px;
   left: 0px;
-  padding:2px;
+  /* padding:2px; */
 }
+.onImgStatus{
+  margin:2px;
+}
+.statusTable td,
+.statusTable tr {
+  vertical-align: top;
+}
+
 
 .series_card:hover .onImg_bl,
 .series_card:hover .onImg_tr {
@@ -94,6 +102,21 @@
   margin-right:8px;
   min-width:76px;
 }
+
+.chapterPopup {
+  display: none;
+  position: relative;
+  background: red;
+  /* z-index: -1; */
+  margin:2px;
+  top:10px;
+}
+
+.chapterDownload:hover + .chapterPopup {
+  display: block !important;
+}
+
+
 
 .maintitle {
   font-size:20px;

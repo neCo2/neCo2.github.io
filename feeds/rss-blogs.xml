@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
    <channel>
-      <title>neCo Translation</title>
+      <title>neCo Translation - Blog Posts</title>
       <link>https://neco2.github.io</link>
       <description>Blog Posts</description>
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Sun, 27 Feb 2022 10:57:44 +0000</lastBuildDate>
+      <lastBuildDate>Thu, 03 Mar 2022 22:50:42 +0000</lastBuildDate>
       
-        <item>
-          <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
-          <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
-          <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
+  <item>
+    <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
+    <pubDate>2022-02-12 08:40:40 +0000</pubDate>
+    <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
+    <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
 little zashiki warashi.&lt;br&gt;
 Expected release frequency: One chapter per two weeks.&lt;br&gt;
 Dumps: Saturday or Sunday around 5pm CET on /a/.
 </description>
-        </item>
-      
-        <item>
-          <title>About this Blog</title>
-          <link>https://neco2.github.io/blog/About-this-blog</link>
-          <description>After anon in the scanlation thread
+  </item>
+
+  <item>
+    <title>About this Blog</title>
+    <pubDate>2022-02-07 10:34:36 +0000</pubDate>
+    <link>https://neco2.github.io/blog/About-this-blog</link>
+    <description>After anon in the scanlation thread
 mentioned he was generating &lt;a href=&quot;https://mycropen.github.io&quot;&gt;a static site&lt;/a&gt;
 from just one text file and hosting it on github, I was intrigued
 &lt;span class=&quot;spoiler&quot;&gt;mostly because the wiki I set up as an archive on fandom
@@ -41,7 +43,8 @@ use per year. But it&apos;s my website, damn it!&lt;br&gt;
 If you want to have a look at the inner workings, I&apos;d be happy to share the source
 with you. Just throw me a mail and I&apos;ll probably notice within a couple weeks.
 </description>
-        </item>
-      
+  </item>
+
+
    </channel>
 </rss>
