@@ -58,7 +58,7 @@ footer a,
 #rssLink a {
   color: inherit;
   text-decoration:none;
-  box-shadow: inset 0 -1px 0 #84000094;
+  box-shadow: inset 0 -1px 0 #840000e0;
 }
 footer a:hover,
 footer a:active,
@@ -69,7 +69,7 @@ footer a:active,
 #contentContainer a:hover,
 #contentContainer a:active {
   color: inherit;
-  box-shadow: inset 0 -2px 0 #d50000e3;
+  box-shadow: inset 0 -2px 0 #d50000f0;
 }
 
 
