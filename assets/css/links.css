@@ -5,8 +5,12 @@ a[href*="//"]:not([href*="localhost"]):not([href*="github"]):not([href*="mega"])
 }
 .socialLink,
 .purchaseLink {
+  margin:0px;
+}
+.linkContainer {
+  white-space: nowrap;
+  display: inline-block;
   margin-right: 2.5px;
-  margin-left: 2.5px;
 }
 
 /* feeds */

@@ -66,7 +66,7 @@ footer a,
   color: inherit;
   text-decoration:none;
   box-shadow: inset 0 -1px 0 #840000e0;
-  transition-duration: .15s;
+  transition-duration: .12s;
 }
 footer a:hover,
 footer a:active,
@@ -78,7 +78,7 @@ footer a:active,
 #contentContainer a:active {
   color: inherit;
   box-shadow: inset 0 -2px 0 #d50000f0;
-  transition-duration: .15s;
+  transition-duration: .12s;
 }
 
 
