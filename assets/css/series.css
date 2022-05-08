@@ -14,7 +14,29 @@
   border: 1px solid #00000010;
   margin: 3px;
   color:white;
+  position: relative;
 }
+.series_card > * {
+  z-index: 0 !important;
+}
+.series_card_rssPopup {
+  opacity: 0;
+  /* width: 30px;
+  height: 25px; */
+  /* background: #141414; */
+  /* border: 1px solid black ; */
+  position: absolute;
+  top: 0;
+  right: -1px;
+  z-index: 0 !important;
+  transition: .15s;
+}
+.series_card:hover .series_card_rssPopup {
+  top: -27px;
+  z-index: 1;
+  opacity: 1;
+}
+
 .series_card_bot {
   width:175px;
 }
@@ -35,10 +57,15 @@
 .onImgStatus{
   margin:2px;
 }
+
+.contactTable td,
+.contactTable tr,
 .statusTable td,
 .statusTable tr {
   vertical-align: top;
 }
+
+
 
 
 .series_card:hover .onImg_bl,

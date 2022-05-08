@@ -23,6 +23,13 @@ a[href*="\.rss"] {
   padding-left: 16px;
 }
 
+.nonStyled {
+  background: none !important;
+  background-size: 0px !important;
+  padding-left: 0px !important;
+  box-shadow: none !important;
+}
+
 /* socials */
 a[href*="youtube"] {
   background-image: url(../links/youtube.png);
