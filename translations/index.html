@@ -3,6 +3,49 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
+    <script>
+    async function dl(uri,name,dlLink) {
+      var ext = uri.match(/\.[^\.]+$/);
+      if (!ext) {
+        var a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        return
+      };
+      console.log("Downloading " + uri + " as " + name)
+      var oldInnerHTML = dlLink.innerHTML;
+      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+      const response = await fetch(uri);
+      const contentLength = response.headers.get('content-length');
+      const total = parseInt(contentLength, 10);
+      let loaded = 0;
+
+      const res = new Response(new ReadableStream({
+        async start(controller) {
+          const reader = response.body.getReader();
+          for (;;) {
+            const {done, value} = await reader.read();
+            if (done) break;
+            loaded += value.byteLength;
+            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+            controller.enqueue(value);
+          }
+          controller.close();
+        },
+      }));
+      const blob = await res.blob();
+      var href = window.URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.download = name + ext;
+      a.target="_blank"
+      a.href = href;
+      a.click();
+      a.href = "";
+      dlLink.innerHTML = oldInnerHTML;
+    }
+    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -145,7 +188,7 @@
               <tr>
                 <td>Translation</td>
                 <td>:&nbsp;</td>
-                <td>Ongoing (Chapter 12)</td>
+                <td>Ongoing (Chapter 13)</td>
               </tr>
             </table>
           </div>
@@ -190,7 +233,7 @@
               <tr>
                 <td>Translation</td>
                 <td>:&nbsp;</td>
-                <td>Ongoing</td>
+                <td>Hiatus</td>
               </tr>
             </table>
           </div>
@@ -216,8 +259,8 @@
           <span style="font-size:18px;margin-left:50%;left:-137px;display:table;vertical-align:top;text-align:center;position:absolute;"> <a target="_self" href="support">HOW TO SUPPORT THE AUTHOR</a></span>
         </div>
         <span style="opacity:20%">
-          May your path lead you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-06-26 08:22</span>
+          May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
+          <span style="font-size:8px;">2022-07-24 06:39</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

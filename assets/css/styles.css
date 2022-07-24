@@ -1,6 +1,6 @@
 code {
   font-size: 95%;
-  font-family: "Courier New", monospace;
+  font-family: "Courier New", monospace !important;
   background: #00000040;
   padding: 0 3px 0 3px;
 }

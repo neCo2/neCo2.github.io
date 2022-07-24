@@ -65,7 +65,7 @@
         background:black;
       }
     </style>
-    <title>Mangaka-sensei to Zashiki Warashi Chapter 13 Delay - neCo</title>
+    <title>Clip Stuido Paint - neCo</title>
   </head>
   <body>
     <div id="fakeBody">
@@ -102,24 +102,58 @@
         </div>
       </header>
       <div id="contentContainer">
-        <style type="text/css" media="screen">
-  #contentContainer {
-    max-width: 850px !important;
-    font-size:17px;
-    margin: auto;
-  }
-</style>
-<h1>
-  <span style="font-size:10px;font-weight:normal;">2022-06-25 17:56:18 +0000</span><br>
-  Mangaka-sensei to Zashiki Warashi Chapter 13 Delay
-</h1>
-Chapter 13 of Mangaka-sensei to Zashiki Warashi will be delayed by two weeks.<br>
-The next dump is scheduled for the 23rd, and the release on Mangadex and here for
-the 24th or 25th of July.
+        I'm one of the 7 people who actually use CSP to scanlate. While its typesetting
+features leave a lot to desire, it's very attractive to redraw with the same tools
+most mangaka use.<br>
+Unlike Photoshop, CSP has no support for scripting, so you either have to use
+ very simple auto actions, or make do with external tools to help with your
+workflow. For example, there is no equivalent to <a href="https://swirt.github.io/typertools/" target="_self">TyperTools</a>
+available for CSP, which is why I've painstakingly written myself something similar
+in AHK. It's a little janky, but it works most of the time, allows me to quickly paste
+text from scripts onto a page, and can even pre-format text for you.<br>
+<a href="mailto:neCoTranslation@protonmail.com?&subject=ScriptParser" target="_self">On request</a>
+I'll gladly send you the entire thing, but be aware that the code is largely
+uncommented and you'll have to adjust a lot of shit yourself. And I <i>absolutely
+do not</i> want to help you with any of that.<br>
 
-<!-- <br>
-<img class="logo" src="assets/neco.svg"> -->
+<a style="display:inline-flex;" href="javascript:void(0);" onClick="javascript:dl('AAAAAAAAAAAAAAAAAAAAAAA','ScriptParserV4',this);" target="_self">
+  
+    Here
+  
+</a><!-- if this has a space at the end, remove trailing whitespace in n++ -->'s a much simpler version I wrote years ago that only handles copy-pasting
+lines from a text editor for you. It even comes with a built in setup guide. Just
+run it and follow the instructions.
 
+
+<h1>Auto Actions</h1>
+<p>Various Auto Actions for CSP that make my scanlation life easier. Download
+the entire set <a style="display:inline-flex;" href="javascript:void(0);" onClick="javascript:dl('AAAAAAAAAAAAAAAAAA','neCo_CSP_Auto_Actions',this);" target="_self">
+  
+    here
+  
+</a><!-- if this has a space at the end, remove trailing whitespace in n++ -->. Descriptions of the Actions can be found below.</p>
+
+<h2>Redraw Layers V3</h2>
+Automatically create redrawing and text layers.
+
+<h2>Bubble Select V3</h2>
+First select bubbles with a magic wand tool with Area scaling set to a negative
+value (-3px works for most manga), then run this action to automatically fill
+the entire bubble with white.
+
+<h2>Screentone</h2>
+Manually select a repeatable pattern from a page and transform it into an image
+layer with a mask. You then have to manually enable tiling, and voilla, you've
+screentone layer.
+
+<h2>Vector Stroke</h2>
+Handwrite text on a vector layer. This action will then duplicate the layer, and
+ change the color of the below vector layer to white. This allows you to then
+manually increase the brush size of this layer, creating a stroke effect.
+
+<h2>convert to image layer</h2>
+Self-explanatory. The noBack verison of the action does not preserve the original
+layer. Useful to move around small illustrations in bubbles or similar.
 <br>
       </div>
 

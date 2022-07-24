@@ -3,6 +3,49 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
+    <script>
+    async function dl(uri,name,dlLink) {
+      var ext = uri.match(/\.[^\.]+$/);
+      if (!ext) {
+        var a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        return
+      };
+      console.log("Downloading " + uri + " as " + name)
+      var oldInnerHTML = dlLink.innerHTML;
+      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+      const response = await fetch(uri);
+      const contentLength = response.headers.get('content-length');
+      const total = parseInt(contentLength, 10);
+      let loaded = 0;
+
+      const res = new Response(new ReadableStream({
+        async start(controller) {
+          const reader = response.body.getReader();
+          for (;;) {
+            const {done, value} = await reader.read();
+            if (done) break;
+            loaded += value.byteLength;
+            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+            controller.enqueue(value);
+          }
+          controller.close();
+        },
+      }));
+      const blob = await res.blob();
+      var href = window.URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.download = name + ext;
+      a.target="_blank"
+      a.href = href;
+      a.click();
+      a.href = "";
+      dlLink.innerHTML = oldInnerHTML;
+    }
+    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -140,7 +183,9 @@
 zashiki warashi that lives there, but he can’t hear her voice.<br />
 Fearing that she’d disappear if she finds out, he pretends that
 he doesn’t see her, while she continues helping him out with the household.
-<img src="assets/fun/box goblin.png" style="float:right;" width="200px" /><br />
+<a class="plainLink" target="_self" title="fun stuff" href="https://mega.nz/folder/y3ITRCSD#6ILfRp7z6d1kKQ54_3Wqgw">
+<img src="assets/fun/box goblin.png" style="float:right;" width="200px" />
+</a><br />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><!-- now this is jank -->
 Proofreader: Anon</p>
 
@@ -392,6 +437,24 @@ Chapter 12" >
 </span>
                   <!-- <div class="chapterPopup">Volume 2, Chapter 12<br>2022-06-26 08:20:15 +0000</div> -->
                 
+                  
+                  
+                  
+                  <span title="Volume 2, Chapter 13 | 2022-07-24 06:38:57 +0000" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk"
+download="Mangaka-sensei_to_Zashiki_Warashi
+
+Chapter 13" >
+
+
+
+
+
+  Chapter 13
+
+</a>
+</span>
+                  <!-- <div class="chapterPopup">Volume 2, Chapter 13<br>2022-07-24 06:38:57 +0000</div> -->
+                
               
             </div>
           </div>
@@ -411,8 +474,8 @@ Chapter 12" >
           <span style="font-size:18px;margin-left:50%;left:-137px;display:table;vertical-align:top;text-align:center;position:absolute;"> <a target="_self" href="support">HOW TO SUPPORT THE AUTHOR</a></span>
         </div>
         <span style="opacity:20%">
-          May your path lead you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-06-26 08:22</span>
+          May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
+          <span style="font-size:8px;">2022-07-24 06:39</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <base href="https://neco2.github.io" target="_blank">
+    <script>
+    async function dl(uri,name,dlLink) {
+      var ext = uri.match(/\.[^\.]+$/);
+      if (!ext) {
+        var a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        return
+      };
+      console.log("Downloading " + uri + " as " + name)
+      var oldInnerHTML = dlLink.innerHTML;
+      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+      const response = await fetch(uri);
+      const contentLength = response.headers.get('content-length');
+      const total = parseInt(contentLength, 10);
+      let loaded = 0;
+
+      const res = new Response(new ReadableStream({
+        async start(controller) {
+          const reader = response.body.getReader();
+          for (;;) {
+            const {done, value} = await reader.read();
+            if (done) break;
+            loaded += value.byteLength;
+            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+            controller.enqueue(value);
+          }
+          controller.close();
+        },
+      }));
+      const blob = await res.blob();
+      var href = window.URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.download = name + ext;
+      a.target="_blank"
+      a.href = href;
+      a.click();
+      a.href = "";
+      dlLink.innerHTML = oldInnerHTML;
+    }
+    </script>
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+    <!-- <link rel="stylesheet" href="/assets/css/zCssMerge.css"> -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/wrapper.css">
+    <link rel="stylesheet" href="/assets/css/series.css">
+    <!-- <link rel="stylesheet" href="/assets/css/seriesPage.css"> -->
+    <link rel="stylesheet" href="/assets/css/links.css">
+    <style>
+      .spoiler {
+        color:#FFFFFF00;
+        background:black;
+      }
+      .spoiler:hover {
+        color:inherit;
+        background:black;
+      }
+    </style>
+    <title>debug - neCo</title>
+  </head>
+  <body>
+    <div id="fakeBody">
+      <header id="header" position=absolute display=flex>
+        <div class="headerPos">
+          <nav>
+            <div class="headerImg" position=relative>
+              <a target="_self" href="https://neco2.github.io"><img src="assets/neco.png" alt="" height=65px></a>
+            </div>
+
+            <a target="_self" href="https://neco2.github.io">
+              <div class="headerButton">
+                Home
+              </div>
+            </a>
+            <a target="_self" href="translations">
+              <div class="headerButton">
+                TLs
+              </div>
+            </a>
+            <!-- <a target="_self" href="chapters/">
+              <div class="headerButton">
+                Chapters
+              </div>
+            </a> -->
+            <a target="_self" href="blog/">
+              <div class="headerButton">
+                Blog
+              </div>
+            </a>
+
+
+          </nav>
+        </div>
+      </header>
+      <div id="contentContainer">
+        <style type="text/css" media="screen">
+  #contentContainer {
+    max-width: 850px !important;
+    font-size:17px;
+    margin: auto;
+  }
+</style>
+<span style='font-size: 80%;font-family: "Courier New", monospace;'>
+  last built: 2022-07-24 06:39:05 +0000
+
+  <h2>static files</h2>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/barikios.jpg">/assets/covers/barikios.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/kitsuon.jpg">/assets/covers/kitsuon.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/thumbnail/barikios.jpg">/assets/covers/thumbnail/barikios.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/thumbnail/kitsuon.jpg">/assets/covers/thumbnail/kitsuon.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/thumbnail/zw.jpg">/assets/covers/thumbnail/zw.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/covers/zw.jpg">/assets/covers/zw.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/css/links.css">/assets/css/links.css</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/css/series.css">/assets/css/series.css</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/css/styles.css">/assets/css/styles.css</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/css/wrapper.css">/assets/css/wrapper.css</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/favicon.png">/assets/favicon.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/fun/1654147166157.jpg">/assets/fun/1654147166157.jpg</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/fun/box goblin.png">/assets/fun/box goblin.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/amazon.png">/assets/links/amazon.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/bookwalker.png">/assets/links/bookwalker.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/booth.ico">/assets/links/booth.ico</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/fanbox.ico">/assets/links/fanbox.ico</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/kobo.png">/assets/links/kobo.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/nicovideo.png">/assets/links/nicovideo.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/nitter.png">/assets/links/nitter.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/pixiv.png">/assets/links/pixiv.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/rss.png">/assets/links/rss.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/twitch.png">/assets/links/twitch.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/twitter.png">/assets/links/twitter.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/links/youtube.png">/assets/links/youtube.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/neco-.png">/assets/neco-.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/neco.png">/assets/neco.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/neco.svg">/assets/neco.svg</a> <br>
+  
+  <h2>pages</h2>
+  
+    <a class="nonStyled" target="_self" href="/404.html">404</a><br>
+  
+    <a class="nonStyled" target="_self" href="/translations/Barikios%20Stuff.html">Barikios Stuff</a><br>
+  
+    <a class="nonStyled" target="_self" href="/resources/Clip%20Studio%20Paint.html">Clip Stuido Paint</a><br>
+  
+    <a class="nonStyled" target="_self" href="/translations/Kitsune%20no%20Ongaeshi!.html">Kitsune no Ongaeshi!</a><br>
+  
+    <a class="nonStyled" target="_self" href="/translations/Mangaka-sensei%20to%20Zashiki%20Warashi.html">Mangaka-sensei to Zashiki Warashi</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/all.xml">All Posts</a><br>
+  
+    <a class="nonStyled" target="_self" href="/contact.html">Contact</a><br>
+  
+    <a class="nonStyled" target="_self" href="/debug.html">debug</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/"></a><br>
+  
+    <a class="nonStyled" target="_self" href="/resources/">Resources</a><br>
+  
+    <a class="nonStyled" target="_self" href="/chapters/">Chapters</a><br>
+  
+    <a class="nonStyled" target="_self" href="/blog/">Blog</a><br>
+  
+    <a class="nonStyled" target="_self" href="/">Home</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/rss-Barikios%20Stuff.xml">Barikios_Stuff Chapters</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/rss-Kitsune%20no%20Ongaeshi!.xml">Kitsune_no_Ongaeshi! Chapters</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/rss-Mangaka-sensei%20to%20Zashiki%20Warashi.xml">Mangaka-sensei_to_Zashiki_Warashi Chapters</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/rss-blogs.xml">Blog Posts</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/rss-chapters.xml">All Chapter Updates</a><br>
+  
+    <a class="nonStyled" target="_self" href="/support.html">Support the Author</a><br>
+  
+    <a class="nonStyled" target="_self" href="/test.html">test stuff</a><br>
+  
+    <a class="nonStyled" target="_self" href="/translations/">Translations</a><br>
+  
+  <hr>
+  <h2>data</h2>
+  [{"title"=>"Mangaka-sensei to Zashiki Warashi", "short"=>"ZW", "native"=>"マンガ家先生と座敷わらし", "mu"=>155604, "img"=>"zw.jpg", "author"=>"Nukku", "authorNative"=>"ぬっく", "type"=>"Series", "socials"=>[{"booth.pm"=>"https://nukyui.booth.pm/", "Fanbox"=>"https://nukyui.fanbox.cc/", "Twitter"=>"https://twitter.com/nukyui", "Pixiv"=>"https://www.pixiv.net/en/users/104204", "Website"=>"http://triflep.blog.fc2.com/"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/dp/B08CDTR2LM?searchxofy=true&binding=kindle_edition", "BookWalker"=>"https://bookwalker.jp/series/215268", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E3%83%9E%E3%83%B3%E3%82%AC%E5%AE%B6%E5%85%88%E7%94%9F%E3%81%A8%E5%BA%A7%E6%95%B7%E3%82%8F%E3%82%89%E3%81%97"}], "publication"=>"Completed", "translation"=>"Ongoing", "showchapter"=>true, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU", "Chapter 3"=>"#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q", "Chapter 4"=>"#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c", "Chapter 5"=>"#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc", "Chapter 6"=>"#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0", "Chapter 7"=>"#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g", "Chapter 8"=>"#!r6RjXYBL!JnK51c1nUZRlINMqrLQL7uAy3ErnLxFOxPJNiQgZnEo", "Omake"=>"#!vvxAXAaZ!E5qJ6bxp7BrHhWxQyxPKbJyWpIuOTRxM_8F9nhX6Qlc"}]}, {"Volume 2"=>[{"Chapter 9"=>"#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA", "Chapter 10"=>"#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus", "Chapter 11"=>"#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI", "Chapter 12"=>"#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE", "Chapter 13"=>"#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk"}]}]}, {"title"=>"Kitsune no Ongaeshi!", "short"=>"KitsuneNoOngaeshi", "native"=>"狐の恩返しっ！", "mu"=>176831, "img"=>"kitsuon.jpg", "author"=>"Farisu", "authorNative"=>"ふぁりす", "type"=>"Series", "socials"=>[{"Twitter"=>"https://twitter.com/Farisusan", "Pixiv"=>"https://www.pixiv.net/en/users/6006688"}], "purchase"=>[{"Pixiv"=>"https://www.pixiv.net/user/6006688/series/43337", "Nicovideo"=>"https://seiga.nicovideo.jp/comic/36984"}], "publication"=>"Hiatus", "translation"=>"Caught up", "showchapter"=>true, "files"=>[{"Volume 1"=>[{"Batch 1-10"=>"file/q3wnjCRT#GwOuY_5Y3fLpbEKk4OmStV-vikIipgbzJWUzrKufO9g", "Chapter 1"=>"file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c", "Chapter 2"=>"file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c", "Chapter 3"=>"file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc", "Chapter 4"=>"file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M", "Chapter 5"=>"file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk", "Chapter 6"=>"file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4", "Chapter 7"=>"file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0", "Chapter 8"=>"file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50", "Chapter 9"=>"file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y", "Chapter 10"=>"file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew"}]}]}, {"title"=>"Barikios Stuff", "short"=>"Barikios", "native"=>"", "mu"=>nil, "img"=>"barikios.jpg", "author"=>"Barikios", "authorNative"=>"バリキオス", "type"=>"Oneshots", "socials"=>[{"Twitter"=>"https://twitter.com/Barikios", "Pixiv"=>"https://www.pixiv.net/en/users/651648"}], "purchase"=>[{"Melonbooks"=>"https://www.melonbooks.co.jp/search/search.php?name=%E3%83%90%E3%83%AA%E3%82%AD%E3%82%AA%E3%82%B9&text_type=author"}], "publication"=>"Ongoing", "translation"=>"Hiatus", "showchapter"=>false, "files"=>[{"Oneshots"=>[{"Nienoki"=>"file/b7x3nCjD#bzR8TB3-NGguk_qGZp-Nbstq2vojayGkFhgge719Vcg"}]}, {"Short Stories"=>[{"Proof That Hell Exists"=>"file/iqxX3AqA#yLIm5pqjw2ryRPRALWAlT6ZffSwQkgedcduFd5Buki0"}]}]}]
+<hr>
+  <h2>series in data file</h2>
+  
+    Mangaka-sensei to Zashiki Warashi
+    
+    <br>
+  
+    Kitsune no Ongaeshi!
+    
+    <br>
+  
+    Barikios Stuff
+    
+    <br>
+  
+<hr>
+
+  <h2>chapters</h2>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13">2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13</a><br>
+    &nbsp;file:#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk<br>
+    idStr:05232be9b1ee7b3c68694024e9ec289b
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804466091500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12">2022-06-26-1656231615305105700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12</a><br>
+    &nbsp;file:#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE<br>
+    idStr:6de55b6ba178081da249ee7a55c8e1a3
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804461097900-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11">2022-06-12-1655035774619498600-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11</a><br>
+    &nbsp;file:#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI<br>
+    idStr:4d90d62e78bb9ba0abd670ca0d7393b7
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804454106800-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10">2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10</a><br>
+    &nbsp;file:#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus<br>
+    idStr:b1e5829792dcb8ca557aef1e97b5a6a6
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804385998000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1">2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1</a><br>
+    &nbsp;file:#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU<br>
+    idStr:2c9c046ddfbfa6df32ac2f9f6d9e22ed
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804449109400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9">2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9</a><br>
+    &nbsp;file:#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA<br>
+    idStr:9c9ac1bca0179c695ba66231bd6cb8f8
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804440128700-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake">2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake</a><br>
+    &nbsp;file:#!vvxAXAaZ!E5qJ6bxp7BrHhWxQyxPKbJyWpIuOTRxM_8F9nhX6Qlc<br>
+    idStr:9f5804063a0a4c5070aebd686a809030
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804432126800-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8">2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8</a><br>
+    &nbsp;file:#!r6RjXYBL!JnK51c1nUZRlINMqrLQL7uAy3ErnLxFOxPJNiQgZnEo<br>
+    idStr:f0a7a35733565cc3533517e41a559c68
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804426132900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7">2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7</a><br>
+    &nbsp;file:#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g<br>
+    idStr:465b03ecc2014e9973cdc759820fe7a2
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804417617200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6">2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6</a><br>
+    &nbsp;file:#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0<br>
+    idStr:b5d9575923924b7614aef7725c4a2e29
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804409974100-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5">2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5</a><br>
+    &nbsp;file:#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc<br>
+    idStr:6c4a0af5db1df684339420eb41524fad
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804398985500-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4">2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4</a><br>
+    &nbsp;file:#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c<br>
+    idStr:84ff5ffab744c67368612cb494ae540a
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804386996300-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3">2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3</a><br>
+    &nbsp;file:#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q<br>
+    idStr:8c73e7fc21c010297472f47a7f9ac667
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804546009400-Barikios Stuff - Short Stories Proof That Hell Exists">2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists</a><br>
+    &nbsp;file:file/iqxX3AqA#yLIm5pqjw2ryRPRALWAlT6ZffSwQkgedcduFd5Buki0<br>
+    idStr:96eb59734069416d109238174f0d9486
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804540016600-Barikios Stuff - Oneshots Nienoki">2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki</a><br>
+    &nbsp;file:file/b7x3nCjD#bzR8TB3-NGguk_qGZp-Nbstq2vojayGkFhgge719Vcg<br>
+    idStr:0c34dc8295320c4d42531b88c982e9d3
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804534023000-Kitsune no Ongaeshi! - Volume 1 Chapter 10">2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10</a><br>
+    &nbsp;file:file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew<br>
+    idStr:4d8606b4c771d84438c60671dfe5daa3
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804530026700-Kitsune no Ongaeshi! - Volume 1 Chapter 9">2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9</a><br>
+    &nbsp;file:file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y<br>
+    idStr:b4cd177462febee5c9a236bfb94f1fcc
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804524032300-Kitsune no Ongaeshi! - Volume 1 Chapter 8">2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8</a><br>
+    &nbsp;file:file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50<br>
+    idStr:3c99ead16c19f95e50e06886d23fc269
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804519037400-Kitsune no Ongaeshi! - Volume 1 Chapter 7">2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7</a><br>
+    &nbsp;file:file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0<br>
+    idStr:e1e42b8c879d036352ee699b8219372f
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804514042400-Kitsune no Ongaeshi! - Volume 1 Chapter 6">2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6</a><br>
+    &nbsp;file:file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4<br>
+    idStr:d4b3dc897d808e9e804a2b444fd38f76
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804507049900-Kitsune no Ongaeshi! - Volume 1 Chapter 5">2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5</a><br>
+    &nbsp;file:file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk<br>
+    idStr:30b2a58dcbb1189d8708fb8b89bc793f
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804501055800-Kitsune no Ongaeshi! - Volume 1 Chapter 4">2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4</a><br>
+    &nbsp;file:file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M<br>
+    idStr:2123b4c99a640cbea40baca52e3ccc14
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804495063400-Kitsune no Ongaeshi! - Volume 1 Chapter 3">2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3</a><br>
+    &nbsp;file:file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc<br>
+    idStr:0f522fa3acd8e2dea5befbd201813a93
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804489070000-Kitsune no Ongaeshi! - Volume 1 Chapter 2">2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2</a><br>
+    &nbsp;file:file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c<br>
+    idStr:8716ce32e0d11b26a13c668ff494cbc9
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804480079900-Kitsune no Ongaeshi! - Volume 1 Chapter 1">2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1</a><br>
+    &nbsp;file:file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c<br>
+    idStr:7fcf34c5d89cd380665bf727d21bd95c
+<br><br>
+  
+    title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804473085800-Kitsune no Ongaeshi! - Volume 1 Batch 1-10">2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10</a><br>
+    &nbsp;file:file/q3wnjCRT#GwOuY_5Y3fLpbEKk4OmStV-vikIipgbzJWUzrKufO9g<br>
+    idStr:c0e3c5901ad9d07c1a9ce849a6803506
+<br><br>
+  
+  <h3>ids</h3>
+  
+    idStr:05232be9b1ee7b3c68694024e9ec289b
+<br>
+  
+    idStr:6de55b6ba178081da249ee7a55c8e1a3
+<br>
+  
+    idStr:4d90d62e78bb9ba0abd670ca0d7393b7
+<br>
+  
+    idStr:b1e5829792dcb8ca557aef1e97b5a6a6
+<br>
+  
+    idStr:2c9c046ddfbfa6df32ac2f9f6d9e22ed
+<br>
+  
+    idStr:9c9ac1bca0179c695ba66231bd6cb8f8
+<br>
+  
+    idStr:9f5804063a0a4c5070aebd686a809030
+<br>
+  
+    idStr:f0a7a35733565cc3533517e41a559c68
+<br>
+  
+    idStr:465b03ecc2014e9973cdc759820fe7a2
+<br>
+  
+    idStr:b5d9575923924b7614aef7725c4a2e29
+<br>
+  
+    idStr:6c4a0af5db1df684339420eb41524fad
+<br>
+  
+    idStr:84ff5ffab744c67368612cb494ae540a
+<br>
+  
+    idStr:8c73e7fc21c010297472f47a7f9ac667
+<br>
+  
+    idStr:96eb59734069416d109238174f0d9486
+<br>
+  
+    idStr:0c34dc8295320c4d42531b88c982e9d3
+<br>
+  
+    idStr:4d8606b4c771d84438c60671dfe5daa3
+<br>
+  
+    idStr:b4cd177462febee5c9a236bfb94f1fcc
+<br>
+  
+    idStr:3c99ead16c19f95e50e06886d23fc269
+<br>
+  
+    idStr:e1e42b8c879d036352ee699b8219372f
+<br>
+  
+    idStr:d4b3dc897d808e9e804a2b444fd38f76
+<br>
+  
+    idStr:30b2a58dcbb1189d8708fb8b89bc793f
+<br>
+  
+    idStr:2123b4c99a640cbea40baca52e3ccc14
+<br>
+  
+    idStr:0f522fa3acd8e2dea5befbd201813a93
+<br>
+  
+    idStr:8716ce32e0d11b26a13c668ff494cbc9
+<br>
+  
+    idStr:7fcf34c5d89cd380665bf727d21bd95c
+<br>
+  
+    idStr:c0e3c5901ad9d07c1a9ce849a6803506
+<br>
+  
+<hr>
+  <h2>blog</h2>
+  
+    title:<a class="nonStyled" target="_self" href="/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay">Mangaka-sensei to Zashiki Warashi Chapter 13 Delay</a><br>
+  
+    title:<a class="nonStyled" target="_self" href="/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi">Picking up Mangaka-sensei to Zashiki Warashi</a><br>
+  
+    title:<a class="nonStyled" target="_self" href="/blog/About-this-blog">About this Blog</a><br>
+  
+<hr>
+<h2>tags</h2>
+  
+    <h3>tag:Blog posts:3</h3>
+    
+      <a class="nonStyled" target="_self" href="/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay">Mangaka-sensei to Zashiki Warashi Chapter 13 Delay</a><br>
+    
+      <a class="nonStyled" target="_self" href="/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi">Picking up Mangaka-sensei to Zashiki Warashi</a><br>
+    
+      <a class="nonStyled" target="_self" href="/blog/About-this-blog">About this Blog</a><br>
+    
+  
+    <h3>tag:Kitsune_no_Ongaeshi! posts:11</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804534023000-Kitsune no Ongaeshi! - Volume 1 Chapter 10">2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804530026700-Kitsune no Ongaeshi! - Volume 1 Chapter 9">2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804524032300-Kitsune no Ongaeshi! - Volume 1 Chapter 8">2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804519037400-Kitsune no Ongaeshi! - Volume 1 Chapter 7">2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804514042400-Kitsune no Ongaeshi! - Volume 1 Chapter 6">2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804507049900-Kitsune no Ongaeshi! - Volume 1 Chapter 5">2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804501055800-Kitsune no Ongaeshi! - Volume 1 Chapter 4">2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804495063400-Kitsune no Ongaeshi! - Volume 1 Chapter 3">2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804489070000-Kitsune no Ongaeshi! - Volume 1 Chapter 2">2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804480079900-Kitsune no Ongaeshi! - Volume 1 Chapter 1">2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804473085800-Kitsune no Ongaeshi! - Volume 1 Batch 1-10">2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10</a><br>
+    
+  
+    <h3>tag:chapterUpdate posts:26</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13">2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804466091500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12">2022-06-26-1656231615305105700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804461097900-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11">2022-06-12-1655035774619498600-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804454106800-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10">2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804385998000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1">2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804449109400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9">2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804440128700-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake">2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804432126800-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8">2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804426132900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7">2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804417617200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6">2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804409974100-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5">2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804398985500-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4">2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804386996300-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3">2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804546009400-Barikios Stuff - Short Stories Proof That Hell Exists">2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804540016600-Barikios Stuff - Oneshots Nienoki">2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804534023000-Kitsune no Ongaeshi! - Volume 1 Chapter 10">2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804530026700-Kitsune no Ongaeshi! - Volume 1 Chapter 9">2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804524032300-Kitsune no Ongaeshi! - Volume 1 Chapter 8">2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804519037400-Kitsune no Ongaeshi! - Volume 1 Chapter 7">2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804514042400-Kitsune no Ongaeshi! - Volume 1 Chapter 6">2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804507049900-Kitsune no Ongaeshi! - Volume 1 Chapter 5">2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804501055800-Kitsune no Ongaeshi! - Volume 1 Chapter 4">2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804495063400-Kitsune no Ongaeshi! - Volume 1 Chapter 3">2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804489070000-Kitsune no Ongaeshi! - Volume 1 Chapter 2">2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804480079900-Kitsune no Ongaeshi! - Volume 1 Chapter 1">2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804473085800-Kitsune no Ongaeshi! - Volume 1 Batch 1-10">2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10</a><br>
+    
+  
+    <h3>tag:Barikios_Stuff posts:2</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804546009400-Barikios Stuff - Short Stories Proof That Hell Exists">2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804540016600-Barikios Stuff - Oneshots Nienoki">2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki</a><br>
+    
+  
+    <h3>tag:Mangaka-sensei_to_Zashiki_Warashi posts:13</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13">2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804466091500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12">2022-06-26-1656231615305105700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804461097900-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11">2022-06-12-1655035774619498600-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804454106800-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10">2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804385998000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1">2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804449109400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9">2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804440128700-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake">2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804432126800-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8">2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804426132900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7">2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804417617200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6">2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804409974100-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5">2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804398985500-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4">2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4</a><br>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804386996300-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3">2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3</a><br>
+    
+  
+    <h3>tag:Info posts:1</h3>
+    
+      <a class="nonStyled" target="_self" href="/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay">Mangaka-sensei to Zashiki Warashi Chapter 13 Delay</a><br>
+    
+  
+
+
+</span>
+
+<hr>
+<hr>
+<hr>
+
+<br>
+      </div>
+
+      </div>
+      <footer id="footer">
+        <div class="footerContent">
+          <span style="font-size:18px;margin-left:50%;left:-137px;display:table;vertical-align:top;text-align:center;position:absolute;"> <a target="_self" href="support">HOW TO SUPPORT THE AUTHOR</a></span>
+        </div>
+        <span style="opacity:20%">
+          May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
+          <span style="font-size:8px;">2022-07-24 06:39</span>
+        </span>
+        <span style="float:right;opacity:20%">
+          <a target="_self" href="contact">Contact</a>
+        </span>
+      </footer>
+
+  </body>
+</html>
