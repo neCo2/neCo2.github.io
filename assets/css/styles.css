@@ -137,10 +137,12 @@ a.external:after {
   font-size: 60%
 }
 
+spoiler,
 .spoiler {
   color:#FFFFFF00;
   background:black;
 }
+spoiler:hover,
 .spoiler:hover {
   color:inherit;
   background:black;
