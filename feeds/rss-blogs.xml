@@ -2,17 +2,17 @@
 <rss version="2.0">
    <channel>
       <title>neCo Translation - Blog Posts</title>
-      <link>https://neco2.github.io</link>
+      <link>http://localhost:4000</link>
       <description>Blog Posts</description>
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Sun, 21 Aug 2022 07:29:20 +0000</lastBuildDate>
+      <lastBuildDate>Sun, 21 Aug 2022 12:27:38 +0000</lastBuildDate>
       
   <item>
     <title>Mangaka-sensei to Zashiki Warashi Chapter 13 Delay</title>
     <pubDate>2022-06-25 17:56:18 +0000</pubDate>
-    <link>https://neco2.github.io/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay</link>
+    <link>http://localhost:4000/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay</link>
     <description>Chapter 13 of Mangaka-sensei to Zashiki Warashi will be delayed by two weeks.&lt;br&gt;
 The next dump is scheduled for the 23rd, and the release on Mangadex and here for
 the 24th or 25th of July.
@@ -22,7 +22,7 @@ the 24th or 25th of July.
   <item>
     <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
     <pubDate>2022-02-12 08:40:40 +0000</pubDate>
-    <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
+    <link>http://localhost:4000/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
     <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
 little zashiki warashi.&lt;br&gt;
 Expected release frequency: One chapter per two weeks.&lt;br&gt;
@@ -33,7 +33,7 @@ Dumps: Saturday or Sunday around 5pm CET on /a/.
   <item>
     <title>About this Blog</title>
     <pubDate>2022-02-07 10:34:36 +0000</pubDate>
-    <link>https://neco2.github.io/blog/About-this-blog</link>
+    <link>http://localhost:4000/blog/About-this-blog</link>
     <description>After anon in the scanlation thread
 mentioned he was generating &lt;a href=&quot;https://mycropen.github.io&quot;&gt;a static site&lt;/a&gt;
 from just one text file and hosting it on github, I was intrigued

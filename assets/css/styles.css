@@ -122,11 +122,6 @@ a.external:after {
   border-spacing:0 2px;
 }
 
-.column {
-  float: left;
-  width: 45%;
-  margin-right: 4%;
-}
 
 .row:after {
   content: "";
