@@ -65,7 +65,7 @@
         background:black;
       }
     </style>
-    <title>Clip Stuido Paint - neCo</title>
+    <title>Clip Studio Paint - neCo</title>
   </head>
   <body>
     <div id="fakeBody">
@@ -109,21 +109,26 @@
     margin: auto;
   }
 </style>
-<a href="/resources/" target="_self">< Resources </a>
+<p>< <a href="/resources/" target="_self">Resources </a></p>
+<h1>Clip Studio Paint</h1>
+<p>
 I'm one of the 7 people who actually use CSP to scanlate. While its typesetting
 features leave a lot to desire, it's very attractive to redraw with the same tools
-most mangaka use to draw manga in the first place.<br>
+most mangaka use to draw manga in the first place.
+</p>
+<p>
 Unlike Photoshop, CSP has no support for scripting, so you either have to use
  very simple auto actions, or make do with external tools to help with your
 workflow. For example, there is no equivalent to <a href="https://swirt.github.io/typertools/" target="_self">TyperTools</a>
 available for CSP, which is why I've painstakingly written myself something similar
 in AHK. It's a little janky, but it works most of the time, allows me to quickly paste
-text from scripts onto a page, and can even pre-format text.<br>
+text from scripts onto a page, and it can even select fonts and pre-format text.<br>
 <a href="mailto:neCoTranslation@protonmail.com?&subject=ScriptParser" target="_self">On request</a>
 I'll gladly send you the entire thing, but be aware that the code is largely
-uncommented and you'll have to adjust a lot of shit yourself. And I <i>absolutely
-do not</i> want to help you with any of that.<br>
-
+uncommented and you'll have to adjust <b>a lot</b> of shit yourself. And I <i>absolutely
+do not</i> want to help you with any of that.
+</p>
+<p>
 <a style="display:inline-flex;" href="javascript:void(0);" onClick="javascript:dl('AAAAAAAAAAAAAAAAAAAAAAA','ScriptParserV4',this);" target="_self">
   
     Here
@@ -131,37 +136,74 @@ do not</i> want to help you with any of that.<br>
 </a><!-- if this has a space at the end, remove trailing whitespace in n++ -->'s a much simpler version I wrote years ago that only handles copy-pasting
 lines from a text editor for you. It even comes with a built in setup guide. Just
 run it and follow the instructions.
+</p>
 
 
 <h1>Auto Actions</h1>
-<p>Various Auto Actions for CSP that make my scanlation life easier. Download
-the entire set <a style="display:inline-flex;" href="javascript:void(0);" onClick="javascript:dl('AAAAAAAAAAAAAAAAAA','neCo_CSP_Auto_Actions',this);" target="_self">
+<p>
+  While CSP's auto actions are very simple, they will still help you streamline your workflow. God knows there
+  are many trivially simple things you'll have to repeat over and over again in this hobby. Here are some Auto Actions that make my scanlation life easier. Download
+  the entire set <a style="display:inline-flex;" href="javascript:void(0);" onClick="javascript:dl('AAAAAAAAAAAAAAAAAA','neCo_CSP_Auto_Actions',this);" target="_self">
   
     here
   
-</a><!-- if this has a space at the end, remove trailing whitespace in n++ -->. Descriptions of the Actions can be found below.</p>
+</a><!-- if this has a space at the end, remove trailing whitespace in n++ -->. Descriptions of the Actions can be found below.
+</p>
 
 <h2>Redraw Layers V3</h2>
-Automatically create redrawing and text layers.
+<div class="row">
+  <div class="column">
+    <p>Automatically create redrawing and text folders.</p>
+  </div>
+  <div class="column">
+    <video height="325" src="/assets/resources/redrawlayers.webm" controls loop />
+  </div>
+</div>
+
+
 
 <h2>Bubble Select V3</h2>
-First select bubbles with a magic wand tool with Area scaling set to a negative
-value (-3px works for most manga), then run this action to automatically fill
-the entire bubble with white.
+<div class="row">
+  <div class="column">
+    <p>First select bubbles with a magic wand tool with Area scaling set to a negative
+    value (-3px works for most manga), then run this action to automatically fill
+    the entire bubble with white.</p>
+  </div>
+  <div class="column">
+    <video height="325" src="/assets/resources/bubblefill.webm" controls loop />
+  </div>
+</div>
+
 
 <h2>Screentone</h2>
-Manually select a repeatable pattern from a page and transform it into an image
-layer with a mask. You then have to manually enable tiling, and voilla, you've
-got a screentone layer.
+<div class="row">
+  <div class="column">
+    <p>Manually select a repeatable pattern from a page and transform it into an image
+    layer with a mask. You then have to manually enable tiling, and ジャジャ～ン, you've
+    got a screentone layer.</p>
+  </div>
+  <div class="column">
+    <video height="325" src="/assets/resources/screentone.webm" controls loop />
+  </div>
+</div>
+
 
 <h2>Vector Stroke</h2>
-Handwrite text on a vector layer. This action will then duplicate the layer, and
- change the color of the below vector layer to white. This allows you to then
-manually increase the brush size of this layer, creating a stroke effect.
+<div class="row">
+  <div class="column">
+    <p>Handwrite text on a vector layer. This action will then duplicate the layer, and
+     change the line colour of the below layer to white. This allows you to then
+    manually increase the brush size of this layer, creating a stroke effect.</p>
+  </div>
+  <div class="column">
+    <video height="325" src="/assets/resources/vectorstroke.webm" controls loop />
+  </div>
+</div>
+
 
 <h2>convert to image layer</h2>
-Self-explanatory. The noBack verison of the action does not preserve the original
-layer. Useful to move around small illustrations in bubbles or similar.
+<p>Self-explanatory. The noBack verison of the action does not preserve the original
+layer. Useful to move around small illustrations in bubbles or similar.</p>
 
 
 <br>
@@ -174,7 +216,7 @@ layer. Useful to move around small illustrations in bubbles or similar.
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-08-07 08:10</span>
+          <span style="font-size:8px;">2022-08-21 07:29</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>
