@@ -3,49 +3,6 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
-    <script>
-    async function dl(uri,name,dlLink) {
-      var ext = uri.match(/\.[^\.]+$/);
-      if (!ext) {
-        var a = document.createElement("a");
-        a.download = name + ext;
-        a.target="_blank"
-        a.href = href;
-        a.click();
-        return
-      };
-      console.log("Downloading " + uri + " as " + name)
-      var oldInnerHTML = dlLink.innerHTML;
-      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
-      const response = await fetch(uri);
-      const contentLength = response.headers.get('content-length');
-      const total = parseInt(contentLength, 10);
-      let loaded = 0;
-
-      const res = new Response(new ReadableStream({
-        async start(controller) {
-          const reader = response.body.getReader();
-          for (;;) {
-            const {done, value} = await reader.read();
-            if (done) break;
-            loaded += value.byteLength;
-            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
-            controller.enqueue(value);
-          }
-          controller.close();
-        },
-      }));
-      const blob = await res.blob();
-      var href = window.URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.download = name + ext;
-      a.target="_blank"
-      a.href = href;
-      a.click();
-      a.href = "";
-      dlLink.innerHTML = oldInnerHTML;
-    }
-    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -384,7 +341,7 @@ Omake" >
             <span class="volumeHeader">&nbsp;Volume 2</span>
             
               
-              <span title="Volume 2 Batch" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!jyxAESSJ!cdfGeZCWN1WgxCWanJfW-zjgE_WXge8cM1ODyY1hJ8I"
+              <span title="Volume 2 Batch" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!vuBWyJDB!BulEc831vPhF9Ckdi9MCQy7aTE0ZKTZWnIkgiiA_ciA"
 download="Mangaka-sensei_to_Zashiki_Warashi
 
 [Batch]" >
@@ -545,7 +502,7 @@ Chapter 15" >
                   
                   
                     
-                    <span title="Volume 2, Omake | 2022-08-21 07:29:17 +0000" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!jmw1VaKB!DRhbc7p6NYKlQTis3tycWzH9mcGbFUXTQSszhN1sn3w"
+                    <span title="Volume 2, Omake | 2022-09-08 16:05:20 +0000" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs"
 download="Mangaka-sensei_to_Zashiki_Warashi
 
 Omake" >
@@ -558,7 +515,7 @@ Omake" >
 
 </a>
 </span>
-                    <!-- <div class="chapterPopup">Volume 2, Omake<br>2022-08-21 07:29:17 +0000</div> -->
+                    <!-- <div class="chapterPopup">Volume 2, Omake<br>2022-09-08 16:05:20 +0000</div> -->
                   
                 
                   
@@ -599,6 +556,26 @@ Chapter 16" >
                     <!-- <div class="chapterPopup">Volume 3, Chapter 16<br>2022-09-04 10:53:56 +0000</div> -->
                   
                 
+                  
+                  
+                  
+                    
+                    <span title="Volume 3, Chapter 17 | 2022-09-18 08:30:44 +0000" class="chapterDownload"><a target="_self" class="dl_link" href="https://mega.co.nz/#!vyImzDJb!ywfq-FOXQA13Zp1OiualFLT_XCC4dLatDj-FJBafCKY"
+download="Mangaka-sensei_to_Zashiki_Warashi
+
+Chapter 17" >
+
+
+
+
+
+  Chapter 17
+
+</a>
+</span>
+                    <!-- <div class="chapterPopup">Volume 3, Chapter 17<br>2022-09-18 08:30:44 +0000</div> -->
+                  
+                
               
             </div>
           </div>
@@ -619,7 +596,7 @@ Chapter 16" >
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-09-04 10:54</span>
+          <span style="font-size:8px;">2022-09-18 08:30</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

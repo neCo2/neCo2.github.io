@@ -3,49 +3,6 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
-    <script>
-    async function dl(uri,name,dlLink) {
-      var ext = uri.match(/\.[^\.]+$/);
-      if (!ext) {
-        var a = document.createElement("a");
-        a.download = name + ext;
-        a.target="_blank"
-        a.href = href;
-        a.click();
-        return
-      };
-      console.log("Downloading " + uri + " as " + name)
-      var oldInnerHTML = dlLink.innerHTML;
-      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
-      const response = await fetch(uri);
-      const contentLength = response.headers.get('content-length');
-      const total = parseInt(contentLength, 10);
-      let loaded = 0;
-
-      const res = new Response(new ReadableStream({
-        async start(controller) {
-          const reader = response.body.getReader();
-          for (;;) {
-            const {done, value} = await reader.read();
-            if (done) break;
-            loaded += value.byteLength;
-            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
-            controller.enqueue(value);
-          }
-          controller.close();
-        },
-      }));
-      const blob = await res.blob();
-      var href = window.URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.download = name + ext;
-      a.target="_blank"
-      a.href = href;
-      a.click();
-      a.href = "";
-      dlLink.innerHTML = oldInnerHTML;
-    }
-    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -124,7 +81,7 @@
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-09-04 10:54</span>
+          <span style="font-size:8px;">2022-09-18 08:30</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

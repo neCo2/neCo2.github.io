@@ -3,49 +3,6 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
-    <script>
-    async function dl(uri,name,dlLink) {
-      var ext = uri.match(/\.[^\.]+$/);
-      if (!ext) {
-        var a = document.createElement("a");
-        a.download = name + ext;
-        a.target="_blank"
-        a.href = href;
-        a.click();
-        return
-      };
-      console.log("Downloading " + uri + " as " + name)
-      var oldInnerHTML = dlLink.innerHTML;
-      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
-      const response = await fetch(uri);
-      const contentLength = response.headers.get('content-length');
-      const total = parseInt(contentLength, 10);
-      let loaded = 0;
-
-      const res = new Response(new ReadableStream({
-        async start(controller) {
-          const reader = response.body.getReader();
-          for (;;) {
-            const {done, value} = await reader.read();
-            if (done) break;
-            loaded += value.byteLength;
-            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
-            controller.enqueue(value);
-          }
-          controller.close();
-        },
-      }));
-      const blob = await res.blob();
-      var href = window.URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.download = name + ext;
-      a.target="_blank"
-      a.href = href;
-      a.click();
-      a.href = "";
-      dlLink.innerHTML = oldInnerHTML;
-    }
-    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -111,19 +68,36 @@
 </style>
 <p>< <a href="/resources/" target="_self">Resources </a></p>
 <h1>Beginner Tips</h1>
-<h2>Why does my the size of my font change in different files despite using the same tool?</h2>
-Fontsize is tied to the DPI of your files. I <b>highly</b> recommend figuring
-something out to scale the DPI of your files to their height.
+Some really basic things I wish I knew when first starting out.
+
+<h2>Why does my the size of my font change in different files despite using the same font settings?</h2>
+Fontsize is tied to the DPI of your files. I <i>highly</i> recommend figuring
+something out to scale the DPI of your files to their height, so you can have
+consistent font settings over all your projects.<br>
+Have a powershell script:
+<pre class="code">
+$origHeight=2048
+$origDPI=72
+$ratio=$origDPI/$origHeight
+for ( $i = 0; $i -lt $args.count; $i++ ) {
+	$file="$($args[$i])"
+	$($file) -match '[^\\]+$' > $null
+	$fn=$Matches.0
+	$height=$(magick identify -format "%h" $($args[$i]))/1
+	$targetDPI=[math]::Round($ratio*$height,2)
+	magick mogrify -units PixelsPerInch -density $targetDPI "$file"
+}
+</pre><br>
+You obviously need imagemagick installed for this one.
 
 <h2>Why are my files so big?</h2>
 You're working with manga, always export your pages in grayscale. It'll cut your
 filesize by two thirds. But you should, of course, export colour pages in full
 colour.<br>
 After that, it's also advisable to run your files through a lossles optimizer like
-<a href="https://css-ig.net/pingo" target="_self">Pingo (commandline)</a>
-/ <a href="https://css-ig.net/pinga" target="_self">Pinga (GUI)</a>.<br>
+<a href="https://css-ig.net/pingo" target="_self">Pingo (commandline)</a>/<a href="https://css-ig.net/pinga" target="_self">Pinga (GUI)</a>.<br>
 <br>
-But never — <b><i>NEVER</i></b> — export as jpg.
+But never — <b style="font-size:115%"><i>NEVER</i></b> — export as jpg.
 
 <h2>What can I do about JPG artifacts in my raws?</h2>
 You can run them through AI models specifically designed to remove them!<br>
@@ -143,7 +117,7 @@ If you can't be bothered to set this up on your PC, have a look at the
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-09-04 10:54</span>
+          <span style="font-size:8px;">2022-09-18 08:30</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

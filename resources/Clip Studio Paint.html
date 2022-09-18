@@ -3,49 +3,6 @@
   <head>
     <meta charset="utf-8">
     <base href="https://neco2.github.io" target="_blank">
-    <script>
-    async function dl(uri,name,dlLink) {
-      var ext = uri.match(/\.[^\.]+$/);
-      if (!ext) {
-        var a = document.createElement("a");
-        a.download = name + ext;
-        a.target="_blank"
-        a.href = href;
-        a.click();
-        return
-      };
-      console.log("Downloading " + uri + " as " + name)
-      var oldInnerHTML = dlLink.innerHTML;
-      dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
-      const response = await fetch(uri);
-      const contentLength = response.headers.get('content-length');
-      const total = parseInt(contentLength, 10);
-      let loaded = 0;
-
-      const res = new Response(new ReadableStream({
-        async start(controller) {
-          const reader = response.body.getReader();
-          for (;;) {
-            const {done, value} = await reader.read();
-            if (done) break;
-            loaded += value.byteLength;
-            dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
-            controller.enqueue(value);
-          }
-          controller.close();
-        },
-      }));
-      const blob = await res.blob();
-      var href = window.URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.download = name + ext;
-      a.target="_blank"
-      a.href = href;
-      a.click();
-      a.href = "";
-      dlLink.innerHTML = oldInnerHTML;
-    }
-    </script>
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
@@ -123,8 +80,7 @@ workflow. For example, there is no equivalent to <a href="https://swirt.github.i
 available for CSP, which is why I've painstakingly written myself something similar
 in AHK. It's a little janky, but it works most of the time, allows me to quickly paste
 text from scripts onto a page, and it can even select fonts and pre-format text.<br>
-<a href="mailto:neCoTranslation@protonmail.com?&subject=ScriptParser" target="_self">On request</a>
-I'll gladly send you the entire thing, but be aware that the code is largely
+On request I'll gladly send you the entire thing, but be aware that the code is largely
 uncommented and you'll have to adjust <b>a lot</b> of shit yourself. And I <i>absolutely
 do not</i> want to help you with any of that.
 </p>
@@ -206,6 +162,28 @@ run it and follow the instructions.
 layer. Useful to move around small illustrations in bubbles or similar.</p>
 
 
+<h1>My Standard Workflow</h1>
+<ol>
+  <li>Whiteout</li>
+  Paint over all text that will be replaced with white/black.
+  <li>Redraw Sketch</li>
+  If complex redraws are required, I will first sketch them out on a low opacity layer.
+  <li>Redraw Colour/Gray</li>
+  <li>Redraw Lineart</li>
+  <li>Typeset</li>
+  Paste lines from the script onto the page and try to make them look nice.
+  <li>Handwritten Text</li>
+  If text is handwritten in the raw, I will usually handwrite it too. Most people
+  just use a messier font. I prefer handwriting as it allows me to more closely
+  match the style of the original text. But this flexibility, unsurprisingly,
+  comes at the cost of a whole lot of time and effort.
+</ol>
+Some people prefer to typeset before redrawing to reduce the amount of redraws
+they have to do. That's most certainly the more sensible way to do things, but my pride/autism
+does not allow me to do incomplete redraws.
+<br>
+
+
 <br>
       </div>
 
@@ -216,7 +194,7 @@ layer. Useful to move around small illustrations in bubbles or similar.</p>
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-09-04 10:54</span>
+          <span style="font-size:8px;">2022-09-18 08:30</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>
