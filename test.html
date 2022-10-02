@@ -135,7 +135,182 @@ async function downloadURI(uri, name, dlLink) {
   })
   .catch(err => console.error(err));
 }
+
 </script>
+
+
+<style>
+  #searchbar {
+    all: unset;
+    padding: 2px;
+    background: #0000004a;
+    color: rgb(208, 208, 208);
+    font-size: 120%;
+  }
+</style>
+<script>
+  function search() {
+    var url = document.querySelector("#searchbar").value
+    if (!url.match(/^\//)) { url = "/" + url}
+    window.open(document.location.origin + url,"_self")
+    return false;
+  }
+</script>
+
+<datalist id="items">
+  
+    
+
+
+  
+    
+      <option value="/translations/Barikios%20Stuff">Manga: Barikios Stuff</option>
+
+    
+
+
+  
+    
+      <option value="/resources/Beginner%20Tips">Resource: Beginner Tips</option>
+
+    
+
+
+  
+    
+      <option value="/resources/Clip%20Studio%20Paint">Resource: Clip Studio Paint</option>
+
+    
+
+
+  
+    
+      <option value="/resources/Graphics%20Tablets">Resource: Graphics Tablets</option>
+
+    
+
+
+  
+    
+      <option value="/translations/Kitsune%20no%20Ongaeshi!">Manga: Kitsune no Ongaeshi!</option>
+
+    
+
+
+  
+    
+      <option value="/translations/Mangaka-sensei%20to%20Zashiki%20Warashi">Manga: Mangaka-sensei to Zashiki Warashi</option>
+
+    
+
+
+  
+    
+      <option value="/feeds/all.xml">Feed: All Posts</option>
+
+    
+
+
+  
+    
+
+
+  
+    
+
+
+  
+    
+      <option value="/blog/">Blog: Blog</option>
+
+    
+
+
+  
+    
+      <option value="/resources/">Resource: Resources</option>
+
+    
+
+
+  
+    
+
+
+  
+    
+      <option value="/feeds/">Feed: Feeds</option>
+
+    
+
+
+  
+    
+
+
+  
+    
+      <option value="/feeds/rss-Barikios%20Stuff.xml">Feed: Barikios_Stuff Chapters</option>
+
+    
+
+
+  
+    
+      <option value="/feeds/rss-Kitsune%20no%20Ongaeshi!.xml">Feed: Kitsune_no_Ongaeshi! Chapters</option>
+
+    
+
+
+  
+    
+      <option value="/feeds/rss-Mangaka-sensei%20to%20Zashiki%20Warashi.xml">Feed: Mangaka-sensei_to_Zashiki_Warashi Chapters</option>
+
+    
+
+
+  
+    
+      <option value="/feeds/rss-blogs.xml">Feed: Blog Posts</option>
+
+    
+
+
+  
+    
+      <option value="/feeds/rss-chapters.xml">Feed: All Chapter Updates</option>
+
+    
+
+
+  
+    
+
+
+  
+    
+
+
+  
+    
+      <option value="/translations/">Manga: Translations</option>
+
+    
+
+
+  
+</datalist>
+
+This is the only part of this website that requires javascript. I tried.
+<div class="search">
+    <input id="searchbar" onsubmit="search()" list="items" type="search" placeholder=" Page Index">
+    <button onclick="search()">aaaa</button>
+</div>
+<br>
+
+
+
+
 
 
 function(uri, name){fetch("uri").then(res => {return res.blob();}).then(blob => {var href = window.URL.createObjectURL(blob);var a = document.createElement("a");a.download = name;a.target="_blank";a.href = href;a.click();a.href = "";}).catch(err => console.error(err));}
@@ -158,6 +333,7 @@ THIS ONE <a href="javascript:(function(){})();"onClick="javascript:main('https:/
 
 <!--  -->
 
+<p>idStr:54c26b2af6ccd762cbfe209b7f42739a</p>
 <p>idStr:7182eba836715ff478de59385796676b</p>
 <p>idStr:51dffdc4b4e2269f54650accd39fd1f3</p>
 <p>idStr:43e01f04387bcdacccfda9f902bd0e32</p>
@@ -277,11 +453,11 @@ bbbbbbbb
 
 
 
+  Picking up Mangaka-sensei to Zashiki Warashi<br>
+
   Mangaka-sensei to Zashiki Warashi Chapter 13 Delay<br>
 
   About this Blog<br>
-
-  Picking up Mangaka-sensei to Zashiki Warashi<br>
 
   2022-08-21-1661084845089033400-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
 
@@ -289,9 +465,9 @@ bbbbbbbb
 
   2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10<br>
 
-  2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1<br>
-
   2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1<br>
+
+  2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1<br>
 
   2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10<br>
 
@@ -311,11 +487,13 @@ bbbbbbbb
 
   2022-09-18-1663489844169265700-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17<br>
 
+  2022-10-02-1664711929290846500-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18<br>
+
   2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2<br>
 
-  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
-
   2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3<br>
+
+  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
 
   2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4<br>
 
@@ -333,21 +511,21 @@ bbbbbbbb
 
   2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7<br>
 
-  2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8<br>
-
   2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8<br>
 
-  2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9<br>
+  2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8<br>
 
   2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9<br>
 
-  2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki<br>
+  2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9<br>
 
-  2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
+  2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki<br>
 
   2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
 
   2022-08-21-1661066957006675400-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
+
+  2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
 
   2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists<br>
 
@@ -362,7 +540,7 @@ bbbbbbbb
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-09-18 08:30</span>
+          <span style="font-size:8px;">2022-10-02 11:58</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

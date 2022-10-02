@@ -1,0 +1,14 @@
+<html lang="en" dir="ltr">
+  <head>
+    <script>
+      function search() {
+        var url = "http://name.com/" + document.querySelector("#searchbar").value;
+        location.href = url;
+        return false;
+      }
+    </script>
+  </head>
+  <body>
+    {% include Search.HTML %} <br>
+  </body>
+</html>
