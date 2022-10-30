@@ -34,12 +34,14 @@ hr {
 }
 
 /* main page */
+
 #feeds {
   margin:10px;
   positon:relative;
   height: 360px;
   overflow: hidden;
 }
+
 
 .feed h3 {
   margin-bottom: 5px;
