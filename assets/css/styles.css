@@ -165,12 +165,12 @@ spoiler,
 }
 spoiler:hover,
 .spoiler:hover {
-  color:inherit;
+  color:rgb(208, 208, 208) !important;
   background:black;
 }
 .cont {
   display: inline;
-  color: rgb(208, 208, 208) !important;
+  color: var(--page-text) !important;
 }
 
 ol {

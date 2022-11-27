@@ -136,11 +136,14 @@
 .chapterDiv {
   display:flex;
   flex-flow: row wrap;
+  /* display: grid;
+  grid-template-columns: repeat(4, minmax(5em, 1fr)); */
 }
 .chapterDownload {
   line-height: 1.2;
-  margin-right:8px;
-  min-width: 4.75em;
+  /* margin-right:8px; */
+  /* min-width: 4.75em; */
+  flex-basis: 4.9em;
 }
 
 .chapterPopup {
