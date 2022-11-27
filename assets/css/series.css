@@ -9,9 +9,8 @@
 
 .series_card {
   height:fit-content;
-  padding: 5px;
-  background: #00000057;
-  border: 1px solid #00000010;
+  padding: 6px;
+  background: var(--page-card);
   margin: 3px;
   color:white;
   position: relative;
@@ -66,7 +65,21 @@
 }
 
 
-
+/*
+.series_card_top {
+  clip-path: inset(250px 100% 100% 100%);
+}
+.series_card:hover .onImg_bl,
+.series_card:hover .onImg_tr {
+  opacity: 0;
+  translate: 0 100%;
+  transition: opacity .08s linear , .5s ease-in;
+}
+.series_card:not(:hover) .onImg_bl,
+.series_card:not(:hover) .onImg_tr {
+  translate: 0;
+  transition: opacity .08s linear , .5s ease-in;
+}*/
 
 .series_card:hover .onImg_bl,
 .series_card:hover .onImg_tr {
@@ -127,7 +140,7 @@
 .chapterDownload {
   line-height: 1.2;
   margin-right:8px;
-  min-width:76px;
+  min-width: 4.75em;
 }
 
 .chapterPopup {

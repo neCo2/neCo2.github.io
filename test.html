@@ -63,10 +63,11 @@
                 Resources
               </div>
             </a>
-
-
+            <!-- <input type="checkbox" id="colourSwitch" /> -->
           </nav>
+
         </div>
+
       </header>
       <div id="contentContainer">
         <style type="text/css" media="screen">
@@ -326,6 +327,62 @@ This is the only part of this website that requires javascript. I tried.
 <br>
 
 
+<style media="screen">
+
+  .Mlt {
+    min-width: 60px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,30px);
+    /* justify-content: center; <-- use this if you want to center the div */
+  }
+
+  .Mlt > div {
+    grid-column:1/-1; /* take all the columns */
+    background-color: grey;
+  }
+</style>
+
+<div class="Mlt">
+  <div >
+    <p>Hello</p>
+    <p>Contentasdfasdfasdfasdfasdf</p>
+  </div>
+</div>
+
+
+
+<style media="screen">
+#container {
+  display: grid;
+  grid-template-columns: minmax(min-content, 300px) minmax(200px, 1fr) 150px;
+  grid-gap: 5px;
+  box-sizing: border-box;
+  height: 200px;
+  width: 100%;
+  background-color: #8cffa0;
+  padding: 10px;
+}
+
+#container > div {
+  background-color: #8ca0ff;
+  padding: 5px;
+}
+
+</style>
+
+
+<div id="container">
+  <div>Item as wide as the content, but at most 300 pixels.</div>
+  <div>Item with flexible width but a minimum of 200 pixels.</div>
+  <div>Inflexible item of 150 pixels width.</div>
+  <div>Item as wide as the content, but at most 300 pixels.</div>
+  <div>Item with flexible width but a minimum of 200 pixels.</div>
+  <div>Inflexible item of 150 pixels width.</div>
+  <div>Item as wide as the content, but at most 300 pixels.</div>
+  <div>Item with flexible width but a minimum of 200 pixels.</div>
+  <div>Inflexible item of 150 pixels width.</div>
+</div>
+
 
 
 
@@ -350,6 +407,7 @@ THIS ONE <a href="javascript:(function(){})();"onClick="javascript:main('https:/
 
 <!--  -->
 
+<p>idStr:a39f0d59b97a9efd457fc621f48c9636</p>
 <p>idStr:461e0afc33ba3c28264cf7a2ee0ac6e3</p>
 <p>idStr:826cb667e4d90cfe1df326cdbb7e9748</p>
 <p>idStr:54c26b2af6ccd762cbfe209b7f42739a</p>
@@ -472,9 +530,9 @@ bbbbbbbb
 
 
 
-  Mangaka-sensei to Zashiki Warashi Chapter 21 Delayed by Two Weeks<br>
-
   Mangaka-sensei to Zashiki Warashi Chapter 13 Delay<br>
+
+  Mangaka-sensei to Zashiki Warashi Chapter 21 Delayed by Two Weeks<br>
 
   Picking up Mangaka-sensei to Zashiki Warashi<br>
 
@@ -516,21 +574,23 @@ bbbbbbbb
 
   2022-10-30-1667115553215320000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 20<br>
 
-  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
+  2022-11-27-1669536193089064200-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 21<br>
 
   2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3<br>
+
+  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
 
   2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4<br>
 
   2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4<br>
 
-  2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5<br>
-
   2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5<br>
 
-  2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6<br>
+  2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5<br>
 
   2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6<br>
+
+  2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6<br>
 
   2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7<br>
 
@@ -565,7 +625,7 @@ bbbbbbbb
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-11-04 15:48</span>
+          <span style="font-size:8px;">2022-11-27 08:03</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

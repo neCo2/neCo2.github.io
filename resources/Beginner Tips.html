@@ -63,10 +63,11 @@
                 Resources
               </div>
             </a>
-
-
+            <!-- <input type="checkbox" id="colourSwitch" /> -->
           </nav>
+
         </div>
+
       </header>
       <div id="contentContainer">
         <style type="text/css" media="screen">
@@ -100,6 +101,27 @@ for ( $i = 0; $i -lt $args.count; $i++ ) {
 </pre><br>
 You obviously need imagemagick installed for this one.
 
+<h2>What in god's name are screentones?</h2>
+You can google that, but what google won't immediately tell you is what the fuck those weird grid patterns are.<br>
+You see, before publishers ruin the manga they sell you, screentones are actually
+just little dots of various sizes. From far away, this gives the appearance of different
+gray tones. When scanning or downscaling the original pages, you will encounter
+something called <a href="https://en.wikipedia.org/wiki/Moir%C3%A9_pattern" target="_self">Moiré patterns</a>.
+You can read that wiki article, but honestly, it's not that good. Go ask some physics
+nerd to tell you aboout interference patterns instead. What it means for us, is that
+complex patterns are created from these simple dots when downscaling.<br>
+<img style="display:block;margin-left:auto;margin-right:auto;margin-top:1em;" height="325" src="/assets/resources/moire.png"><br>
+<div class="row">
+  <div class="column">
+		It also means that you can usually match most screentones you see in a manga simply
+		by downscaling one of the larger ones. You just need to play around with the
+		brightness and contrast for a bit.<br>
+  </div>
+  <div class="column">
+    <video style="display:block;margin-left:auto;margin-right:auto;" height="325" src="/assets/resources/moire.webm" controls loop />
+  </div>
+</div>
+
 <h2>Why are my files so big?</h2>
 You're working with manga, always export your pages in grayscale. It'll cut your
 filesize by two thirds. But you should, of course, export colour pages in full
@@ -127,7 +149,7 @@ If you can't be bothered to set this up on your PC, have a look at the
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-11-04 15:48</span>
+          <span style="font-size:8px;">2022-11-27 08:03</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="contact">Contact</a>

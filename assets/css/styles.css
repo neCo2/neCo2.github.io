@@ -1,3 +1,11 @@
+:root {
+  --page-bg: #1e1e1e;
+  --page-card: #141414;
+  --page-text: rgb(208, 208, 208);
+  --page-theme: url("/assets/sun.svg");
+}
+
+
 code,
 .code {
   font-size: 95%;
@@ -8,13 +16,14 @@ code,
 
 #fakeBody,
 body {
-  background:#1e1e1e !important;
-  color:rgb(208, 208, 208);
+  background: var(--page-bg) !important;
+  color:var(--page-text);
   font-family: "Times New Roman", Times, serif;
 }
 #fakeBody {
   z-index: 1;
 }
+
 
 hr {
   border-top: 1px solid #0000004f;
