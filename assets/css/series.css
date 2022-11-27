@@ -143,7 +143,8 @@
   line-height: 1.2;
   /* margin-right:8px; */
   /* min-width: 4.75em; */
-  flex-basis: 4.9em;
+  min-width: 4.75em;
+  margin-right: 0.15em;
 }
 
 .chapterPopup {
