@@ -22,8 +22,8 @@ html, body {
 #contentContainer {
   max-width: 1300px;
   margin:auto;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 .footerContent {
   width:98%;
