@@ -76,8 +76,8 @@ nav a {
 
 #colourSwitch {
   all:unset;
-  display: inline-block;
-  background-color: red;
+  display: none;
+  /* background-color: red; */
   margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;
@@ -88,15 +88,24 @@ nav a {
   background-repeat: no-repeat;
   background-size: contain;
 }
+/* only if :has supported */
+@supports selector(:root:has(#colourSwitch:checked)) {
+    #colourSwitch {
+      display: inline-block ;
+    }
+}
+
+
 #colourSwitch:checked {
   background-image: url("/assets/moon.svg");
-  background-color: blue;
+  /* background-color: blue; */
 }
 :root:has(#colourSwitch:checked) {
   --page-bg: #ffffff !important;
   --page-card: #707070 !important;
   --page-text: black ;
   --page-theme: url("/assets/moon.svg");
+  --code-bg: #000000a0;
 }
 
 .column {

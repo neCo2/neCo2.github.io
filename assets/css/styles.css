@@ -3,14 +3,16 @@
   --page-card: #141414;
   --page-text: rgb(208, 208, 208);
   --page-theme: url("/assets/sun.svg");
+  --code-bg: #00000040;
 }
 
 
 code,
 .code {
   font-size: 95%;
+  color: rgb(208, 208, 208);
   font-family: "Courier New", monospace !important;
-  background: #00000040;
+  background: var(--code-bg);
   padding: 0 3px 0 3px;
 }
 
@@ -134,15 +136,11 @@ a.external:after {
   border-spacing:0 2px;
 }
 
-
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
-
-
 
 /* fun */
 .logo {
