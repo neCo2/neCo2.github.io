@@ -142,6 +142,15 @@ a.external:after {
   clear: both;
 }
 
+
+.centeredImage {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:1em;
+  margin-bottom:1em;
+}
+
 /* fun */
 .logo {
   height: 250px;
