@@ -37,18 +37,6 @@
             <div class="headerImg">
               <a target="_self" href="https://neco2.github.io" style="position: relative;">
                 
-                  <style>
-                    .hat {
-                      position: absolute;
-                      height: 30px;
-                      rotate: 18deg;
-                      left: 46px;
-                      bottom: 33px;
-                      pointer-events:none;
-                    }
-                  </style>
-                  <img class="hat" src="assets/fun/hats/christmas.png" alt="">
-                
                 <img src="assets/neco.svg" alt="" height=65px>
               </a>
             </div>
@@ -164,6 +152,64 @@ async function downloadURI(uri, name, dlLink) {
 }
 
 </script>
+
+
+
+
+
+
+<style>
+.expand + span::after {
+  content: "V"
+}
+
+.expand {
+  all:unset;
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  background: red;
+}
+
+.expand:checked {
+  background: blue !important;
+}
+.expand:checked + span::after {
+  transform:rotate(180deg);
+}
+
+label:checked {
+  background:blue;
+  transition: 2s;
+}
+
+.expandBox {
+  height:0px;
+  transition: width 2s, height 4s;
+  overflow: hidden;
+}
+
+.expand:checked ~ .expandBox {
+  transition: 0.2s;
+  height:auto !important;
+  display: block;
+  pointer-events: none !important;
+
+}
+
+</style>
+
+<label>
+  <input type="checkbox" class="expand" name="name" value="value"><span>Expand me</span>
+  <div class="expandBox">
+    EXPANDABLE TEEEXT
+  </div>
+  <hr>
+</label>
+
+
+
+
 
 
 
@@ -650,7 +696,7 @@ bbbbbbbb
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2022-12-26 08:44</span>
+          <span style="font-size:8px;">2023-01-07 15:17</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

@@ -20,7 +20,7 @@ a[href*="\.rss"] {
   background-repeat: no-repeat;
   background-size: .75em;
   background-image: url(../links/rss.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 
 .nonStyled {
@@ -33,52 +33,52 @@ a[href*="\.rss"] {
 /* socials */
 a[href*="youtube"] {
   background-image: url(../links/youtube.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="twitch"] {
   background-image: url(../links/twitch.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="pixiv"] {
   background-image: url(../links/pixiv.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="nitter"] {
   background-image: url(../links/nitter.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="twitter"] {
   background-image: url(../links/twitter.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="nicovideo"] {
   background-image: url(../links/nicovideo.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="fc2"] {
   background-image: url(../links/fc2.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 
 /* stores */
 a[href*="fanbox"] {
   background-image: url(../links/fanbox.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="booth\.pm"] {
   background-image: url(../links/booth.ico);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="rakuten"],
 a[href*="kobo"] {
   background-image: url(../links/kobo.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="amazon"] {
   background-image: url(../links/amazon.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
 a[href*="bookwalker"] {
   background-image: url(../links/bookwalker.png);
-  padding-left: .8em;
+  padding-left: 0.9em;
 }
