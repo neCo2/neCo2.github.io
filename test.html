@@ -197,15 +197,33 @@ label:checked {
 
 }
 
+.expandable-text-full {
+  display: none;
+}
+#expand-text:checked ~ .expandable-text-full {
+  display: block;
+}
+
 </style>
 
-<label>
-  <input type="checkbox" class="expand" name="name" value="value"><span>Expand me</span>
-  <div class="expandBox">
-    EXPANDABLE TEEEXT
+<details>
+  <summary>This is a summary of the text. Click to expand</summary>
+  <p>This is the full text. It will be hidden until the button is clicked.</p>
+</details>
+
+
+<hr>
+
+<div class="expandable-text-container">
+  <input type="checkbox" id="expand-text">
+  <label for="expand-text" class="expand-button">Expand</label>
+  <div class="expandable-text-full">
+    <p>
+      Thanks chat-gtp
+    </p>
   </div>
-  <hr>
-</label>
+</div>
+
 
 
 
@@ -473,6 +491,7 @@ THIS ONE <a href="javascript:(function(){})();"onClick="javascript:main('https:/
 
 <!--  -->
 
+<p>idStr:ad899f946c95d857d3de99a223131d0e</p>
 <p>idStr:3758ad200b4f19aaa5f829eaaba087a8</p>
 <p>idStr:5b45364d348003e5ef28d2096c9bd976</p>
 <p>idStr:df29c9854be6d6c59f4e41deca99eab9</p>
@@ -608,17 +627,17 @@ bbbbbbbb
 
   About this Blog<br>
 
-  2022-08-21-1661084845089033400-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
+  2022-12-26-1672044273129707500-Mangaka-sensei to Zashiki Warashi - Volume 3 Batch<br>
 
   2022-09-08-1662653486960510700-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
 
-  2022-12-26-1672044273129707500-Mangaka-sensei to Zashiki Warashi - Volume 3 Batch<br>
+  2022-08-21-1661084845089033400-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
 
   2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10<br>
 
-  2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1<br>
-
   2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1<br>
+
+  2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1<br>
 
   2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10<br>
 
@@ -652,13 +671,15 @@ bbbbbbbb
 
   2023-01-08-1673176596182206800-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23<br>
 
-  2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3<br>
+  2023-01-22-1674376992611230200-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 24<br>
 
   2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
 
-  2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4<br>
+  2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3<br>
 
   2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4<br>
+
+  2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4<br>
 
   2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5<br>
 
@@ -668,9 +689,9 @@ bbbbbbbb
 
   2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6<br>
 
-  2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7<br>
-
   2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7<br>
+
+  2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7<br>
 
   2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8<br>
 
@@ -682,11 +703,11 @@ bbbbbbbb
 
   2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki<br>
 
-  2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
-
   2022-12-25-1672007509998593600-Mangaka-sensei to Zashiki Warashi - Volume 3 Omake<br>
 
   2022-08-21-1661066957006675400-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
+
+  2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
 
   2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
 
@@ -703,7 +724,7 @@ bbbbbbbb
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2023-01-08 11:16</span>
+          <span style="font-size:8px;">2023-01-22 08:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>
