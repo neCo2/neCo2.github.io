@@ -1,6 +1,6 @@
 :root {
   --page-bg: #1e1e1e;
-  --page-card: #141414;
+  --page-card: #0005;
   --page-text: rgb(208, 208, 208);
   --page-theme: url("/assets/sun.svg");
   --code-bg: #00000040;
@@ -9,7 +9,7 @@
 
 code,
 .code {
-  font-size: 95%;
+  font-size: 90%;
   color: rgb(208, 208, 208);
   font-family: "Courier New", monospace !important;
   background: var(--code-bg);
@@ -48,7 +48,7 @@ hr {
 
 #feeds {
   margin:10px;
-  positon:relative;
+  position:relative;
   height: 360px;
   overflow: hidden;
 }
@@ -59,17 +59,17 @@ hr {
 }
 
 #colLeft {
-  positon:absolute;
+  /* position:absolute; */
   width: 55%;
   float:left;
 }
 #colRight {
-  positon:absolute;
+  /* position:absolute; */
   width: 40%;
   float:right;
 }
 #rssLink {
-  positon:absolute;
+  /* position:absolute; */
   text-align:center;
 }
 

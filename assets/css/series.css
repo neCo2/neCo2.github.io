@@ -29,8 +29,6 @@
   opacity: 0;
   width: 100%;
   height: fit-content;
-  /* height: 50px; */
-  /* border: 1px solid black ; */
   position: absolute;
   top: 0;
   right: 0;
@@ -39,12 +37,12 @@
 }
 
 .series_card:hover .series_card_rssPopup {
-  /* top: -31px; */
   translate: 0 -100%;
   z-index: 1;
-  opacity: 1;
-  background: #000000aa !important;
+  opacity: unset;
+  background: var(--page-card) !important;
   display: inline-block;
+  transition: .15s;
 }
 
 .series_card_bot {
