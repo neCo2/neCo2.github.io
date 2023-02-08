@@ -161,18 +161,24 @@
   /* min-width: 4.75em; */
   min-width: 76px;
   margin-right: 5px;
-}
-
-.chapterPopup {
-  display: none;
   position: relative;
-  background: red;
-  /* z-index: -1; */
-  margin:2px;
-  top:10px;
 }
 
-.chapterDownload:hover + .chapterPopup {
+.hash {
+  display: none;
+  position: absolute;
+  background: #000d;
+  z-index: 5;
+  padding:1px;
+  top:0px;
+  translate: 0 -75%;
+  font-size: 60%;
+  font-family: "Courier New", monospace !important;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.chapterDownload:hover .hash {
   display: block !important;
 }
 
