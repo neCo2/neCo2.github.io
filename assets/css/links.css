@@ -82,3 +82,7 @@ a[href*="bookwalker"] {
   background-image: url(../links/bookwalker.png);
   padding-left: 0.9em;
 }
+a[href*="dlsite"] {
+  background-image: url(../links/dlsite.png);
+  padding-left: 0.9em;
+}
