@@ -143,6 +143,20 @@
   padding: 5px;
   margin-right: auto;
 }
+
+/* Grid where every odd last item spans two columns */
+/* #volumes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+}
+.volumeDiv {
+  grid-column: span 1;
+}
+.volumeDiv:nth-child(odd):last-of-type {
+  background: red;
+  grid-column: span 2 !important;
+} */
+
 .volumeHeader {
   font-size:150%;
   font-weight:bold;
@@ -155,22 +169,22 @@
   grid-template-columns: repeat(4, minmax(5em, 1fr)); */
 }
 .chapterDownload {
-  line-height: 1.2;
+  line-height: 1.4;
   /* margin-right:8px; */
   /* min-width: 4.75em; */
   min-width: 9.1ch;
-  margin-right: 0.65ch;;
+  margin-right: 0.8ch;;
   position: relative;
 }
 
 .hash {
   display: none;
   position: absolute;
-  background: #000d;
+  background: #000;
   z-index: 5;
   padding:1px;
   top:0px;
-  translate: 0 -90%;
+  translate: 0 -95%;
   font-size: 65%;
   font-family: "Courier New", monospace !important;
   white-space: nowrap;
