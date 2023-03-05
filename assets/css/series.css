@@ -144,6 +144,11 @@
   margin-right: auto;
 }
 
+/* make volDivs with only one entry full width */
+/* .volumeDiv:last-of-type:first-of-type {
+    width: 96%;
+} */
+
 /* Grid where every odd last item spans two columns */
 /* #volumes {
   display: grid;
@@ -169,7 +174,8 @@
   grid-template-columns: repeat(4, minmax(5em, 1fr)); */
 }
 .chapterDownload {
-  line-height: 1.4;
+  line-height: 1.2;
+  margin-bottom: 3px;
   /* margin-right:8px; */
   /* min-width: 4.75em; */
   min-width: 9.1ch;
