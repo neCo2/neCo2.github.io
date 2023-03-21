@@ -36,7 +36,8 @@
   transition: .15s;
 }
 
-.series_card:hover .series_card_rssPopup {
+.series_card:hover .series_card_rssPopup,
+.series_card:focus-within .series_card_rssPopup {
   translate: 0 -100%;
   z-index: 1;
   opacity: unset;
@@ -144,6 +145,37 @@
   margin-right: auto;
 }
 
+/* Details list */
+.chapterListDiv {
+  display: none;
+}
+.expandButton {
+  display: none;
+}
+.expandButtonLabel:after {
+  content:"+";
+  display: inline-block;
+}
+.expandButton:checked ~ .chapterListDiv {
+  display: block;
+}
+.expandButton:checked ~ .chapterDiv {
+  display: none;
+}
+.expandButton:checked ~ .expandButtonLabel:after {
+  transform:rotate(45deg);
+}
+.chapterListEntry {
+  padding:0.3em;
+  margin-bottom: 0.3em;
+  background: var(--code-bg);
+}
+.chapterListEntry > small {
+  margin-top: 0.2em;
+  display: block;
+}
+
+
 /* make volDivs with only one entry full width */
 /* .volumeDiv:last-of-type:first-of-type {
     width: 96%;
@@ -197,7 +229,8 @@
   pointer-events: none;
 }
 
-.chapterDownload a:hover + .hash {
+.chapterDownload a:hover + .hash,
+.chapterDownload a:focus + .hash {
   display: block !important;
 }
 

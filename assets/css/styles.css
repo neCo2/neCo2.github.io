@@ -7,11 +7,23 @@
 }
 
 
+mono {
+  font-size: 90%;
+  color: var(--page-text);
+  font-family: monospace, monospace !important;
+
+}
+monoB {
+  font-size: 90%;
+  color: var(--page-text);
+  font-family: monospace, monospace !important;
+  display: block;
+}
 code,
 .code {
   font-size: 90%;
   color: rgb(208, 208, 208);
-  font-family: "Courier New", monospace !important;
+  font-family: monospace, monospace !important;
   background: var(--code-bg);
   padding: 0 3px 0 3px;
 }
@@ -74,6 +86,10 @@ hr {
 }
 
 /* links */
+/* a:focus {
+  box-shadow: 0 0 0 5px var(--page-bg),
+              0 0 0 10px red !important;
+} */
 footer a,
 .styledLink,
 #contentContainer a,
@@ -87,10 +103,12 @@ footer a:hover,
 footer a:active,
 #rssLink a:hover,
 #rssLink a:active,
+#rssLink a:focus,
 .styledLink:hover,
 .styledLink:active,
 #contentContainer a:hover,
-#contentContainer a:active {
+#contentContainer a:active,
+#contentContainer a:focus {
   color: inherit;
   box-shadow: inset 0 -2px 0 #d50000f0;
   transition-duration: .12s;
