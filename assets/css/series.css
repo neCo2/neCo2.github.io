@@ -155,6 +155,7 @@
 .expandButtonLabel:after {
   content:"+";
   display: inline-block;
+  cursor: pointer;
 }
 .expandButton:checked ~ .chapterListDiv {
   display: block;
@@ -227,6 +228,10 @@
   font-family: "Courier New", monospace !important;
   white-space: nowrap;
   pointer-events: none;
+}
+.mdfive {
+  user-select: all;
+  cursor: pointer;
 }
 
 .chapterDownload a:hover + .hash,
