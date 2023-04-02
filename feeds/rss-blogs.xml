@@ -2,17 +2,17 @@
 <rss version="2.0">
    <channel>
       <title>neCo Translation - Blog Posts</title>
-      <link>http://localhost:4000</link>
+      <link>https://neco2.github.io</link>
       <description>Blog Posts</description>
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Sun, 02 Apr 2023 06:54:27 +0000</lastBuildDate>
+      <lastBuildDate>Sun, 02 Apr 2023 07:01:01 +0000</lastBuildDate>
       
   <item>
     <title>Completed Mangaka-sensei to Zashiki Warashi</title>
     <pubDate>2023-04-02 06:48:10 +0000</pubDate>
-    <link>http://localhost:4000/blog/Completed-Mangaka-sensei-to-Zashiki-Warashi</link>
+    <link>https://neco2.github.io/blog/Completed-Mangaka-sensei-to-Zashiki-Warashi</link>
     <description>&lt;p&gt;Chapter 29 marks the end of this manga. I hope you enjoyed, and please consider supporting Nukku. All relevant links can be found on the manga’s page.&lt;br /&gt;
 I will translate the extra chapters, but I will not stick to a schedule. They’ll be done when they’re done. Please consider purchasing the extra chapters on booth.&lt;/p&gt;
 
@@ -28,7 +28,7 @@ I will translate the extra chapters, but I will not stick to a schedule. They’
   <item>
     <title>(Closed) neCo is currently accepting suggestions for a new scanlation project</title>
     <pubDate>2023-02-01 13:00:39 +0000</pubDate>
-    <link>http://localhost:4000/blog/neCo-is-currently-accepting-suggestions-for-a-new-scanlation-project</link>
+    <link>https://neco2.github.io/blog/neCo-is-currently-accepting-suggestions-for-a-new-scanlation-project</link>
     <description>With the translation Mangaka-sensei to Zashiki Warashi slowly coming to a close, I should decide on my next project soon. If you&apos;ve got any suggestions,
 &lt;a target=&quot;_self&quot; href=&quot;/suggestions&quot;&gt;please click here for details&lt;/a&gt;.
 </description>
@@ -37,7 +37,7 @@ I will translate the extra chapters, but I will not stick to a schedule. They’
   <item>
     <title>Mangaka-sensei to Zashiki Warashi Chapter 21 Delayed by Two Weeks</title>
     <pubDate>2022-10-27 21:54:22 +0000</pubDate>
-    <link>http://localhost:4000/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-21-Delay</link>
+    <link>https://neco2.github.io/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-21-Delay</link>
     <description>Release of chapter 21 of Mangaka-sensei to Zashiki Warashi will be delayed by two
 weeks. I need a short break.&lt;br&gt;
 The next dump is scheduled for Saturday, the 26th of November. Release on Mangadex
@@ -48,7 +48,7 @@ and here the Sunday or Monday after.
   <item>
     <title>Mangaka-sensei to Zashiki Warashi Chapter 13 Delay</title>
     <pubDate>2022-06-25 17:56:18 +0000</pubDate>
-    <link>http://localhost:4000/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay</link>
+    <link>https://neco2.github.io/blog/Mangaka-sensei-to-Zashiki-Warashi-Chapter-13-Delay</link>
     <description>Chapter 13 of Mangaka-sensei to Zashiki Warashi will be delayed by two weeks.&lt;br&gt;
 The next dump is scheduled for the 23rd, and the release on Mangadex and here for
 the 24th or 25th of July.
@@ -58,7 +58,7 @@ the 24th or 25th of July.
   <item>
     <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
     <pubDate>2022-02-12 08:40:40 +0000</pubDate>
-    <link>http://localhost:4000/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
+    <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
     <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
 little zashiki warashi.&lt;br&gt;
 Expected release frequency: One chapter per two weeks.&lt;br&gt;
@@ -69,7 +69,7 @@ Dumps: Saturday or Sunday around 5pm CET on /a/.
   <item>
     <title>About this Blog</title>
     <pubDate>2022-02-07 10:34:36 +0000</pubDate>
-    <link>http://localhost:4000/blog/About-this-blog</link>
+    <link>https://neco2.github.io/blog/About-this-blog</link>
     <description>After anon in the scanlation thread
 mentioned he was generating a static site from just one text file and 
 hosting it &lt;a href=&quot;https://mycropen.github.io&quot;&gt;on github&lt;/a&gt;, I was intrigued
