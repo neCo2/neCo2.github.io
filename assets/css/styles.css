@@ -6,7 +6,7 @@
   --code-bg: #00000040;
 }
 
-
+.mono,
 mono {
   font-size: 90%;
   color: var(--page-text);
@@ -169,6 +169,19 @@ a.external:after {
   margin-bottom:1em;
 }
 
+.chapterUpdate-Old {
+  opacity:.5;
+  text-decoration: line-through 2px !important;
+}
+.chapterUpdate-Revision:after  {
+  content:"[Revision]";
+  font-size:60%;
+  opacity:.5;
+  margin-left:.3ch;
+}
+
+
+
 /* fun */
 .logo {
   height: 250px;
@@ -178,6 +191,12 @@ a.external:after {
   margin: auto;
   display: block;
 }
+
+note {
+  font-size: 60%;
+  opacity: 0.5;
+}
+
 
 .smallText {
   font-size: 60%
@@ -198,10 +217,10 @@ spoiler:hover,
   color: var(--page-text) !important;
 }
 
-ol {
+/* ol {
   font-style: italic;
 }
 li {
   font-weight: bold;
   font-style: normal;
-}
+} */
