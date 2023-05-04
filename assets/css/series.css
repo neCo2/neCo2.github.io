@@ -63,8 +63,8 @@
   width:100%;
   position:absolute;
   color:white;
-  font-size:10px;
-  background: #000000aa;
+  font-size: .65em;
+  background: #000000bd;
   padding:2px;
   bottom: 0px;
   left: 0px;
@@ -153,9 +153,9 @@
 }
 
 /* Details list */
-.chapterListDiv {
+/* .chapterListDiv {
   display: none;
-}
+}*/
 .expandButton {
   all: unset;
   display: inline-block;
@@ -174,43 +174,33 @@
   position: absolute;
   left: calc(0.5rem - 0.5ch);
 }
-/*
-.expandButtonLabel {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  width: 2.5ch;
-  height: 2.5ch;
+.chapterDiv {
+  display: flex;
+  flex-flow: row wrap;
 }
-.expandButtonLabel:focus {
-  background: red;
-}
-.expandButtonLabel:after {
-  content:"+";
-  display: inline-block;
-  cursor: pointer;
-  position: absolute;
-  bottom: 0px;
-  left: calc(50% - 0.5ch);
-}
-*/
-.expandButton:checked ~ .chapterListDiv {
-  display: block;
-}
-.expandButton:checked ~ .chapterDiv {
+.chapterDiv .chapterDetails {
   display: none;
 }
+
+
 .expandButton:checked:after {
   transform:rotate(45deg);
 }
-.chapterListEntry {
+.expandButton:checked ~ .chapterDiv {
+  flex-flow: column;
+}
+
+.expandButton:checked ~ .chapterDiv .chapterTitleShort {
+  display: none;
+}
+.expandButton:checked ~ .chapterDiv .chapterDetails {
+  display: inline;
+}
+.expandButton:checked ~ .chapterDiv .chapterEntry {
   padding:0.3em;
   margin-bottom: 0.3em;
   background: var(--code-bg);
-}
-.chapterListEntry > small {
-  margin-top: 0.2em;
-  display: block;
+  width: 100%;
 }
 
 
@@ -244,6 +234,7 @@
   grid-template-columns: repeat(4, minmax(5em, 1fr)); */
 }
 .chapterDownload {
+  display: inline-block;
   line-height: 1.2;
   margin-bottom: 3px;
   /* margin-right:8px; */

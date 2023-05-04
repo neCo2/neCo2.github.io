@@ -3,7 +3,7 @@
   --page-card: #0005;
   --page-text: rgb(208, 208, 208);
   --page-theme: url("/assets/sun.svg");
-  --code-bg: #00000040;
+  --code-bg: #00000060;
 }
 
 .mono,
@@ -21,7 +21,7 @@ monoB {
 }
 code,
 .code {
-  font-size: 90%;
+  font-size: 80%;
   color: rgb(208, 208, 208);
   font-family: monospace, monospace !important;
   background: var(--code-bg);
@@ -178,6 +178,40 @@ a.external:after {
   font-size:60%;
   opacity:.5;
   margin-left:.3ch;
+}
+
+.truncate {
+  --lh: 1.2em;
+  --max-lines: 3;
+  line-height: var(--lh);
+  position: relative;
+  max-height: calc(var(--lh) * var(--max-lines));
+  overflow: hidden;
+  display: inline-block;
+}
+.truncate::after {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: calc(var(--lh) * 1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--page-bg) 50%);
+  pointer-events: none;
+}
+.truncateBottom {
+}
+.truncateBottom::after {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2em;
+  width:100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--page-bg) 50%);
+  pointer-events: none;
 }
 
 
