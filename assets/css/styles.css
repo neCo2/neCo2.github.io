@@ -58,6 +58,28 @@ hr {
 
 /* main page */
 
+.refreshBanner {
+  position: absolute;
+  width: 100%;
+}
+.refreshBanner > div {
+  background: #ff0000da;
+  width: 50%;
+  padding:.5em;
+  margin: auto;
+  margin-bottom:.5em;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  z-index: 9999999;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,-1px 1px 0 #000, 1px 1px 0 #000,-1px 1px 0 #000, 1px -1px 0 #000,1px -1px 0 #000, 1px -1px 0 #000;
+}
+
+/*.ver2023-05-14-04-56*/
+.ver1 {
+  display: none;
+}
+
 #feeds {
   margin:10px;
   position:relative;
