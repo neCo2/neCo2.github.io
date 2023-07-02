@@ -176,7 +176,7 @@
 }
 .chapterDiv {
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   flex-direction: inherit;
 }
 .chapterDiv .chapterDetails {
