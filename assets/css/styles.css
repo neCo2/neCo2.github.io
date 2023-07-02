@@ -1,3 +1,9 @@
+/*  */
+/*.ver2023-07-02-06-40*/
+.ver1 {
+  display: none;
+}
+
 :root {
   --page-bg: #1e1e1e;
   --page-card: #0005;
@@ -75,10 +81,7 @@ hr {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,-1px 1px 0 #000, 1px 1px 0 #000,-1px 1px 0 #000, 1px -1px 0 #000,1px -1px 0 #000, 1px -1px 0 #000;
 }
 
-/*.ver2023-06-11-17-46*/
-.ver1 {
-  display: none;
-}
+
 
 #feeds {
   margin:10px;
