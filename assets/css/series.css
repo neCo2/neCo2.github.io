@@ -228,12 +228,7 @@
   font-weight:bold;
   line-height: 1.5;
 }
-.chapterDiv {
-  display:flex;
-  flex-flow: row wrap;
-  /* display: grid;
-  grid-template-columns: repeat(4, minmax(5em, 1fr)); */
-}
+
 .chapterDownload {
   display: inline-block;
   line-height: 1.2;
