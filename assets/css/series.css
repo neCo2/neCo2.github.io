@@ -177,6 +177,7 @@
 .chapterDiv {
   display: flex;
   flex-flow: row wrap;
+  flex-direction: inherit !important;
 }
 .chapterDiv .chapterDetails {
   display: none;
