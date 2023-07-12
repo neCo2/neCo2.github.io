@@ -1,6 +1,6 @@
 /*  */
-/*.ver2023-07-02-14-17*/
-.ver3 {
+/*.ver2023-07-12-17-51*/
+.ver4 {
   display: none;
 }
 
@@ -275,6 +275,16 @@ spoiler:hover,
   display: inline;
   color: var(--page-text) !important;
 }
+
+
+.bottom {
+  position: relative;
+  clear: both;
+  bottom: 0px;
+  display: block;
+}
+
+
 
 /* ol {
   font-style: italic;

@@ -132,6 +132,14 @@
   width: calc(100% - 315px);
 }
 
+.infoMark:after {
+  content:"?";
+  opacity: 60%;
+  margin-left:.3ch;
+  vertical-align: super;
+  font-size: 50%;
+}
+
 
 .typo {
   margin-top:-0.5em;
