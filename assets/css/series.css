@@ -132,6 +132,9 @@
   width: calc(100% - 315px);
 }
 
+.infoMark {
+  cursor: help;
+}
 .infoMark:after {
   content:"?";
   opacity: 60%;
