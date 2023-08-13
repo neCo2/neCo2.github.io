@@ -58,6 +58,7 @@
 
 .series_card_container {
   position:relative;
+  overflow:hidden;
 }
 .onImg_bl {
   width:100%;
@@ -102,12 +103,14 @@
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s .08s, opacity .08s linear;
+  /* translate: 0 100% */
 }
 .series_card:not(:hover) .onImg_bl,
 .series_card:not(:hover) .onImg_tr {
   visibility: visible;
   opacity: 1;
   transition: opacity .08s linear;
+  /* transition-duration: .12s; */
 }
 
 .onImg_tr {
