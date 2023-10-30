@@ -1,5 +1,5 @@
 /*  */
-/*.ver2023-10-15-11-14*/
+/*.ver2023-10-30-20-21*/
 .ver4 {
   display: none;
 }
@@ -259,6 +259,12 @@ note {
 
 .smallText {
   font-size: 60%
+}
+
+.sign {
+  display: block;
+  margin: auto;
+  height: 150px;
 }
 
 spoiler,
