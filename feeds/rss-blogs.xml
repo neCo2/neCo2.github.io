@@ -7,8 +7,27 @@
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Mon, 18 Mar 2024 18:16:37 +0000</lastBuildDate>
+      <lastBuildDate>Sat, 30 Mar 2024 09:17:09 +0000</lastBuildDate>
       
+  <item>
+    <title>Completed Ningyou no Asa</title>
+    <pubDate>2024-03-24 06:11:10 +0000</pubDate>
+    <link>https://neco2.github.io/blog/Completed-Ningyou-no-Asa</link>
+    <description>The story of Ningyou no Asa currently ends with the second volume at 10.5 chapters.
+While it is never explicitly stated that the manga has been dropped, and chapter 10
+even has the usual &quot;To be continued&quot;, I belive it to be very unlikely that it&apos;s ever
+going to be continued.&lt;br&gt;
+But it looks like the author is still alive at least (see &lt;a target=&quot;_self&quot; href=&quot;/blog/Ningyou no Asa Author Still Alive&quot;&gt;
+previous post&lt;/a&gt;). I&apos;ll try to keep up with him, and if he ever starts something
+interesting again, or if he actually continues this manga, I&apos;ll make a post here.&lt;br&gt;
+&lt;br&gt;
+But this is it for now. Consider buying the &lt;a target=&quot;_self&quot; href=&quot;https://www.dlsite.com/comic/work/=/product_id/BJ152506.html&quot;&gt;manga&lt;/a&gt;, or the
+&lt;a target=&quot;_self&quot; href=&quot;https://www.dlsite.com/home/circle/profile/=/maker_id/RG17989.html&quot;&gt;
+  author&apos;s doujin works&lt;/a&gt; on DLsite.&lt;br&gt;
+&lt;spoiler&gt;Remember when I thought I could get this done in less than half a year?&lt;/spoiler&gt;
+</description>
+  </item>
+
   <item>
     <title>Ningyou no Asa Author Still Alive</title>
     <pubDate>2024-02-28 12:14:54 +0000</pubDate>
@@ -110,31 +129,6 @@ the 24th or 25th of July.
 little zashiki warashi.&lt;br&gt;
 Expected release frequency: One chapter per two weeks.&lt;br&gt;
 Dumps: Saturday or Sunday around 5pm CET on /a/.
-</description>
-  </item>
-
-  <item>
-    <title>About this Blog</title>
-    <pubDate>2022-02-07 10:34:36 +0000</pubDate>
-    <link>https://neco2.github.io/blog/About-this-blog</link>
-    <description>After &lt;a href=&quot;https://mycropen.github.io&quot;&gt;anon&lt;/a&gt; in the scanlation thread
-mentioned he was generating a static site from just one text file, I was
-intrigued and tried to build something of my own. He was generous enough to give
-me his code, which was a great help.&lt;br&gt;
-This weird blog/wiki-ish hybrid thing was built using a combination of a lacking
-understanding of html, python and &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;,
-a static site generator. Similarly to what anon made, this site is generated
-from one central YAML data file containing information about the entries
-I want displayed on the page, and a couple Jekyll templates.&lt;br&gt;
-This is also the first time I&apos;ve built a website, so if you want to keep your
-sanity, I recommend you don&apos;t look at any of the html. It&apos;s an absolute mess.&lt;br&gt;
-&lt;br&gt;
-The next step will be writing some code that allows me to automatically upload
-chapters to mega and add them to the YAML file.&lt;br&gt;
-&lt;br&gt;
-In conclusion, I put in way too much work into a website that maybe 2 people will use per year. But it&apos;s my website, damn it!&lt;br&gt;
-If you want to have a look at the inner workings, I&apos;d be happy to share the source with you. Just throw me a mail and
-I&apos;ll probably notice within a couple weeks.
 </description>
   </item>
 
