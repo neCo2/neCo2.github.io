@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <base href="https://neco2.github.io" target="_blank">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+    <!-- <link rel="stylesheet" href="/assets/css/zCssMerge.css"> -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/wrapper.css">
+    <link rel="stylesheet" href="/assets/css/series.css">
+    <!-- <link rel="stylesheet" href="/assets/css/seriesPage.css"> -->
+    <link rel="stylesheet" href="/assets/css/links.css">
+    <style>
+
+      .spoiler {
+        color:#FFFFFF00;
+        background:black;
+      }
+      .spoiler:hover {
+        color:inherit;
+        background:black;
+      }
+    </style>
+    <title>Yaku - neCo</title>
+  </head>
+  <!--
+  ░█▀█░█▀▄░█▀█░█▀█░█▀▄░█▀█░█▀█░░░█▀█░█░░░█░░░░░█░█░█▀█░█▀█░█▀▀░░░░░░░█░█░█▀▀░░░█░█░█░█░█▀█░░░█▀▀░█▀█░▀█▀░█▀▀░█▀▄░░░█░█░█▀▀░█▀▄░█▀▀░
+  ░█▀█░█▀▄░█▀█░█░█░█░█░█░█░█░█░░░█▀█░█░░░█░░░░░█▀█░█░█░█▀▀░█▀▀░░░░░░░░█░░█▀▀░░░█▄█░█▀█░█░█░░░█▀▀░█░█░░█░░█▀▀░█▀▄░░░█▀█░█▀▀░█▀▄░█▀▀░
+  ░▀░▀░▀▀░░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░░░▀░▀░▀▀▀░▀░░░▀▀▀░▄▀░░░░░▀░░▀▀▀░░░▀░▀░▀░▀░▀▀▀░░░▀▀▀░▀░▀░░▀░░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀░▀░▀▀▀░
+  -->
+  <body>
+    <div id="fakeBody">
+      <header id="header">
+        <div class="headerPos">
+          <nav>
+            <div class="headerImg">
+              <a target="_self" href="https://neco2.github.io" style="position: relative;">
+                
+                <img src="assets/neco.svg" alt="" height=65px>
+              </a>
+            </div>
+
+            <a target="_self" href="https://neco2.github.io">
+              <div class="headerButton">
+                Home
+              </div>
+            </a>
+            <a target="_self" href="translations">
+              <div class="headerButton">
+                TLs
+              </div>
+            </a>
+            <!-- <a target="_self" href="chapters/">
+              <div class="headerButton">
+                Chapters
+              </div>
+            </a> -->
+            <a target="_self" href="blog/">
+              <div class="headerButton">
+                Blog
+              </div>
+            </a>
+            <a target="_self" href="resources/">
+              <div class="headerButton">
+                Resources
+              </div>
+            </a>
+            <!-- <input type="checkbox" id="colourSwitch" /> -->
+          </nav>
+
+        </div>
+
+      </header>
+      <div class="refreshBanner ver4 Aver2024-04-08-21-06">
+        <div>
+          If you are seeing this, please refresh the page without cache.<br>
+          (ctrl+shift+r usually)
+        </div>
+      </div>
+      <div id="contentContainer">
+        <style>
+  .yakuCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content min-content;
+    gap: 2px 2px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "yakuheader yakuheader yakuheader"
+      "explanation explanation explanation"
+      "image image image";
+    width: 100%;
+    background: #313131;
+    padding: .5em;
+  }
+
+  .yakuheader {
+    display: grid;
+    grid-template-columns: 0.25fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "han yaku condition";
+    grid-area: yakuheader;
+    background: #4a4a4a;
+    padding: .5em;
+  }
+  .yakuheader > * {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .han {
+    grid-area: han;
+    text-align: center;
+  }
+
+  .yaku {
+    grid-area: yaku;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  .condition {
+    grid-area: condition;
+    text-align: right;
+    margin-right: 2em;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.1em;
+    color:#fff;
+  }
+
+  .explanation {
+    grid-area: explanation;
+    padding: .5em;
+  }
+
+  .image {
+    grid-area: image;
+    margin-left: 0.5em;
+  }
+
+
+  .hanDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+</style>
+
+<h1>1 Han</h1>
+
+<div class="hanDiv">
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Riichi
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand after you declared Riichi; You may declare Riichi when you achieve Tenpai (ready hand) at Menzenchin (closed hand)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Riichi.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      All Simples
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand without any Terminal Tiles (1-Man/9-Man, 1-Pin/9-Pin, 1-Sou/9-Sou, Wind Tiles, and Dragon Tiles)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Simples.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Fully Concealed Hand
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand by Tsumo (drawing the winning tile) at Menzenchin (closed Hand)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Fully Concealed Hand.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Seat Wind
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with a Triplet of Player Wind
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Seat Wind.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Prevalent Wind
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with a Trip of Round Wind
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Prevalent Wind.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Dragons
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with a Triplet of Dragon Tiles (White, Green or Red)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Dragons.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Pinfu
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Sequences and one non-Yakuhai Pair, plus the potential winning tiles must be tiles from both sides of a Sequence
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Pinfu.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Pure Double Sequence
+    </div>
+    <div class="condition">
+      Menzenchin only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with two identical Sequences
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Pure Double Sequence.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Robbing a Kan
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Call a Ron (declare winning) on another player's Kan (when you have a Tenpai for Thirteen Orphans, you can call on a Closed Kan)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Robbing a Kan.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      After a Kan
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with the tile drawn from the Dead Wall after immediately calling a Kan
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/After a Kan.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Under the Sea
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand by Tsumo (drawing the winning tile) with the last tile drawn from the Wall
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Under the Sea.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Under the River
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand by Calling ROn (declare winning) on the last discarded tile
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Under the River.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      1 Han
+    </div>
+    <div class="yaku">
+      Ippatsu
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand within 1 turn after declaring Riichi, in addition, draws/discards must not be interrupted by tile calls during that turn
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Ippatsu.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+</div>
+
+<h1>2 Han</h1>
+
+<div class="hanDiv">
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Double Riichi
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Declare Riichi with your starting hand before any tiles are called
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Double Riichi.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Triple Triplets
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Triplets with the same number out of the Number Tiles (Man, Pin, Sou)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Triple Triplets.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Three Quads
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Quads
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Three Quads.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      All Triplets
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Triplets or Quads
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Triplets.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Three Concealed Triplets
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Closed Triplets or Closed Quads
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Three Concealed Triplets.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Little Three Dragons
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    WIn a hand with two Triplets out of the Dragon Tiles (White, Green or Red), plus a Pair of the third Dragon Tile
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Little Three Dragons.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      All Terminals and Honors
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    WIn a hand with only Terminal Tiles (1-Man/9-Man, 1-Pin/9-Pin, 1-Sou/9-Sou, Wind Tiles, and Dragon Tiles)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Terminals and Honors.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Seven Pairs
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with seven different Pairs
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Seven Pairs.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Half Outside Hand
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand where every Sequence, Triplet and Pair contains at least one Terminal Tile
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Half Outside Hand.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Pure Straight
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with a complete Sequence of 1 through 9
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Pure Straight.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      2 Han
+    </div>
+    <div class="yaku">
+      Mixed Triple Sequence
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Sequences with the same numbers out of three different Number Tiles (i.e. 123-Man, 123-Pin, 123-Sou)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Mixed Triple Sequence.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+</div>
+
+
+<h1>3 Han</h1>
+
+<div class="hanDiv">
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      3 Han
+    </div>
+    <div class="yaku">
+      Twice Pure Double Sequence
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with two sets of two identical Sequences (i.e. 123-Man, 123-Man, 456-Sou, 456-Sou)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Twice Pure Double Sequence.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      3 Han
+    </div>
+    <div class="yaku">
+      Fully Outside Hand
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win with a hand where every Sequence, Triplet and Pair contains at least one 1 and 9 out of the Number Tiles (i.e. 1-Man/9-Man, 1-Pin/9-Pin, 1-Sou/9-Sou)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Fully Outside Hand.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      3 Han
+    </div>
+    <div class="yaku">
+      Half Flush
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with tiles from only one of the three Number Tiles (Man, Pin or Sou) and Honor Tiles (Wind Tiles and Dragon Tiles)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Half Flush.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  </div>
+
+  <h1>6 Han</h1>
+
+  <div class="hanDiv">
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em #d08900;"
+    >
+    <div class="han">
+      6 Han
+    </div>
+    <div class="yaku">
+      Full Flush
+    </div>
+    <div class="condition">
+      -1 Han after making a call
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with tiles from only one of the three Number Tiles (Man, Pin or Sou)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Full Flush.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+</div>
+
+<h1>Mangan</h1>
+
+<div class="hanDiv">
+
+
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Mangan 
+    </div>
+    <div class="yaku">
+      Mangan at Draw
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    When a game ends in Exhaustive Draw, you win with this Yaku if all your discarded tiles are Terminal Tiles and none were called by other players
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Mangan at Draw.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+</div>
+
+<h1>Yakuman</h1>
+
+<div class="hanDiv">
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Blessing of Heaven
+    </div>
+    <div class="condition">
+      Dealer Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand by Tsumo as a dealer in the first turn with the first draw
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Blessing of Heaven.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Blessing of Earth
+    </div>
+    <div class="condition">
+      Non-Dealer Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand by Tsumo as a non-dealer in the first turn before any tiles are called
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Blessing of Earth.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Big Three Dragons
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Triplets or Quads of all the three Dragon Tiles
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Big Three Dragons.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Four Concealed Triplets
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Closed Triplets
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Four Concealed Triplets.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      All Honors
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Triplets and a Pair of the Honor Tiles (Wind Tiles and Dragon Tiles)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Honors.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      All Green
+    </div>
+    <div class="condition">
+      Green Dragon is not Necessary
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with only green-colored tiles (i.e. all Sou or Green Dragon)
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Green.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      All Terminals
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Triplets and a Pair of 1 and 9 out of the Number Tiles
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/All Terminals.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Thirteen Orphans
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with one of each 13 Terminal Tiles, plus any tile matching one of them
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Thirteen Orphans.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Four Little Winds
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with three Triplets or Quads of the Wind Tiles, plus a pair of the fourth wind
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Four Little Winds.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Four Quads
+    </div>
+    <div class="condition">
+      
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with four Quads
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Four Quads.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+  
+
+<div class="yakuCard">
+  <div class="yakuheader"
+    
+      style="box-shadow: inset 0px -.8em 1em -1em red;"
+    >
+    <div class="han">
+      Yakuman 
+    </div>
+    <div class="yaku">
+      Nine Gates
+    </div>
+    <div class="condition">
+      Menzenchin Only
+    </div>
+  </div>
+  <div class="explanation">
+    Win a hand with tiles from only one of the three Number Tiles in the order of '1112345678999', plus any tile matching one of them
+  </div>
+  <div class="image">
+    <img src="assets/fun/mahjong/img/Nine Gates.png" alt="" height=65px>
+
+  </div>
+</div>
+
+
+</div>
+<br>
+      </div>
+
+      </div>
+      <footer id="footer">
+        <div class="footerContent">
+          <span style="font-size:18px;margin-left:50%;left:-137px;display:table;vertical-align:top;text-align:center;position:absolute;"> <a target="_self" href="support">HOW TO SUPPORT THE AUTHOR</a></span>
+        </div>
+        <span style="opacity:20%">
+          May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
+          <span style="font-size:8px;">2024-04-08 21:06</span>
+        </span>
+        <span style="float:right;opacity:20%">
+          <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>
+        </span>
+      </footer>
+
+  </body>
+</html>
