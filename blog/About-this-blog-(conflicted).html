@@ -23,7 +23,7 @@
         background:black;
       }
     </style>
-    <title>Beginner Tips - neCo</title>
+    <title>About this Blog - neCo</title>
   </head>
   <!--
   ░█▀█░█▀▄░█▀█░█▀█░█▀▄░█▀█░█▀█░░░█▀█░█░░░█░░░░░█░█░█▀█░█▀█░█▀▀░░░░░░░█░█░█▀▀░░░█░█░█░█░█▀█░░░█▀▀░█▀█░▀█▀░█▀▀░█▀▄░░░█░█░█▀▀░█▀▄░█▀▀░
@@ -88,73 +88,32 @@
     margin-bottom: 2em;
   }
 </style>
-<p>< <a href="/resources/" target="_self">Resources </a></p>
-<h1>Beginner Tips</h1>
-Some really basic things I wish I knew when first starting out.
-
-<h2>Why does the size of my font change in different files despite using the same font settings?</h2>
-Fontsize is tied to the DPI of your files. I <i>highly</i> recommend figuring
-something out to scale the DPI of your files to their height, so you can have
-consistent font settings over all your projects.<br>
-Have a powershell script:
-<pre class="code">
-$origHeight=2048
-$origDPI=72
-$ratio=$origDPI/$origHeight
-for ( $i = 0; $i -lt $args.count; $i++ ) {
-	$file="$($args[$i])"
-	$($file) -match '[^\\]+$' > $null
-	$fn=$Matches.0
-	$height=$(magick identify -format "%h" $($args[$i]))/1
-	$targetDPI=[math]::Round($ratio*$height,2)
-	magick mogrify -units PixelsPerInch -density $targetDPI "$file"
-}
-</pre><br>
-You obviously need imagemagick installed for this one.
-
-<h2>What in god's name are screentones?</h2>
-You can google that, but what google won't immediately tell you is what the fuck those weird grid patterns are.<br>
-You see, before publishers ruin the manga they sell you, screentones are actually
-just little dots of various sizes. From far away, this gives the appearance of different
-gray tones, and saves ink when printing. When the original pages are scanned/downscaled, you will encounter
-something called <a href="https://en.wikipedia.org/wiki/Moir%C3%A9_pattern" target="_self">Moiré patterns</a>.
-You can read that wiki article, but honestly, it's not that good. Go ask some physics
-nerd to tell you about interference patterns instead. What it means for us, is that
-complex patterns are created from these simple dots when downscaling.<br>
-<img class="centeredImage" height="325" src="/assets/resources/moire.png"><br>
-<div class="row">
-  <div class="column">
-		It also means that you can usually match most screentones you see in a manga simply
-		by downscaling one of the larger ones. You just need to play around with the
-		brightness and contrast for a bit.<br>
-  </div>
-  <div class="column">
-    <video style="display:block;margin-left:auto;margin-right:auto;" height="325" src="/assets/resources/moire.webm" controls loop />
-  </div>
-</div>
-
-<h2>Why are my files so big?</h2>
-<b>Know your colours!</b> working on a black/white manga? export in grayscale. "Coloured" pages with only one colour? The compression probably messed
-it up and now there are tons of colours in there. Grayscale it level the page, redraw and typeset, then change the blacks to the original colour.<br>
-<img class="centeredImage" height="325" src="/assets/resources/colourNoise.png">
-And for the unlikely case that you're working with actual monochrome pages (just black and white, no grays), you don't touch that with anything other
-than pure black and pure white at 100% opacity and without anti-aliasing. If your image's just 2 colours with no inbetween, even absurd resolutions will
-barely take up space.<br><br>
-<b>Level your pages!</b> There's in all likelihood tons of invisible leftover noise in there that's eating up precious bytes. Cut off some of the lower
-black and white levels to remove some of it. You can also run things through a de-jpg model first, but more on that later.<br><br>
-Finally, it's also advisable to run your files through a lossless optimizer like
-<a href="https://css-ig.net/pingo" target="_self">Pingo (commandline)</a>/<a href="https://css-ig.net/pinga" target="_self">Pinga (GUI)</a>. Be aware that
-this particular optimizer strips all metadata by default, so things like DPI settings of the file will be lost.<br>
+<p style="margin-bottom:-1.5em;">< <a href="/blog/" target="_self">Blog</a></p>
+<h1>
+  <span style="font-size:10px;font-weight:normal;">2022-02-07 10:34:36 +0000</span><br>
+  About this Blog
+</h1>
+After <a href="https://mycropen.github.io">anon</a> in the scanlation thread
+mentioned he was generating a static site from just one text file, I was
+intrigued and tried to build something of my own. He was generous enough to give
+me his code, which was a great help.<br>
+This weird blog/wiki-ish hybrid thing was built using a combination of a lacking
+understanding of html, python and <a href="https://jekyllrb.com/">Jekyll</a>,
+a static site generator. Similarly to what anon made, this site is generated
+from one central YAML data file containing information about the entries
+I want displayed on the page, and a couple Jekyll templates.<br>
+This is also the first time I've built a website, so if you want to keep your
+sanity, I recommend you don't look at any of the html. It's an absolute mess.<br>
 <br>
-But never — <b style="font-size:115%"><i>NEVER</i></b> — export as jpg.
+The next step will be writing some code that allows me to automatically upload
+chapters to mega and add them to the YAML file.<br>
+<br>
+In conclusion, I put in way too much work into a website that maybe 2 people will use per year. But it's my website, damn it!<br>
+If you want to have a look at the inner workings, I'd be happy to share the source with you. Just throw me a mail and
+I'll probably notice within a couple weeks.
 
-<h2>What can I do about JPG artifacts in my raws?</h2>
-You can run them through AI models specifically designed to remove them!<br>
-Just follow this <a href="https://rentry.org/how2ESRGAN" target="_self">guide</a>
-and try some of the jpg models in the database.<br>
-If you can't be bothered to set this up on your PC, have a look at the
-<a href="https://rentry.org/how2ESRGAN#colab" target="_self">Google Colab section</a>.
-
+<!-- <br>
+<img class="logo" src="assets/neco.svg"> -->
 
 <br>
       </div>
