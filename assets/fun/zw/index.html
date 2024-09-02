@@ -23,6 +23,64 @@
         background:black;
       }
     </style>
+    <script>
+      function zeroPad(number) {
+        let [integer, decimal] = number.split('.');
+        integer = integer.padStart(3, '0');
+        if (decimal) {
+          return `${integer}.${decimal}`;
+        }
+        return integer;
+      }
+    
+      async function downloadURL(uri, short, chapter, dlLink) {
+        const ext = uri.match(/\.[^\.\/]+$/);
+        console.log(short)
+        if (!ext) {
+          return
+        }
+        var name = ""
+        try {
+          chapterMatch = chapter.match(/\d+(\.\d+)?/)
+          name = short + zeroPad(chapterMatch[0])
+        }
+        catch {
+          name = short + "_" + chapter
+        }
+    
+        event.preventDefault();
+        console.log("Downloading " + uri + " as " + name)
+        const oldInnerHTML = dlLink.innerHTML;
+        dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+        const response = await fetch(uri);
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+    
+        const res = new Response(new ReadableStream({
+          async start(controller) {
+            const reader = response.body.getReader();
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              loaded += value.byteLength;
+              dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+              controller.enqueue(value);
+            }
+            controller.close();
+          },
+        }));
+        const blob = await res.blob();
+        const href = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        a.href = "";
+        dlLink.innerHTML = oldInnerHTML;
+      }
+    </script>
     <title>ZW Fun - neCo</title>
   </head>
   <!--
@@ -73,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-08-26-07-21">
+      <div class="refreshBanner ver4 Aver2024-09-02-13-43">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -401,9 +459,22 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 </div>
 <br>
       </div>
+      <noscript>
+        <div>
+          JavaScript is unfortunately required to download chapters with the correct file-names.
+        </div>
+      </noscript>
 
       </div>
       <footer id="footer">
@@ -412,7 +483,7 @@
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-08-26 07:21</span>
+          <span style="font-size:8px;">2024-09-02 13:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

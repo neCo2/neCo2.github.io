@@ -7,8 +7,17 @@
       <docs>http://www.rssboard.org/rss-specification</docs>
       <generator>a wet piece of cardboard stapled to dying chicken</generator>
       <language>en</language>
-      <lastBuildDate>Mon, 26 Aug 2024 07:21:48 +0000</lastBuildDate>
+      <lastBuildDate>Mon, 02 Sep 2024 13:43:29 +0000</lastBuildDate>
       
+  <item>
+    <title>Changed Download Links</title>
+    <pubDate>2024-09-02 12:52:53 +0000</pubDate>
+    <link>https://neco2.github.io/blog/Update-to-Download-Links</link>
+    <description>I&apos;ve switched all download links over to catbox. If anyone has set up auto downloads with the RSS feeds, this broke it.&lt;br /&gt;
+The feed might possibly spam new entries too once. I apologize for the inconvenience.
+</description>
+  </item>
+
   <item>
     <title>Completed Ningyou no Asa</title>
     <pubDate>2024-03-24 06:11:10 +0000</pubDate>
@@ -118,17 +127,6 @@ and here the Sunday or Monday after.
     <description>Chapter 13 of Mangaka-sensei to Zashiki Warashi will be delayed by two weeks.&lt;br&gt;
 The next dump is scheduled for the 23rd, and the release on Mangadex and here for
 the 24th or 25th of July.
-</description>
-  </item>
-
-  <item>
-    <title>Picking up Mangaka-sensei to Zashiki Warashi</title>
-    <pubDate>2022-02-12 08:40:40 +0000</pubDate>
-    <link>https://neco2.github.io/blog/Picking-up-Mangaka-sensei-to-Zashiki-Warashi</link>
-    <description>A cute &lt;span class=&quot;spoiler&quot;&gt;love&lt;/span&gt; story of a scruffy mangaka and a
-little zashiki warashi.&lt;br&gt;
-Expected release frequency: One chapter per two weeks.&lt;br&gt;
-Dumps: Saturday or Sunday around 5pm CET on /a/.
 </description>
   </item>
 

@@ -23,6 +23,64 @@
         background:black;
       }
     </style>
+    <script>
+      function zeroPad(number) {
+        let [integer, decimal] = number.split('.');
+        integer = integer.padStart(3, '0');
+        if (decimal) {
+          return `${integer}.${decimal}`;
+        }
+        return integer;
+      }
+    
+      async function downloadURL(uri, short, chapter, dlLink) {
+        const ext = uri.match(/\.[^\.\/]+$/);
+        console.log(short)
+        if (!ext) {
+          return
+        }
+        var name = ""
+        try {
+          chapterMatch = chapter.match(/\d+(\.\d+)?/)
+          name = short + zeroPad(chapterMatch[0])
+        }
+        catch {
+          name = short + "_" + chapter
+        }
+    
+        event.preventDefault();
+        console.log("Downloading " + uri + " as " + name)
+        const oldInnerHTML = dlLink.innerHTML;
+        dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+        const response = await fetch(uri);
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+    
+        const res = new Response(new ReadableStream({
+          async start(controller) {
+            const reader = response.body.getReader();
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              loaded += value.byteLength;
+              dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+              controller.enqueue(value);
+            }
+            controller.close();
+          },
+        }));
+        const blob = await res.blob();
+        const href = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        a.href = "";
+        dlLink.innerHTML = oldInnerHTML;
+      }
+    </script>
     <title>test stuff - neCo</title>
   </head>
   <!--
@@ -73,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-08-26-07-21">
+      <div class="refreshBanner ver4 Aver2024-09-02-13-43">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -89,16 +147,13 @@
   }
 </style>
 <script>
-async function main(uri, name, dlLink) {
-  var ext = uri.match(/\.[^\.]+$/);
+async function downloadURL(uri, name, dlLink) {
+  var ext = uri.match(/\.[^\.\/]+$/);
+  console.log(ext)
   if (!ext) {
-    var a = document.createElement("a");
-    a.download = name + ext;
-    a.target="_blank"
-    a.href = href;
-    a.click();
     return
-  };
+  }
+  event.preventDefault();
   console.log("Downloading " + uri + " as " + name)
   var oldInnerHTML = dlLink.innerHTML;
   dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
@@ -220,7 +275,7 @@ https://neco2.github.io
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 1 | 2022-05-22 13:08:02 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/0fdk5k.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -239,11 +294,10 @@ Chapter 1" >
     &nbsp;&nbsp;MD5: 631bd7d7d9b5361a1300a4288b33dffc
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/0fdk5k.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -263,7 +317,6 @@ Chapter 1" >
     Added: 2022-05-22 13:08:02 +0000<br>
     &nbsp;&nbsp;MD5: 631bd7d7d9b5361a1300a4288b33dffc
   </div>
-
 
                   </span>
                   <small>
@@ -287,7 +340,7 @@ Chapter 1" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 3 | 2022-02-16 09:40:12 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/xsw18g.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -306,11 +359,10 @@ Chapter 3" >
     &nbsp;&nbsp;MD5: 38ae5e00b76f1e797a649081ceeaf378
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/xsw18g.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -330,7 +382,6 @@ Chapter 3" >
     Added: 2022-02-16 09:40:12 +0000<br>
     &nbsp;&nbsp;MD5: 38ae5e00b76f1e797a649081ceeaf378
   </div>
-
 
                   </span>
                   <small>
@@ -354,7 +405,7 @@ Chapter 3" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 4 | 2022-02-27 10:57:35 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/1rxb65.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -373,11 +424,10 @@ Chapter 4" >
     &nbsp;&nbsp;MD5: 8d344f04de7212e2dc8575610ebb97b6
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/1rxb65.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -397,7 +447,6 @@ Chapter 4" >
     Added: 2022-02-27 10:57:35 +0000<br>
     &nbsp;&nbsp;MD5: 8d344f04de7212e2dc8575610ebb97b6
   </div>
-
 
                   </span>
                   <small>
@@ -421,7 +470,7 @@ Chapter 4" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 5 | 2022-03-13 07:38:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/5fs2gt.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -440,11 +489,10 @@ Chapter 5" >
     &nbsp;&nbsp;MD5: c4ff333965a685e0320ed8f7459bd793
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/5fs2gt.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -464,7 +512,6 @@ Chapter 5" >
     Added: 2022-03-13 07:38:09 +0000<br>
     &nbsp;&nbsp;MD5: c4ff333965a685e0320ed8f7459bd793
   </div>
-
 
                   </span>
                   <small>
@@ -488,7 +535,7 @@ Chapter 5" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 6 | 2022-03-27 07:50:25 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/ohpg7l.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -507,11 +554,10 @@ Chapter 6" >
     &nbsp;&nbsp;MD5: 24041d4b017adb7c977db858cd2a056c
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/ohpg7l.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -531,7 +577,6 @@ Chapter 6" >
     Added: 2022-03-27 07:50:25 +0000<br>
     &nbsp;&nbsp;MD5: 24041d4b017adb7c977db858cd2a056c
   </div>
-
 
                   </span>
                   <small>
@@ -555,7 +600,7 @@ Chapter 6" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 7 | 2022-04-10 07:17:41 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/z91enr.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -574,11 +619,10 @@ Chapter 7" >
     &nbsp;&nbsp;MD5: 270ac688545a603fb91d137342909eb9
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/z91enr.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -598,7 +642,6 @@ Chapter 7" >
     Added: 2022-04-10 07:17:41 +0000<br>
     &nbsp;&nbsp;MD5: 270ac688545a603fb91d137342909eb9
   </div>
-
 
                   </span>
                   <small>
@@ -622,7 +665,7 @@ Chapter 7" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 8 | 2023-02-02 11:27:55 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/fqhgARQY#eGPiP_-dQSiPoA0jyu_fFCtZNC_c7CXn5RqjosM7HFU"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/ttegph.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -641,11 +684,10 @@ Chapter 8" >
     &nbsp;&nbsp;MD5: 1f8e29128f128d04a4213c27dc13b81d
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/fqhgARQY#eGPiP_-dQSiPoA0jyu_fFCtZNC_c7CXn5RqjosM7HFU"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/ttegph.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -665,7 +707,6 @@ Chapter 8" >
     Added: 2022-04-23 19:08:53 +0000<br>
     &nbsp;&nbsp;MD5: 1f8e29128f128d04a4213c27dc13b81d
   </div>
-
 
                   </span>
                   <small>
@@ -689,7 +730,7 @@ Chapter 8" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Omake | 2023-02-02 11:27:55 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/rrIVhKJY#FGfz05mp0FTKoicB4t39ee2kh8VXBRj5RO1x7zE49jc"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/juulpx.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -708,11 +749,10 @@ Omake" >
     &nbsp;&nbsp;MD5: eb07f1ace5a90e17b34d518476e73478
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/rrIVhKJY#FGfz05mp0FTKoicB4t39ee2kh8VXBRj5RO1x7zE49jc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/juulpx.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 1, 
@@ -732,7 +772,6 @@ Omake" >
     Added: 2022-04-23 19:25:16 +0000<br>
     &nbsp;&nbsp;MD5: eb07f1ace5a90e17b34d518476e73478
   </div>
-
 
                   </span>
                   <small>
@@ -772,7 +811,7 @@ Omake" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 9 | 2022-05-08 12:10:03 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/7radii.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -791,11 +830,10 @@ Chapter 9" >
     &nbsp;&nbsp;MD5: c0e48415f4ed212d9f536d236a3b21c6
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/7radii.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -815,7 +853,6 @@ Chapter 9" >
     Added: 2022-05-08 12:10:03 +0000<br>
     &nbsp;&nbsp;MD5: c0e48415f4ed212d9f536d236a3b21c6
   </div>
-
 
                   </span>
                   <small>
@@ -839,7 +876,7 @@ Chapter 9" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 10 | 2022-05-29 07:03:45 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/w77du3.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -858,11 +895,10 @@ Chapter 10" >
     &nbsp;&nbsp;MD5: b01153dee5fd2e8379793a2827f4a9ef
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/w77du3.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -882,7 +918,6 @@ Chapter 10" >
     Added: 2022-05-29 07:03:45 +0000<br>
     &nbsp;&nbsp;MD5: b01153dee5fd2e8379793a2827f4a9ef
   </div>
-
 
                   </span>
                   <small>
@@ -906,7 +941,7 @@ Chapter 10" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 11 | 2022-06-12 12:09:34 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/czv4a6.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -925,11 +960,10 @@ Chapter 11" >
     &nbsp;&nbsp;MD5: 4c66c3420a64cfab87aebdeff901ea33
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/czv4a6.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -949,7 +983,6 @@ Chapter 11" >
     Added: 2022-06-12 12:09:34 +0000<br>
     &nbsp;&nbsp;MD5: 4c66c3420a64cfab87aebdeff901ea33
   </div>
-
 
                   </span>
                   <small>
@@ -973,7 +1006,7 @@ Chapter 11" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 12 | 2022-06-26 08:20:15 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/hy9n7q.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -992,11 +1025,10 @@ Chapter 12" >
     &nbsp;&nbsp;MD5: 11ce058a27c7a2f70a7306578afc7761
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/hy9n7q.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -1016,7 +1048,6 @@ Chapter 12" >
     Added: 2022-06-26 08:20:15 +0000<br>
     &nbsp;&nbsp;MD5: 11ce058a27c7a2f70a7306578afc7761
   </div>
-
 
                   </span>
                   <small>
@@ -1040,7 +1071,7 @@ Chapter 12" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 13 | 2022-07-24 06:38:57 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/4qfv3a.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1059,11 +1090,10 @@ Chapter 13" >
     &nbsp;&nbsp;MD5: 128eed0b6cfa77f9bfd23e1d68e02c39
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/4qfv3a.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -1083,7 +1113,6 @@ Chapter 13" >
     Added: 2022-07-24 06:38:57 +0000<br>
     &nbsp;&nbsp;MD5: 128eed0b6cfa77f9bfd23e1d68e02c39
   </div>
-
 
                   </span>
                   <small>
@@ -1107,7 +1136,7 @@ Chapter 13" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 14 | 2023-02-02 11:27:55 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/i2QzmKRL#rtMpey8tTbqPKRPXQ-t4h4zHAvSj2jBoUh3fWStqATA"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/0qiz77.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1126,11 +1155,10 @@ Chapter 14" >
     &nbsp;&nbsp;MD5: 9061fb1a9c678a3131e628233b5830a3
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/i2QzmKRL#rtMpey8tTbqPKRPXQ-t4h4zHAvSj2jBoUh3fWStqATA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/0qiz77.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -1150,7 +1178,6 @@ Chapter 14" >
     Added: 2022-08-07 08:10:40 +0000<br>
     &nbsp;&nbsp;MD5: 9061fb1a9c678a3131e628233b5830a3
   </div>
-
 
                   </span>
                   <small>
@@ -1174,7 +1201,7 @@ Chapter 14" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 15 | 2023-02-02 11:31:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/jn4mAQDa#AqcBiXmd852bLPCA4y0U66RZ45zfNJARfToD3H31M3I"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/45uqei.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1193,11 +1220,10 @@ Chapter 15" >
     &nbsp;&nbsp;MD5: 39ec0cb6067df2b1cd912e12fe86176a
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/jn4mAQDa#AqcBiXmd852bLPCA4y0U66RZ45zfNJARfToD3H31M3I"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/45uqei.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -1217,7 +1243,6 @@ Chapter 15" >
     Added: 2022-08-21 07:27:45 +0000<br>
     &nbsp;&nbsp;MD5: 39ec0cb6067df2b1cd912e12fe86176a
   </div>
-
 
                   </span>
                   <small>
@@ -1241,7 +1266,7 @@ Chapter 15" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Omake | 2022-09-08 16:05:20 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/lbyg59.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1260,11 +1285,10 @@ Omake" >
     &nbsp;&nbsp;MD5: 6b98d6d4ab2bf996089e3814c316c58c
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/lbyg59.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 2, 
@@ -1284,7 +1308,6 @@ Omake" >
     Added: 2022-08-21 07:29:17 +0000<br>
     &nbsp;&nbsp;MD5: 6b98d6d4ab2bf996089e3814c316c58c
   </div>
-
 
                   </span>
                   <small>
@@ -1324,7 +1347,7 @@ Omake" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 16 | 2022-09-04 10:53:56 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!PngTWIqA!Cii7OWUy9AWaJiu0NN6aci5cC7KmLFXJwz43waqM-r0"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/p4h1ai.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1343,11 +1366,10 @@ Chapter 16" >
     &nbsp;&nbsp;MD5: 11af2e02f7c4748a1973a06db946eac4
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!PngTWIqA!Cii7OWUy9AWaJiu0NN6aci5cC7KmLFXJwz43waqM-r0"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/p4h1ai.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1367,7 +1389,6 @@ Chapter 16" >
     Added: 2022-09-04 10:53:56 +0000<br>
     &nbsp;&nbsp;MD5: 11af2e02f7c4748a1973a06db946eac4
   </div>
-
 
                   </span>
                   <small>
@@ -1391,7 +1412,7 @@ Chapter 16" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 17 | 2023-02-02 11:31:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/v2RySaCL#7kdsWTBkDVMOyajF2Y-0bkBH_GGf64uqMKx1zzxKBHo"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/42b253.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1410,11 +1431,10 @@ Chapter 17" >
     &nbsp;&nbsp;MD5: 6c27c8cdda4839276337aeb47ec8604e
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/v2RySaCL#7kdsWTBkDVMOyajF2Y-0bkBH_GGf64uqMKx1zzxKBHo"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/42b253.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1434,7 +1454,6 @@ Chapter 17" >
     Added: 2022-09-18 08:30:44 +0000<br>
     &nbsp;&nbsp;MD5: 6c27c8cdda4839276337aeb47ec8604e
   </div>
-
 
                   </span>
                   <small>
@@ -1458,7 +1477,7 @@ Chapter 17" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 18 | 2023-02-02 11:31:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/PuxiDJaa#tlnsmKnefD_eFngtb6kVj82rKgmD-z8D13bAjpPUjvc"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/f384uo.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1477,11 +1496,10 @@ Chapter 18" >
     &nbsp;&nbsp;MD5: 265323b3c95d6855341da079d2ccaad0
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/PuxiDJaa#tlnsmKnefD_eFngtb6kVj82rKgmD-z8D13bAjpPUjvc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/f384uo.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1501,7 +1519,6 @@ Chapter 18" >
     Added: 2022-10-02 11:58:49 +0000<br>
     &nbsp;&nbsp;MD5: 265323b3c95d6855341da079d2ccaad0
   </div>
-
 
                   </span>
                   <small>
@@ -1525,7 +1542,7 @@ Chapter 18" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 19 | 2022-10-16 07:41:34 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.co.nz/#!byAiRCBT!aXvbxLtsTq4AJttE0wp35jjneJnDxO-eTIgZ_RclHps"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/yp4x06.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1544,11 +1561,10 @@ Chapter 19" >
     &nbsp;&nbsp;MD5: dc004bfc4724d4d322dad2108657999d
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.co.nz/#!byAiRCBT!aXvbxLtsTq4AJttE0wp35jjneJnDxO-eTIgZ_RclHps"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/yp4x06.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1568,7 +1584,6 @@ Chapter 19" >
     Added: 2022-10-16 07:41:34 +0000<br>
     &nbsp;&nbsp;MD5: dc004bfc4724d4d322dad2108657999d
   </div>
-
 
                   </span>
                   <small>
@@ -1592,7 +1607,7 @@ Chapter 19" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 20 | 2022-10-30 07:39:13 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/Lz4jnThR#yNQYUK-kV3yDkcs88ApN7bfITKRP6HnOvx-jO3CNswM"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/he061r.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1611,11 +1626,10 @@ Chapter 20" >
     &nbsp;&nbsp;MD5: 58a0b0330840f8a28a2e75b00ed1eb41
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/Lz4jnThR#yNQYUK-kV3yDkcs88ApN7bfITKRP6HnOvx-jO3CNswM"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/he061r.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1635,7 +1649,6 @@ Chapter 20" >
     Added: 2022-10-30 07:39:13 +0000<br>
     &nbsp;&nbsp;MD5: 58a0b0330840f8a28a2e75b00ed1eb41
   </div>
-
 
                   </span>
                   <small>
@@ -1659,7 +1672,7 @@ Chapter 20" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 21 | 2022-11-27 08:03:13 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/rvhjVLzR#bLQt6HxI4HYE7wmEDQCszocfJhe4FTNOAOFUTSNmZHA"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/dyq0pd.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1678,11 +1691,10 @@ Chapter 21" >
     &nbsp;&nbsp;MD5: 42bd6008c32655896d212f2031423440
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/rvhjVLzR#bLQt6HxI4HYE7wmEDQCszocfJhe4FTNOAOFUTSNmZHA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/dyq0pd.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1702,7 +1714,6 @@ Chapter 21" >
     Added: 2022-11-27 08:03:13 +0000<br>
     &nbsp;&nbsp;MD5: 42bd6008c32655896d212f2031423440
   </div>
-
 
                   </span>
                   <small>
@@ -1726,7 +1737,7 @@ Chapter 21" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Chapter 22 | 2023-02-02 11:31:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/zvBUnQLR#1tbVkWeiSzMhhj7kxqvYW8YPzfxY6QkJ1XhgPwPUQsw"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/scacgr.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1745,11 +1756,10 @@ Chapter 22" >
     &nbsp;&nbsp;MD5: 72dc00b87f96cb25e01e89aa0fd8056e
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/zvBUnQLR#1tbVkWeiSzMhhj7kxqvYW8YPzfxY6QkJ1XhgPwPUQsw"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/scacgr.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1769,7 +1779,6 @@ Chapter 22" >
     Added: 2022-12-11 08:29:56 +0000<br>
     &nbsp;&nbsp;MD5: 72dc00b87f96cb25e01e89aa0fd8056e
   </div>
-
 
                   </span>
                   <small>
@@ -1793,7 +1802,7 @@ Chapter 22" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 3, Omake | 2022-12-25 22:31:49 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/yiBXgSbA#EyAldc7IEagCPcYnqo46IQLcCXfohiocAm0m0yXJXFw"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/ml58us.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1812,11 +1821,10 @@ Omake" >
     &nbsp;&nbsp;MD5: eb4df85a6de7d15954062c9bd8d379d9
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/yiBXgSbA#EyAldc7IEagCPcYnqo46IQLcCXfohiocAm0m0yXJXFw"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/ml58us.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 3, 
@@ -1836,7 +1844,6 @@ Omake" >
     Added: 2022-12-25 22:31:49 +0000<br>
     &nbsp;&nbsp;MD5: eb4df85a6de7d15954062c9bd8d379d9
   </div>
-
 
                   </span>
                   <small>
@@ -1876,7 +1883,7 @@ Omake" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 23 | 2023-02-02 11:31:09 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/yj4AGLKY#7bDuKtuzct-hKMS-SvAHgf_rqUxlnsguxWg6MPepkdA"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/51k5nx.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1895,11 +1902,10 @@ Chapter 23" >
     &nbsp;&nbsp;MD5: e160a0b6218011b09455b0697b2bef8e
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/yj4AGLKY#7bDuKtuzct-hKMS-SvAHgf_rqUxlnsguxWg6MPepkdA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/51k5nx.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -1919,7 +1925,6 @@ Chapter 23" >
     Added: 2023-01-08 11:16:36 +0000<br>
     &nbsp;&nbsp;MD5: e160a0b6218011b09455b0697b2bef8e
   </div>
-
 
                   </span>
                   <small>
@@ -1943,7 +1948,7 @@ Chapter 23" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 24 | 2023-01-22 08:43:12 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/LvxGma5Z#KNZSeTw10eipd4v-mKVjZ26XJ5fjqjuUQZj0AIl2BHM"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/92uhqk.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -1962,11 +1967,10 @@ Chapter 24" >
     &nbsp;&nbsp;MD5: 3885889401a7e260d674e18636543ad0
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/LvxGma5Z#KNZSeTw10eipd4v-mKVjZ26XJ5fjqjuUQZj0AIl2BHM"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/92uhqk.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -1986,7 +1990,6 @@ Chapter 24" >
     Added: 2023-01-22 08:43:12 +0000<br>
     &nbsp;&nbsp;MD5: 3885889401a7e260d674e18636543ad0
   </div>
-
 
                   </span>
                   <small>
@@ -2010,7 +2013,7 @@ Chapter 24" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 25 | 2023-02-05 08:39:40 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/TvJ2lD5J#6tcXK3fRvVTuLZDnd0oOLCC9dMxTLx9sszPF1QHqQmQ"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/6cdtax.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2029,11 +2032,10 @@ Chapter 25" >
     &nbsp;&nbsp;MD5: 18d16131e9c220e598670f002c8d1d96
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/TvJ2lD5J#6tcXK3fRvVTuLZDnd0oOLCC9dMxTLx9sszPF1QHqQmQ"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/6cdtax.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2053,7 +2055,6 @@ Chapter 25" >
     Added: 2023-02-05 08:39:40 +0000<br>
     &nbsp;&nbsp;MD5: 18d16131e9c220e598670f002c8d1d96
   </div>
-
 
                   </span>
                   <small>
@@ -2077,7 +2078,7 @@ Chapter 25" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 26 | 2023-02-19 09:12:26 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/3j5BFb7a#naq9_X2pjrQrOb5IYA5CFqYfkzTTPAD__qGEQBgpdno"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/2xl91p.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2096,11 +2097,10 @@ Chapter 26" >
     &nbsp;&nbsp;MD5: e2586812b3bb2ed34031c23f283b7890
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/3j5BFb7a#naq9_X2pjrQrOb5IYA5CFqYfkzTTPAD__qGEQBgpdno"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/2xl91p.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2120,7 +2120,6 @@ Chapter 26" >
     Added: 2023-02-19 09:12:26 +0000<br>
     &nbsp;&nbsp;MD5: e2586812b3bb2ed34031c23f283b7890
   </div>
-
 
                   </span>
                   <small>
@@ -2144,7 +2143,7 @@ Chapter 26" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 27 | 2023-03-05 09:24:05 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/O2omhASQ#BWMqdHjYmmqnvLoUq_rdlyth56bg8RlNZpSukrUVrnY"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/qz40eq.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2163,11 +2162,10 @@ Chapter 27" >
     &nbsp;&nbsp;MD5: 181b06ac66ff3426850e7449d2f6e031
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/O2omhASQ#BWMqdHjYmmqnvLoUq_rdlyth56bg8RlNZpSukrUVrnY"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/qz40eq.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2187,7 +2185,6 @@ Chapter 27" >
     Added: 2023-03-05 09:05:34 +0000<br>
     &nbsp;&nbsp;MD5: 181b06ac66ff3426850e7449d2f6e031
   </div>
-
 
                   </span>
                   <small>
@@ -2211,7 +2208,7 @@ Chapter 27" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 28 | 2023-03-21 06:57:28 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/3mgSHJgS#W7gPGvWsebUjAUzWztWorAO-er1AChHSgBB6Hvo7qiM"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/0mveim.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2230,11 +2227,10 @@ Chapter 28" >
     &nbsp;&nbsp;MD5: fd28b6387a03bb1c65f9b39ee48b08af
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/3mgSHJgS#W7gPGvWsebUjAUzWztWorAO-er1AChHSgBB6Hvo7qiM"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/0mveim.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2254,7 +2250,6 @@ Chapter 28" >
     Added: 2023-03-21 06:57:28 +0000<br>
     &nbsp;&nbsp;MD5: fd28b6387a03bb1c65f9b39ee48b08af
   </div>
-
 
                   </span>
                   <small>
@@ -2278,7 +2273,7 @@ Chapter 28" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Chapter 29 | 2023-04-02 06:48:34 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/6v4F2DQY#JlFsCzeUidp_7f-SiPf9ijTfIRavLn23lP_OGnkwDjU"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/yu8ogn.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2297,11 +2292,10 @@ Chapter 29" >
     &nbsp;&nbsp;MD5: 71c51641ca0f0b99d676ff0b15cf4d7e
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/6v4F2DQY#JlFsCzeUidp_7f-SiPf9ijTfIRavLn23lP_OGnkwDjU"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/yu8ogn.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2321,7 +2315,6 @@ Chapter 29" >
     Added: 2023-04-02 06:48:34 +0000<br>
     &nbsp;&nbsp;MD5: 71c51641ca0f0b99d676ff0b15cf4d7e
   </div>
-
 
                   </span>
                   <small>
@@ -2345,7 +2338,7 @@ Chapter 29" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 4, Omake | 2023-04-02 06:54:13 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/37hhiTJQ#pJDxK2BudDGjxdWwkQmFvCMnZ0kSzKW8xs3pswIU3po"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/28wtbd.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2364,11 +2357,10 @@ Omake" >
     &nbsp;&nbsp;MD5: 824d188158f594f9a6ef945d4d200e90
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/37hhiTJQ#pJDxK2BudDGjxdWwkQmFvCMnZ0kSzKW8xs3pswIU3po"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/28wtbd.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Volume 4, 
@@ -2388,7 +2380,6 @@ Omake" >
     Added: 2023-04-02 06:54:13 +0000<br>
     &nbsp;&nbsp;MD5: 824d188158f594f9a6ef945d4d200e90
   </div>
-
 
                   </span>
                   <small>
@@ -2435,7 +2426,7 @@ Omake" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 6;" title="Afterstory, Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi | 2023-07-02 06:40:41 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/2vh3hDQb#WtB9tJlWVTVTnfRK2cZa9WO9ZJ5TzFe8qW0uG68z2wE"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/9qq7gq.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2454,11 +2445,10 @@ Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi" >
     &nbsp;&nbsp;MD5: eb94f576ef7be8c5f10473c8a776e592
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/2vh3hDQb#WtB9tJlWVTVTnfRK2cZa9WO9ZJ5TzFe8qW0uG68z2wE"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/9qq7gq.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Afterstory, 
@@ -2478,7 +2468,6 @@ Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi" >
     Added: 2023-07-02 06:40:41 +0000<br>
     &nbsp;&nbsp;MD5: eb94f576ef7be8c5f10473c8a776e592
   </div>
-
 
                   </span>
                   <small>
@@ -2502,7 +2491,7 @@ Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 4;" title="Afterstory, Sakka-san to Zashiki Warashi ga Kurasu Hon | 2023-05-14 04:49:15 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/zjpS3KTB#19i8NHORsxKpXHDgf-lVWYQwkCjd0SOjfOkM7gwkrYQ"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/zk0gkf.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2521,11 +2510,10 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon" >
     &nbsp;&nbsp;MD5: 882de0985e33daf700711cfd04186ec1
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/zjpS3KTB#19i8NHORsxKpXHDgf-lVWYQwkCjd0SOjfOkM7gwkrYQ"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/zk0gkf.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Afterstory, 
@@ -2545,7 +2533,6 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon" >
     Added: 2023-05-14 04:49:15 +0000<br>
     &nbsp;&nbsp;MD5: 882de0985e33daf700711cfd04186ec1
   </div>
-
 
                   </span>
                   <small>
@@ -2569,7 +2556,7 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 4;" title="Afterstory, Sakka-san to Zashiki Warashi ga Kurasu Hon 2 | 2023-07-23 08:44:16 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/77I2WTxK#MoMdVOxD_IAvMGX10WEjRWpGwdK--cAzt0_Pf_KpgvM"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/6xya2e.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2588,11 +2575,10 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 2" >
     &nbsp;&nbsp;MD5: 460e749e5445868c92d391dfbe24b7ce
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/77I2WTxK#MoMdVOxD_IAvMGX10WEjRWpGwdK--cAzt0_Pf_KpgvM"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/6xya2e.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Afterstory, 
@@ -2612,7 +2598,6 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 2" >
     Added: 2023-07-23 08:44:16 +0000<br>
     &nbsp;&nbsp;MD5: 460e749e5445868c92d391dfbe24b7ce
   </div>
-
 
                   </span>
                   <small>
@@ -2636,7 +2621,7 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 2" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 4;" title="Afterstory, Sakka-san to Zashiki Warashi ga Kurasu Hon 3 | 2023-09-24 07:08:38 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/jiAHSKDR#1yo6jNEfmBHLmn6ZDP-oyqgHX7ZDJ_4JCAMX32EG4eg"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/0b4gd4.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2655,11 +2640,10 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 3" >
     &nbsp;&nbsp;MD5: cb8b64a0592488c0f80bfc06f4385fcf
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/jiAHSKDR#1yo6jNEfmBHLmn6ZDP-oyqgHX7ZDJ_4JCAMX32EG4eg"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/0b4gd4.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Afterstory, 
@@ -2679,7 +2663,6 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 3" >
     Added: 2023-09-24 07:08:38 +0000<br>
     &nbsp;&nbsp;MD5: cb8b64a0592488c0f80bfc06f4385fcf
   </div>
-
 
                   </span>
                   <small>
@@ -2703,7 +2686,7 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 3" >
               
               <div class="chapterEntry">
                 <span class="chapterTitleShort chapterDownload" style="grid-column: span 4;" title="Afterstory, Sakka-san to Zashiki Warashi ga Kurasu Hon 4 | 2024-03-17 12:59:00 +0000" class="chapterDownload">
-                  <a target="_self" class="dl_link" href="https://mega.nz/file/WiIQTAIA#UgznCBcQZJ_mgZtk76OX1DYFI_-9RIqaqC52UjaPXdk"
+                  <a target="_self" class="dl_link" href="https://files.catbox.moe/ey9l86.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 
@@ -2722,11 +2705,10 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 4" >
     &nbsp;&nbsp;MD5: 843aef6e743137cea90db44dafb2b81f
   </div>
 
-
                 </span>
                 <div class="chapterDetails">
                   <span class="chapterTitleLong">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/WiIQTAIA#UgznCBcQZJ_mgZtk76OX1DYFI_-9RIqaqC52UjaPXdk"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/ey9l86.zip"
 _download_="Mangaka-sensei_to_Zashiki_Warashi
 
 Afterstory, 
@@ -2746,7 +2728,6 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 4" >
     Added: 2024-03-17 12:59:00 +0000<br>
     &nbsp;&nbsp;MD5: 843aef6e743137cea90db44dafb2b81f
   </div>
-
 
                   </span>
                   <small>
@@ -2791,6 +2772,8 @@ Sakka-san to Zashiki Warashi ga Kurasu Hon 4" >
 <hr>
 
 
+
+  
 
   
 
@@ -3118,8 +3101,16 @@ label:checked {
 
   
     
+
+
+  
+    
       <option value="/blog/delays">Blog: Delays</option>
 
+    
+
+
+  
     
 
 
@@ -3136,27 +3127,23 @@ label:checked {
 
   
     
-
-
-  
-    
-      <option value="/resources/">Resource: Resources</option>
-
-    
-
-
-  
-    
-
-
-  
-    
       <option value="/feeds/">Feed: Feeds</option>
 
     
 
 
   
+    
+
+
+  
+    
+
+
+  
+    
+      <option value="/resources/">Resource: Resources</option>
+
     
 
 
@@ -3213,6 +3200,10 @@ label:checked {
     
       <option value="/feeds/rss-chapters.xml">Feed: All Chapter Updates</option>
 
+    
+
+
+  
     
 
 
@@ -3313,17 +3304,23 @@ javascript:( function() { var getFavicon = function(){ var favicon = undefined; 
 <a href="javascript:( function(){console.log('aaaaaaaaaa')} )();" target="_self">console.log</a><br>
 
 
-<a href="javascript:(function(){})();"onClick="javascript:main('https://files.catbox.moe/nbfayh.jpg','test',this);" target="_self">download img</a><br>
+<a href="javascript:(function(){})();"onClick="javascript:downloadURL('https://files.catbox.moe/nbfayh.jpg','test',this);" target="_self">download img</a><br>
 <a onClick="javascript:downloadURI('https://files.catbox.moe/46h5ge.zip','test.zip',this);" target="_self">download zip</a><br>
 
 <br>
-THIS ONE <a href="javascript:(function(){})();"onClick="javascript:main('https://files.catbox.moe/46h5ge.zip','test',this);" target="_self">download test</a><br>
+THIS ONE <a href="https://litter.catbox.moe/ulamtr.zip" onClick="javascript:downloadURL('https://litter.catbox.moe/ulamtr.zip','name',this);" target="_self">download test</a><br>
+https://mega.nz/file/H3wmXAID#s0aWYlN8TmaWsJ8YEAkTv_SdWFNV5w3hnAbuxA8XNdI
+THIS ONE <a href="https://mega.nz/file/H3wmXAID#s0aWYlN8TmaWsJ8YEAkTv_SdWFNV5w3hnAbuxA8XNdI" onClick="javascript:downloadURL('https://mega.nz/file/H3wmXAID#s0aWYlN8TmaWsJ8YEAkTv_SdWFNV5w3hnAbuxA8XNdI','name',this);" target="_self">download test</a><br>
 
 <!-- https://mega.nz/file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0 -->
+
+<a href="https://litter.catbox.moe/ulamtr.zip" download="AAAAAAAAAAAA" target="_self">download test AAAAAAAAA</a><br>
+
 
 
 <!--  -->
 
+<p>idStr:81f171f85bfa5bd2dac356d8536ed79a</p>
 <p>idStr:aa66df91e7b2ef89337f7977259c77e0</p>
 <p>idStr:c520e6114ed0da5e7014cba21a5439a7</p>
 <p>idStr:5d0ea6d386cf1edd7065292b05c3e333</p>
@@ -3421,56 +3418,9 @@ THIS ONE <a href="javascript:(function(){})();"onClick="javascript:main('https:/
 <hr>
 aaaabr <br>
 
-<p>idStr:e1e42b8c879d036352ee699b8219372f</p>
 
 
-2022-02-08 19:36:43 +0000
 
-  previous
-
-  name
-
-  path
-
-  output
-
-  date
-
-  id
-
-  url
-
-  relative_path
-
-  collection
-
-  title
-
-  categories
-
-  tags
-
-  content
-
-  excerpt
-
-  next
-
-  draft
-
-  layout
-
-  volume
-
-  chapter
-
-  file
-
-  permalink
-
-  slug
-
-  ext
 
 
 
@@ -3515,15 +3465,19 @@ bbbbbbbb
 
 
 
-  About this Blog<br>
+  Changed Download Links<br>
 
-  Mangaka-sensei to Zashiki Warashi Chapter 21 Delayed by Two Weeks<br>
+  Picking up Mangaka-sensei to Zashiki Warashi<br>
 
   Mangaka-sensei to Zashiki Warashi Chapter 13 Delay<br>
 
-  Completed Mangaka-sensei to Zashiki Warashi<br>
+  Mangaka-sensei to Zashiki Warashi Chapter 21 Delayed by Two Weeks<br>
 
-  Picking up Mangaka-sensei to Zashiki Warashi<br>
+  (Closed) neCo is currently accepting suggestions for a new scanlation project<br>
+
+  About this Blog<br>
+
+  Completed Mangaka-sensei to Zashiki Warashi<br>
 
   Completed Ningyou no Asa<br>
 
@@ -3531,19 +3485,23 @@ bbbbbbbb
 
   2023-09-02 Dump Delayed for 3 weeks<br>
 
-  (Closed) neCo is currently accepting suggestions for a new scanlation project<br>
-
   Hiatus until mid-February?<br>
 
   Ningyou no Asa Author Still Alive<br>
+
+  2022-09-08-1662653486960510700-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
 
   2022-08-21-1661084845089033400-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
 
   2022-12-26-1672044273129707500-Mangaka-sensei to Zashiki Warashi - Volume 3 Batch<br>
 
-  2022-09-08-1662653486960510700-Mangaka-sensei to Zashiki Warashi - Volume 2 Batch<br>
-
   2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10<br>
+
+  2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1<br>
+
+  2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1<br>
+
+  2024-08-12-1723449428772562500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 1<br>
 
   2023-05-14-1684040050580901300-Ningyou no Asa - Volume 1 Chapter 1<br>
 
@@ -3551,17 +3509,11 @@ bbbbbbbb
 
   2023-09-07-1694038513631855800-Oichii tte Yutte yo - Volume 1 Chapter 1<br>
 
-  2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1<br>
-
-  2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1<br>
-
-  2024-08-12-1723449428772562500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 1<br>
-
-  2024-03-30-1711790223828696600-Ningyou no Asa - Volume 2 Chapter 10<br>
+  2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10<br>
 
   2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10<br>
 
-  2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10<br>
+  2024-03-30-1711790223828696600-Ningyou no Asa - Volume 2 Chapter 10<br>
 
   2024-03-30-1711790223829697700-Ningyou no Asa - Volume 2 Chapter 10.5<br>
 
@@ -3575,33 +3527,33 @@ bbbbbbbb
 
   2022-08-07-1659859840183345300-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 14<br>
 
-  2023-02-02-1675337469909570500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 15<br>
-
   2022-08-21-1661066865685418000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 15<br>
+
+  2023-02-02-1675337469909570500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 15<br>
 
   2022-09-04-1662288836788927500-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 16<br>
 
-  2022-09-18-1663489844169265700-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17<br>
-
   2023-02-02-1675337469915563800-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17<br>
 
-  2023-02-02-1675337469916562900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18<br>
+  2022-09-18-1663489844169265700-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17<br>
 
   2022-10-02-1664711929290846500-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18<br>
 
+  2023-02-02-1675337469916562900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18<br>
+
   2022-10-16-1665906094322238000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 19<br>
+
+  2023-09-07-1694038513632857400-Oichii tte Yutte yo - Volume 1 Chapter 2<br>
+
+  2024-08-19-1724055118917375200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 2<br>
+
+  2023-09-04-1693807323054301600-Oichii tte Yutte yo - Volume 1 Chapter 2<br>
 
   2023-06-11-1686467390107609900-Ningyou no Asa - Volume 1 Chapter 2<br>
 
   2023-06-11-1686505594679249200-Ningyou no Asa - Volume 1 Chapter 2<br>
 
-  2023-09-07-1694038513632857400-Oichii tte Yutte yo - Volume 1 Chapter 2<br>
-
   2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2<br>
-
-  2024-08-19-1724055118917375200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 2<br>
-
-  2023-09-04-1693807323054301600-Oichii tte Yutte yo - Volume 1 Chapter 2<br>
 
   2022-10-30-1667115553215320000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 20<br>
 
@@ -3611,9 +3563,9 @@ bbbbbbbb
 
   2023-02-02-1675337469928549900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 22<br>
 
-  2023-01-08-1673176596182206800-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23<br>
-
   2023-02-02-1675337469934544000-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23<br>
+
+  2023-01-08-1673176596182206800-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23<br>
 
   2023-01-22-1674376992611230200-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 24<br>
 
@@ -3629,53 +3581,57 @@ bbbbbbbb
 
   2023-04-02-1680418114960504100-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 29<br>
 
+  2023-09-18-1695014503996708700-Oichii tte Yutte yo - Volume 1 Chapter 3<br>
+
   2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3<br>
 
   2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3<br>
 
-  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
-
-  2023-09-18-1695014503996708700-Oichii tte Yutte yo - Volume 1 Chapter 3<br>
-
   2023-07-02-1688280041958282800-Ningyou no Asa - Volume 1 Chapter 3<br>
 
-  2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4<br>
+  2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3<br>
 
   2023-10-02-1696275292937047900-Oichii tte Yutte yo - Volume 1 Chapter 4<br>
-
-  2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4<br>
 
   2023-07-23-1690102207406313400-Ningyou no Asa - Volume 1 Chapter 4<br>
 
   2023-10-02-1696224508307168700-Oichii tte Yutte yo - Volume 1 Chapter 4<br>
 
+  2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4<br>
+
+  2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4<br>
+
+  2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4<br>
+
   2023-08-13-1691932171115577300-Ningyou no Asa - Volume 1 Chapter 4.5<br>
 
   2023-09-24-1695539318359295300-Ningyou no Asa - Volume 2 Chapter 5<br>
 
-  2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5<br>
+  2023-10-30-1698697285154160400-Oichii tte Yutte yo - Volume 2 Chapter 5<br>
 
   2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5<br>
 
-  2023-10-30-1698697285154160400-Oichii tte Yutte yo - Volume 2 Chapter 5<br>
-
-  2023-11-13-1699905526208325700-Oichii tte Yutte yo - Volume 2 Chapter 6<br>
-
-  2023-11-13-1699858158633487700-Oichii tte Yutte yo - Volume 2 Chapter 6<br>
+  2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5<br>
 
   2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6<br>
 
+  2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6<br>
+
+  2023-11-13-1699905526208325700-Oichii tte Yutte yo - Volume 2 Chapter 6<br>
+
   2023-10-15-1697368470476939400-Ningyou no Asa - Volume 2 Chapter 6<br>
 
-  2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6<br>
+  2023-11-13-1699858158633487700-Oichii tte Yutte yo - Volume 2 Chapter 6<br>
+
+  2023-12-11-1702305988286826600-Oichii tte Yutte yo - Volume 2 Chapter 7<br>
 
   2024-03-17-1710680448700397200-Ningyou no Asa - Volume 2 Chapter 7<br>
 
-  2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7<br>
-
   2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7<br>
 
-  2023-12-11-1702305988286826600-Oichii tte Yutte yo - Volume 2 Chapter 7<br>
+  2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7<br>
+
+  2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8<br>
 
   2024-03-18-1710785791709527800-Ningyou no Asa - Volume 2 Chapter 8<br>
 
@@ -3683,21 +3639,19 @@ bbbbbbbb
 
   2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8<br>
 
+  2024-03-17-1710680448701397200-Ningyou no Asa - Volume 2 Chapter 8<br>
+
   2023-02-02-1675337275039101700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8<br>
 
-  2022-04-23-1650740933027129000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8<br>
-
-  2024-03-17-1710680448701397200-Ningyou no Asa - Volume 2 Chapter 8<br>
+  2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9<br>
 
   2024-03-17-1710680448705401600-Ningyou no Asa - Volume 2 Chapter 9<br>
 
   2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9<br>
 
-  2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9<br>
-
   2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki<br>
 
-  2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
+  2023-02-02-1675337275040100500-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
 
   2023-04-02-1680418453616941900-Mangaka-sensei to Zashiki Warashi - Volume 4 Omake<br>
 
@@ -3705,9 +3659,9 @@ bbbbbbbb
 
   2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
 
-  2022-08-21-1661066957006675400-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
+  2022-04-23-1650741916637106900-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
 
-  2023-02-02-1675337275040100500-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake<br>
+  2022-08-21-1661066957006675400-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake<br>
 
   2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists<br>
 
@@ -3724,6 +3678,11 @@ bbbbbbbb
 
 <br>
       </div>
+      <noscript>
+        <div>
+          JavaScript is unfortunately required to download chapters with the correct file-names.
+        </div>
+      </noscript>
 
       </div>
       <footer id="footer">
@@ -3732,7 +3691,7 @@ bbbbbbbb
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-08-26 07:21</span>
+          <span style="font-size:8px;">2024-09-02 13:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

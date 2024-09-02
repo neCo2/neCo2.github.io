@@ -23,6 +23,64 @@
         background:black;
       }
     </style>
+    <script>
+      function zeroPad(number) {
+        let [integer, decimal] = number.split('.');
+        integer = integer.padStart(3, '0');
+        if (decimal) {
+          return `${integer}.${decimal}`;
+        }
+        return integer;
+      }
+    
+      async function downloadURL(uri, short, chapter, dlLink) {
+        const ext = uri.match(/\.[^\.\/]+$/);
+        console.log(short)
+        if (!ext) {
+          return
+        }
+        var name = ""
+        try {
+          chapterMatch = chapter.match(/\d+(\.\d+)?/)
+          name = short + zeroPad(chapterMatch[0])
+        }
+        catch {
+          name = short + "_" + chapter
+        }
+    
+        event.preventDefault();
+        console.log("Downloading " + uri + " as " + name)
+        const oldInnerHTML = dlLink.innerHTML;
+        dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+        const response = await fetch(uri);
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+    
+        const res = new Response(new ReadableStream({
+          async start(controller) {
+            const reader = response.body.getReader();
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              loaded += value.byteLength;
+              dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+              controller.enqueue(value);
+            }
+            controller.close();
+          },
+        }));
+        const blob = await res.blob();
+        const href = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        a.href = "";
+        dlLink.innerHTML = oldInnerHTML;
+      }
+    </script>
     <title>Kitsune no Ongaeshi! - neCo</title>
   </head>
   <!--
@@ -73,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-08-26-07-21">
+      <div class="refreshBanner ver4 Aver2024-09-02-13-43">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -93,8 +151,7 @@
   
   <a href="neco2.github.io/">neco2.github.io/</a>
 
- -->
-
+-->
 
 <div class="seriesContent">
 
@@ -201,6 +258,7 @@ I’d tell him myself, but I’m scared of social media and interacting with peo
 <div id="volumes">
   
     
+    
       
         <div class="volumeDiv" style="width:75%">
           <span class="volumeHeader">&nbsp;Volume 1</span>
@@ -235,50 +293,54 @@ I’d tell him myself, but I’m scared of social media and interacting with peo
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 1 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/gh8l6x.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 1" >
+Chapter 1"
+onClick="javascript:downloadURL('https://files.catbox.moe/gh8l6x.zip','KitsuneNoOngaeshi','Chapter 1',this);">
 
+  
+  
+  
+  
+  
+    Chapter 1
+  
 
-
-
-
-  Chapter 1
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/gh8l6x.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 1" >
+Chapter 1"
+onClick="javascript:downloadURL('https://files.catbox.moe/gh8l6x.zip','KitsuneNoOngaeshi','Chapter 1',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 1
+  
 
-
-
-
-
-  Chapter 1
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -302,50 +364,54 @@ Chapter 1" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 2 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/o55bq8.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 2" >
+Chapter 2"
+onClick="javascript:downloadURL('https://files.catbox.moe/o55bq8.zip','KitsuneNoOngaeshi','Chapter 2',this);">
 
+  
+  
+  
+  
+  
+    Chapter 2
+  
 
-
-
-
-  Chapter 2
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/o55bq8.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 2" >
+Chapter 2"
+onClick="javascript:downloadURL('https://files.catbox.moe/o55bq8.zip','KitsuneNoOngaeshi','Chapter 2',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 2
+  
 
-
-
-
-
-  Chapter 2
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -369,50 +435,54 @@ Chapter 2" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 3 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/pivk2b.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 3" >
+Chapter 3"
+onClick="javascript:downloadURL('https://files.catbox.moe/pivk2b.zip','KitsuneNoOngaeshi','Chapter 3',this);">
 
+  
+  
+  
+  
+  
+    Chapter 3
+  
 
-
-
-
-  Chapter 3
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/pivk2b.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 3" >
+Chapter 3"
+onClick="javascript:downloadURL('https://files.catbox.moe/pivk2b.zip','KitsuneNoOngaeshi','Chapter 3',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 3
+  
 
-
-
-
-
-  Chapter 3
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -436,50 +506,54 @@ Chapter 3" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 4 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/kutf2z.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 4" >
+Chapter 4"
+onClick="javascript:downloadURL('https://files.catbox.moe/kutf2z.zip','KitsuneNoOngaeshi','Chapter 4',this);">
 
+  
+  
+  
+  
+  
+    Chapter 4
+  
 
-
-
-
-  Chapter 4
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/kutf2z.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 4" >
+Chapter 4"
+onClick="javascript:downloadURL('https://files.catbox.moe/kutf2z.zip','KitsuneNoOngaeshi','Chapter 4',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 4
+  
 
-
-
-
-
-  Chapter 4
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -503,50 +577,54 @@ Chapter 4" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 5 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/l8rx3t.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 5" >
+Chapter 5"
+onClick="javascript:downloadURL('https://files.catbox.moe/l8rx3t.zip','KitsuneNoOngaeshi','Chapter 5',this);">
 
+  
+  
+  
+  
+  
+    Chapter 5
+  
 
-
-
-
-  Chapter 5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/l8rx3t.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 5" >
+Chapter 5"
+onClick="javascript:downloadURL('https://files.catbox.moe/l8rx3t.zip','KitsuneNoOngaeshi','Chapter 5',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 5
+  
 
-
-
-
-
-  Chapter 5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -570,50 +648,54 @@ Chapter 5" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 6 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/4g7kks.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 6" >
+Chapter 6"
+onClick="javascript:downloadURL('https://files.catbox.moe/4g7kks.zip','KitsuneNoOngaeshi','Chapter 6',this);">
 
+  
+  
+  
+  
+  
+    Chapter 6
+  
 
-
-
-
-  Chapter 6
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/4g7kks.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 6" >
+Chapter 6"
+onClick="javascript:downloadURL('https://files.catbox.moe/4g7kks.zip','KitsuneNoOngaeshi','Chapter 6',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 6
+  
 
-
-
-
-
-  Chapter 6
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -637,50 +719,54 @@ Chapter 6" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 7 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/4kn57y.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 7" >
+Chapter 7"
+onClick="javascript:downloadURL('https://files.catbox.moe/4kn57y.zip','KitsuneNoOngaeshi','Chapter 7',this);">
 
+  
+  
+  
+  
+  
+    Chapter 7
+  
 
-
-
-
-  Chapter 7
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/4kn57y.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 7" >
+Chapter 7"
+onClick="javascript:downloadURL('https://files.catbox.moe/4kn57y.zip','KitsuneNoOngaeshi','Chapter 7',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 7
+  
 
-
-
-
-
-  Chapter 7
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -704,50 +790,54 @@ Chapter 7" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 8 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/bv6rwn.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 8" >
+Chapter 8"
+onClick="javascript:downloadURL('https://files.catbox.moe/bv6rwn.zip','KitsuneNoOngaeshi','Chapter 8',this);">
 
+  
+  
+  
+  
+  
+    Chapter 8
+  
 
-
-
-
-  Chapter 8
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/bv6rwn.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 8" >
+Chapter 8"
+onClick="javascript:downloadURL('https://files.catbox.moe/bv6rwn.zip','KitsuneNoOngaeshi','Chapter 8',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 8
+  
 
-
-
-
-
-  Chapter 8
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -771,50 +861,54 @@ Chapter 8" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 9 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/paskj2.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 9" >
+Chapter 9"
+onClick="javascript:downloadURL('https://files.catbox.moe/paskj2.zip','KitsuneNoOngaeshi','Chapter 9',this);">
 
+  
+  
+  
+  
+  
+    Chapter 9
+  
 
-
-
-
-  Chapter 9
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/paskj2.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 9" >
+Chapter 9"
+onClick="javascript:downloadURL('https://files.catbox.moe/paskj2.zip','KitsuneNoOngaeshi','Chapter 9',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 9
+  
 
-
-
-
-
-  Chapter 9
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -838,50 +932,54 @@ Chapter 9" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 10 | 2022-02-08 19:36:43 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/5xz1st.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 
-Chapter 10" >
+Chapter 10"
+onClick="javascript:downloadURL('https://files.catbox.moe/5xz1st.zip','KitsuneNoOngaeshi','Chapter 10',this);">
 
+  
+  
+  
+  
+  
+    Chapter 10
+  
 
-
-
-
-  Chapter 10
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/5xz1st.zip"
 _download_="Kitsune_no_Ongaeshi!
 
 Volume 1, 
-Chapter 10" >
+Chapter 10"
+onClick="javascript:downloadURL('https://files.catbox.moe/5xz1st.zip','KitsuneNoOngaeshi','Chapter 10',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 10
+  
 
-
-
-
-
-  Chapter 10
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2022-02-08 19:36:43 +0000
     
   </div>
-
 
                     </span>
                     <small>
@@ -906,6 +1004,11 @@ Chapter 10" >
 </div>
 <br>
       </div>
+      <noscript>
+        <div>
+          JavaScript is unfortunately required to download chapters with the correct file-names.
+        </div>
+      </noscript>
 
       </div>
       <footer id="footer">
@@ -914,7 +1017,7 @@ Chapter 10" >
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-08-26 07:21</span>
+          <span style="font-size:8px;">2024-09-02 13:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

@@ -23,6 +23,64 @@
         background:black;
       }
     </style>
+    <script>
+      function zeroPad(number) {
+        let [integer, decimal] = number.split('.');
+        integer = integer.padStart(3, '0');
+        if (decimal) {
+          return `${integer}.${decimal}`;
+        }
+        return integer;
+      }
+    
+      async function downloadURL(uri, short, chapter, dlLink) {
+        const ext = uri.match(/\.[^\.\/]+$/);
+        console.log(short)
+        if (!ext) {
+          return
+        }
+        var name = ""
+        try {
+          chapterMatch = chapter.match(/\d+(\.\d+)?/)
+          name = short + zeroPad(chapterMatch[0])
+        }
+        catch {
+          name = short + "_" + chapter
+        }
+    
+        event.preventDefault();
+        console.log("Downloading " + uri + " as " + name)
+        const oldInnerHTML = dlLink.innerHTML;
+        dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+        const response = await fetch(uri);
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+    
+        const res = new Response(new ReadableStream({
+          async start(controller) {
+            const reader = response.body.getReader();
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              loaded += value.byteLength;
+              dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+              controller.enqueue(value);
+            }
+            controller.close();
+          },
+        }));
+        const blob = await res.blob();
+        const href = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        a.href = "";
+        dlLink.innerHTML = oldInnerHTML;
+      }
+    </script>
     <title>debug - neCo</title>
   </head>
   <!--
@@ -73,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-08-26-07-21">
+      <div class="refreshBanner ver4 Aver2024-09-02-13-43">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -89,7 +147,7 @@
   }
 </style>
 <span style='font-size: 80%;font-family: "Courier New", monospace;'>
-  last built: 2024-08-26 07:21:48 +0000<br><br>
+  last built: 2024-09-02 13:43:29 +0000<br><br>
   Yahaha! You found me!
 
   <h2>static files</h2>
@@ -316,6 +374,16 @@
   
     <a class="nonStyled" target="_self" href="/assets/resources/moire.webm">/assets/resources/moire.webm</a> <br>
   
+    <a class="nonStyled" target="_self" href="/assets/resources/purchase_01.png">/assets/resources/purchase_01.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/resources/purchase_02.png">/assets/resources/purchase_02.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/resources/purchase_03.png">/assets/resources/purchase_03.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/resources/purchase_04.png">/assets/resources/purchase_04.png</a> <br>
+  
+    <a class="nonStyled" target="_self" href="/assets/resources/purchase_05.png">/assets/resources/purchase_05.png</a> <br>
+  
     <a class="nonStyled" target="_self" href="/assets/suggestions/akuyome.jpg">/assets/suggestions/akuyome.jpg</a> <br>
   
     <a class="nonStyled" target="_self" href="/assets/suggestions/cckk.jpg">/assets/suggestions/cckk.jpg</a> <br>
@@ -331,8 +399,6 @@
     <a class="nonStyled" target="_self" href="/assets/suggestions/youjinbou.jpg">/assets/suggestions/youjinbou.jpg</a> <br>
   
     <a class="nonStyled" target="_self" href="/assets/sun.svg">/assets/sun.svg</a> <br>
-  
-    <a class="nonStyled" target="_self" href="/test2.HTML">/test2.HTML</a> <br>
   
   <h2>pages</h2>
   
@@ -358,6 +424,8 @@
   
     <a class="nonStyled" target="_self" href="/feeds/all.xml">All Posts</a><br>
   
+    <a class="nonStyled" target="_self" href="/bw-guide-backup.html">Backup of the BookWalker Guide</a><br>
+  
     <a class="nonStyled" target="_self" href="/contact.html">Contact</a><br>
   
     <a class="nonStyled" target="_self" href="/debug.html">debug</a><br>
@@ -366,17 +434,17 @@
   
     <a class="nonStyled" target="_self" href="/">Home</a><br>
   
+    <a class="nonStyled" target="_self" href="/assets/fun/zw/">ZW Fun</a><br>
+  
     <a class="nonStyled" target="_self" href="/blog/">Blog</a><br>
+  
+    <a class="nonStyled" target="_self" href="/feeds/">Feeds</a><br>
+  
+    <a class="nonStyled" target="_self" href="/chapters/">Chapters</a><br>
   
     <a class="nonStyled" target="_self" href="/assets/fun/mahjong/">Yaku</a><br>
   
     <a class="nonStyled" target="_self" href="/resources/">Resources</a><br>
-  
-    <a class="nonStyled" target="_self" href="/chapters/">Chapters</a><br>
-  
-    <a class="nonStyled" target="_self" href="/feeds/">Feeds</a><br>
-  
-    <a class="nonStyled" target="_self" href="/assets/fun/zw/">ZW Fun</a><br>
   
     <a class="nonStyled" target="_self" href="/feeds/rss-Barikios%20Stuff.xml">Barikios_Stuff Chapters</a><br>
   
@@ -402,13 +470,15 @@
   
     <a class="nonStyled" target="_self" href="/test.html">test stuff</a><br>
   
+    <a class="nonStyled" target="_self" href="/test2.HTML">test stuff</a><br>
+  
     <a class="nonStyled" target="_self" href="/translations/">Translations</a><br>
   
     <a class="nonStyled" target="_self" href="/feed.xml"></a><br>
   
   <hr>
   <h2>data</h2>
-  [{"title"=>"Shinyuu no Musume ni Semarare Komatteimasu", "short"=>"SMS", "native"=>"親友の娘に迫られ困っています", "mu"=>nil, "img"=>"sms.jpg", "author"=>"Mimoto Koyori", "authorNative"=>"三本コヨリ", "type"=>"Series", "socials"=>[{"Twitter"=>"https://x.com/mantaaan"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/gp/product/B08P75MKB9?storeType=ebooks", "BookWalker"=>"https://bookwalker.jp/series/238946/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E8%A6%AA%E5%8F%8B%E3%81%AE%E5%A8%98%E3%81%AB%E8%BF%AB%E3%82%89%E3%82%8C%E5%9B%B0%E3%81%A3%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99&fclanguages=ja", "Fuz"=>"https://comic-fuz.com/manga/1899"}], "publication"=>"Completed", "translation"=>"Ongoing", "showchapter"=>true, "host"=>nil, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"file/f7wVWJjb#se_FOaz9eq_IBE2ApEI69eM8Q6DJj7XsQDnFTH4GGcM", "Chapter 2"=>"file/n6ZFQAyR#lqsNwWelBPD8yhXol3-8vlp4z8I8InCXs5eb1b_YYJc", "Chapter 3"=>"file/6yhAwBJK#onOjDR4g1Umg_PMEq5AgaJj8dMoZQn3dKs7hF70ttoY"}]}]}, {"title"=>"Ningyou no Asa", "short"=>"NnA", "native"=>"人形のアサ", "mu"=>nil, "img"=>"nna.jpg", "author"=>"Mokuzai Sekizai", "authorNative"=>"木材石材", "type"=>"Series", "socials"=>[{"DLsite Author"=>"https://www.dlsite.com/comic/author/=/author_id/AJ014024", "DLsite Circle"=>"https://www.dlsite.com/home/circle/profile/=/maker_id/RG17989.html", "Tumblr"=>"https://mokuzaisekizai.tumblr.com/", "Pretty sure this guy is a cryptid."=>404}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/dp/B08XQ55FQ8?binding=kindle_edition", "DLsite"=>"https://www.dlsite.com/comic/work/=/product_id/BJ152506.html", "BookWalker"=>"https://bookwalker.jp/series/163485/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E4%BA%BA%E5%BD%A2%E3%81%AE%E3%82%A2%E3%82%B5"}], "publication"=>"Hiatus", "translation"=>"Completed", "showchapter"=>false, "host"=>"folder/quIGEa6a#ZzyZZeaX0xqVZnfKj3hODQ", "files"=>[{"Volume 1"=>[{"Chapter 1"=>"file/76wVVZpR#jLuw9mC-dLJeHOnQ0LU8B2neWcuJZm2a0EZU8BoQLRc", "Chapter 2"=>"file/ejpUXAzL#b00s2X389AvjfqSj5hp4lFgBENw8-woxj_FI-GdjNA8", "Chapter 3"=>"file/OmAHDDxD#Mi2l8Xbx5Z43t0HZogS7rTfckMixsYleB_V5PNBS7EE", "Chapter 4"=>"file/Dr51XA6A#fPCOnn9TDdwztWRNIO5UShKo8bJGgdfGygzMge6rJhM", "Chapter 4.5"=>"file/H2IjwLpJ#742VMT1vC4bVwur0OeFr9CvZB3ztr-S0SyC5651QPb8"}]}, {"Volume 2"=>[{"Chapter 5"=>"file/mi4HDRYA#RBOwMTW8S-iYyZuiMOQxn5yiM1ggTxt91T2ZOr7dGXc", "Chapter 6"=>"file/OjolCDDQ#CoXZd8BnV9mBNLF91yIm7GNmyOPBvb_gNUtb6cnRNdk", "Chapter 7"=>"file/vyxmEIwa#aZin4bdNDABT8uWTuciv1Ci4Gnb3WYF0pYVwUVvtARA", "Chapter 8"=>"file/ziZ13BDb#41r0_Lu0wRrTmFaTrouEeSMETm1-Er9cM4ggP6nClao", "Chapter 9"=>"file/buxzFLCI#2KSJCE1nKC1dSrHbNMNoEE-7YGHCkU_ZPHVvG_2O7GA", "Chapter 10"=>"file/ryZ2HYaC#0i6mhY-RaHfewtmNlizMVkP_eTB1aG27zwDjusZ2WxY", "Chapter 10.5"=>"file/CmwjBZhS#BthovQMncblskmdIhC18eRliSkfryB3E6TaVCuDj8oE"}]}]}, {"title"=>"Mangaka-sensei to Zashiki Warashi", "short"=>"ZW", "native"=>"マンガ家先生と座敷わらし", "mu"=>155604, "img"=>"zw.jpg", "author"=>"Nukku", "authorNative"=>"ぬっく", "type"=>"Series", "socials"=>[{"Blog"=>"http://triflep.blog.fc2.com/", "booth.pm"=>"https://nukyui.booth.pm/", "Fanbox"=>"https://nukyui.fanbox.cc/", "Twitter"=>"https://twitter.com/nukyui", "Pixiv"=>"https://www.pixiv.net/en/users/104204"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/dp/B08CDTR2LM?searchxofy=true&binding=kindle_edition", "BookWalker"=>"https://bookwalker.jp/series/215268", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E3%83%9E%E3%83%B3%E3%82%AC%E5%AE%B6%E5%85%88%E7%94%9F%E3%81%A8%E5%BA%A7%E6%95%B7%E3%82%8F%E3%82%89%E3%81%97"}], "publication"=>"Completed", "translation"=>"Completed", "showchapter"=>false, "host"=>"folder/f7gwkYZa#jTMFlnDMKjwlxYtWiDoZxQ", "files"=>[{"Volume 1"=>[{"Chapter 1"=>"#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU", "Chapter 3"=>"#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q", "Chapter 4"=>"#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c", "Chapter 5"=>"#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc", "Chapter 6"=>"#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0", "Chapter 7"=>"#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g", "Chapter 8"=>"file/fqhgARQY#eGPiP_-dQSiPoA0jyu_fFCtZNC_c7CXn5RqjosM7HFU", "Omake"=>"file/rrIVhKJY#FGfz05mp0FTKoicB4t39ee2kh8VXBRj5RO1x7zE49jc"}]}, {"Volume 2"=>[{"Chapter 9"=>"#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA", "Chapter 10"=>"#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus", "Chapter 11"=>"#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI", "Chapter 12"=>"#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE", "Chapter 13"=>"#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk", "Chapter 14"=>"file/i2QzmKRL#rtMpey8tTbqPKRPXQ-t4h4zHAvSj2jBoUh3fWStqATA", "Chapter 15"=>"file/jn4mAQDa#AqcBiXmd852bLPCA4y0U66RZ45zfNJARfToD3H31M3I", "Omake"=>"#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs"}]}, {"Volume 3"=>[{"Chapter 16"=>"#!PngTWIqA!Cii7OWUy9AWaJiu0NN6aci5cC7KmLFXJwz43waqM-r0", "Chapter 17"=>"file/v2RySaCL#7kdsWTBkDVMOyajF2Y-0bkBH_GGf64uqMKx1zzxKBHo", "Chapter 18"=>"file/PuxiDJaa#tlnsmKnefD_eFngtb6kVj82rKgmD-z8D13bAjpPUjvc", "Chapter 19"=>"#!byAiRCBT!aXvbxLtsTq4AJttE0wp35jjneJnDxO-eTIgZ_RclHps", "Chapter 20"=>"file/Lz4jnThR#yNQYUK-kV3yDkcs88ApN7bfITKRP6HnOvx-jO3CNswM", "Chapter 21"=>"file/rvhjVLzR#bLQt6HxI4HYE7wmEDQCszocfJhe4FTNOAOFUTSNmZHA", "Chapter 22"=>"file/zvBUnQLR#1tbVkWeiSzMhhj7kxqvYW8YPzfxY6QkJ1XhgPwPUQsw", "Omake"=>"file/yiBXgSbA#EyAldc7IEagCPcYnqo46IQLcCXfohiocAm0m0yXJXFw"}]}, {"Volume 4"=>[{"Chapter 23"=>"file/yj4AGLKY#7bDuKtuzct-hKMS-SvAHgf_rqUxlnsguxWg6MPepkdA", "Chapter 24"=>"file/LvxGma5Z#KNZSeTw10eipd4v-mKVjZ26XJ5fjqjuUQZj0AIl2BHM", "Chapter 25"=>"file/TvJ2lD5J#6tcXK3fRvVTuLZDnd0oOLCC9dMxTLx9sszPF1QHqQmQ", "Chapter 26"=>"file/3j5BFb7a#naq9_X2pjrQrOb5IYA5CFqYfkzTTPAD__qGEQBgpdno", "Chapter 27"=>"file/O2omhASQ#BWMqdHjYmmqnvLoUq_rdlyth56bg8RlNZpSukrUVrnY", "Chapter 28"=>"file/3mgSHJgS#W7gPGvWsebUjAUzWztWorAO-er1AChHSgBB6Hvo7qiM", "Chapter 29"=>"file/6v4F2DQY#JlFsCzeUidp_7f-SiPf9ijTfIRavLn23lP_OGnkwDjU", "Omake"=>"file/37hhiTJQ#pJDxK2BudDGjxdWwkQmFvCMnZ0kSzKW8xs3pswIU3po"}]}, {"Afterstory"=>[{"style"=>"style=\"width:100%;flex-direction:column;\"", "Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi"=>"file/2vh3hDQb#WtB9tJlWVTVTnfRK2cZa9WO9ZJ5TzFe8qW0uG68z2wE", "Sakka-san to Zashiki Warashi ga Kurasu Hon"=>"file/zjpS3KTB#19i8NHORsxKpXHDgf-lVWYQwkCjd0SOjfOkM7gwkrYQ", "Sakka-san to Zashiki Warashi ga Kurasu Hon 2"=>"file/77I2WTxK#MoMdVOxD_IAvMGX10WEjRWpGwdK--cAzt0_Pf_KpgvM", "Sakka-san to Zashiki Warashi ga Kurasu Hon 3"=>"file/jiAHSKDR#1yo6jNEfmBHLmn6ZDP-oyqgHX7ZDJ_4JCAMX32EG4eg", "Sakka-san to Zashiki Warashi ga Kurasu Hon 4"=>"file/WiIQTAIA#UgznCBcQZJ_mgZtk76OX1DYFI_-9RIqaqC52UjaPXdk"}]}]}, {"title"=>"Kitsune no Ongaeshi!", "short"=>"KitsuneNoOngaeshi", "native"=>"狐の恩返しっ！", "front"=>false, "mu"=>176831, "img"=>"kitsuon.jpg", "author"=>"Farisu", "authorNative"=>"ふぁりす", "type"=>"Series", "socials"=>[{"Twitter"=>"https://twitter.com/Farisusan", "Pixiv"=>"https://www.pixiv.net/en/users/6006688"}], "purchase"=>[{"Pixiv"=>"https://www.pixiv.net/user/6006688/series/43337", "Nicovideo"=>"https://seiga.nicovideo.jp/comic/36984"}], "publication"=>"Hiatus", "translation"=>"Completed", "showchapter"=>false, "files"=>[{"Volume 1"=>[{"style"=>"style=\"width:75%\"", "Batch 1-10"=>"file/q3wnjCRT#GwOuY_5Y3fLpbEKk4OmStV-vikIipgbzJWUzrKufO9g", "Chapter 1"=>"file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c", "Chapter 2"=>"file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c", "Chapter 3"=>"file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc", "Chapter 4"=>"file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M", "Chapter 5"=>"file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk", "Chapter 6"=>"file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4", "Chapter 7"=>"file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0", "Chapter 8"=>"file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50", "Chapter 9"=>"file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y", "Chapter 10"=>"file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew"}]}]}, {"title"=>"Barikios Stuff", "short"=>"Barikios", "native"=>"", "front"=>false, "mu"=>nil, "img"=>"barikios.jpg", "author"=>"Barikios", "authorNative"=>"バリキオス", "type"=>"Oneshots", "socials"=>[{"Twitter"=>"https://twitter.com/Barikios", "Pixiv"=>"https://www.pixiv.net/en/users/651648"}], "purchase"=>[{"Melonbooks"=>"https://www.melonbooks.co.jp/search/search.php?name=%E3%83%90%E3%83%AA%E3%82%AD%E3%82%AA%E3%82%B9&text_type=author"}], "publication"=>"Ongoing", "translation"=>"Hiatus", "showchapter"=>false, "files"=>[{"Oneshots"=>[{"Nienoki"=>"file/b7x3nCjD#bzR8TB3-NGguk_qGZp-Nbstq2vojayGkFhgge719Vcg"}]}, {"Short Stories"=>[{"Proof That Hell Exists"=>"file/iqxX3AqA#yLIm5pqjw2ryRPRALWAlT6ZffSwQkgedcduFd5Buki0"}]}]}, {"title"=>"Oichii tte Yutte yo", "short"=>"OY", "native"=>"おいちいってゆってよ。", "front"=>false, "mu"=>nil, "img"=>"oy.jpg", "author"=>"Nanakamado Anno", "authorNative"=>"七竈アンノ", "type"=>"Series", "socials"=>[{"Twitter"=>"https://twitter.com/nanakamado_anno"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/%25E3%2581%258A%25E3%2581%2584%25E3%2581%25A1%25E3%2581%2583%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%2586%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%2588%25E3%2580%2582-%25E5%2585%25A82%25E5%25B7%25BB/dp/B074CKCW2F", "BookWalker"=>"https://bookwalker.jp/series/22943/list/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E3%81%8A%E3%81%84%E3%81%A1%E3%81%83%E3%81%A3%E3%81%A6%E3%82%86%E3%81%A3%E3%81%A6%E3%82%88%E3%80%82"}], "publication"=>"Completed", "translation"=>"Completed", "showchapter"=>false, "host"=>"folder/fup2TDTY#S1phuPrhgvKTrpK-lW4h9g", "files"=>[{"Volume 1"=>[{"Chapter 1"=>"file/nnAXBIZJ#9r_QOnToy-aEqaiNtT9B9Tl5ErK8xLwZlJoAEzfVUH8", "Chapter 2"=>"file/vqBz1CLZ#U11DHiIUGi2-4tCcXQR_zfOW99d5lmIPSsE5RntbFcY", "Chapter 3"=>"file/n3JiFJIJ#rrP4VkmTBjbirZtlkDvgkGmRpf6lokMFaU3zI-01VNQ", "Chapter 4"=>"file/C7ZBFbZS#hw4nWRsWhHb-oaivQ3JLyGDweg65qa14HncDkqXhdWg"}]}, {"Volume 2"=>[{"Chapter 5"=>"file/K2RzwbLR#cJzh_6ucr6j8Ta4m7zE50xhbPROxxJ19vnEq5sgEHRU", "Chapter 6"=>"file/LqxnkQoY#qEf7ztVps8Q5FZOsEEmIOdhkiV5pN6b37zfvlkMy09A", "Chapter 7"=>"file/qqY1XRhZ#5R2baq5gpEgKLlj5VrTWBlxMdAgtuchgJXs5N6FHm0Q", "Chapter 8"=>"file/PqBEFI5B#euIIAECBCcWrv_4A2MDJiuIT5XFfNqomdJrz-fIFQYg"}]}]}]
+  [{"title"=>"Shinyuu no Musume ni Semarare Komatteimasu", "short"=>"SMS", "native"=>"親友の娘に迫られ困っています", "mu"=>nil, "img"=>"sms.jpg", "author"=>"Mimoto Koyori", "authorNative"=>"三本コヨリ", "type"=>"Series", "socials"=>[{"Twitter"=>"https://x.com/mantaaan"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/gp/product/B08P75MKB9?storeType=ebooks", "BookWalker"=>"https://bookwalker.jp/series/238946/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E8%A6%AA%E5%8F%8B%E3%81%AE%E5%A8%98%E3%81%AB%E8%BF%AB%E3%82%89%E3%82%8C%E5%9B%B0%E3%81%A3%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99&fclanguages=ja", "Fuz"=>"https://comic-fuz.com/manga/1899"}], "publication"=>"Completed", "translation"=>"Ongoing", "showchapter"=>true, "host"=>nil, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"https://files.catbox.moe/9gv10y.zip", "Chapter 2"=>"https://files.catbox.moe/rkiyp0.zip", "Chapter 3"=>"https://files.catbox.moe/0uat8r.zip", "Chapter 4"=>"https://files.catbox.moe/s7pej0.zip"}]}]}, {"title"=>"Ningyou no Asa", "short"=>"NnA", "native"=>"人形のアサ", "mu"=>nil, "img"=>"nna.jpg", "author"=>"Mokuzai Sekizai", "authorNative"=>"木材石材", "type"=>"Series", "socials"=>[{"DLsite Author"=>"https://www.dlsite.com/comic/author/=/author_id/AJ014024", "DLsite Circle"=>"https://www.dlsite.com/home/circle/profile/=/maker_id/RG17989.html", "Tumblr"=>"https://mokuzaisekizai.tumblr.com/", "Pretty sure this guy is a cryptid."=>404}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/dp/B08XQ55FQ8?binding=kindle_edition", "DLsite"=>"https://www.dlsite.com/comic/work/=/product_id/BJ152506.html", "BookWalker"=>"https://bookwalker.jp/series/163485/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E4%BA%BA%E5%BD%A2%E3%81%AE%E3%82%A2%E3%82%B5"}], "publication"=>"Hiatus", "translation"=>"Completed", "showchapter"=>false, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"https://files.catbox.moe/plunm0.zip", "Chapter 2"=>"https://files.catbox.moe/54vgig.zip", "Chapter 3"=>"https://files.catbox.moe/zf4foq.zip", "Chapter 4"=>"https://files.catbox.moe/p83xp8.zip", "Chapter 4.5"=>"https://files.catbox.moe/zqnfqn.zip"}]}, {"Volume 2"=>[{"Chapter 5"=>"https://files.catbox.moe/kgpusg.zip", "Chapter 6"=>"https://files.catbox.moe/hr50ls.zip", "Chapter 7"=>"https://files.catbox.moe/9z2y8s.zip", "Chapter 8"=>"https://files.catbox.moe/xfrx38.zip", "Chapter 9"=>"https://files.catbox.moe/iv7vf4.zip", "Chapter 10"=>"https://files.catbox.moe/9d5xob.zip", "Chapter 10.5"=>"https://files.catbox.moe/adrw4r.zip"}]}]}, {"title"=>"Mangaka-sensei to Zashiki Warashi", "short"=>"ZW", "native"=>"マンガ家先生と座敷わらし", "mu"=>155604, "img"=>"zw.jpg", "author"=>"Nukku", "authorNative"=>"ぬっく", "type"=>"Series", "socials"=>[{"Blog"=>"http://triflep.blog.fc2.com/", "booth.pm"=>"https://nukyui.booth.pm/", "Fanbox"=>"https://nukyui.fanbox.cc/", "Twitter"=>"https://twitter.com/nukyui", "Pixiv"=>"https://www.pixiv.net/en/users/104204"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/-/en/dp/B08CDTR2LM?searchxofy=true&binding=kindle_edition", "BookWalker"=>"https://bookwalker.jp/series/215268", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E3%83%9E%E3%83%B3%E3%82%AC%E5%AE%B6%E5%85%88%E7%94%9F%E3%81%A8%E5%BA%A7%E6%95%B7%E3%82%8F%E3%82%89%E3%81%97"}], "publication"=>"Completed", "translation"=>"Completed", "showchapter"=>false, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"https://files.catbox.moe/0fdk5k.zip", "Chapter 3"=>"https://files.catbox.moe/xsw18g.zip", "Chapter 4"=>"https://files.catbox.moe/1rxb65.zip", "Chapter 5"=>"https://files.catbox.moe/5fs2gt.zip", "Chapter 6"=>"https://files.catbox.moe/ohpg7l.zip", "Chapter 7"=>"https://files.catbox.moe/z91enr.zip", "Chapter 8"=>"https://files.catbox.moe/ttegph.zip", "Omake"=>"https://files.catbox.moe/juulpx.zip"}]}, {"Volume 2"=>[{"Chapter 9"=>"https://files.catbox.moe/7radii.zip", "Chapter 10"=>"https://files.catbox.moe/w77du3.zip", "Chapter 11"=>"https://files.catbox.moe/czv4a6.zip", "Chapter 12"=>"https://files.catbox.moe/hy9n7q.zip", "Chapter 13"=>"https://files.catbox.moe/4qfv3a.zip", "Chapter 14"=>"https://files.catbox.moe/0qiz77.zip", "Chapter 15"=>"https://files.catbox.moe/45uqei.zip", "Omake"=>"https://files.catbox.moe/lbyg59.zip"}]}, {"Volume 3"=>[{"Chapter 16"=>"https://files.catbox.moe/p4h1ai.zip", "Chapter 17"=>"https://files.catbox.moe/42b253.zip", "Chapter 18"=>"https://files.catbox.moe/f384uo.zip", "Chapter 19"=>"https://files.catbox.moe/yp4x06.zip", "Chapter 20"=>"https://files.catbox.moe/he061r.zip", "Chapter 21"=>"https://files.catbox.moe/dyq0pd.zip", "Chapter 22"=>"https://files.catbox.moe/scacgr.zip", "Omake"=>"https://files.catbox.moe/ml58us.zip"}]}, {"Volume 4"=>[{"Chapter 23"=>"https://files.catbox.moe/51k5nx.zip", "Chapter 24"=>"https://files.catbox.moe/92uhqk.zip", "Chapter 25"=>"https://files.catbox.moe/6cdtax.zip", "Chapter 26"=>"https://files.catbox.moe/2xl91p.zip", "Chapter 27"=>"https://files.catbox.moe/qz40eq.zip", "Chapter 28"=>"https://files.catbox.moe/0mveim.zip", "Chapter 29"=>"https://files.catbox.moe/yu8ogn.zip", "Omake"=>"https://files.catbox.moe/28wtbd.zip"}]}, {"Afterstory"=>[{"style"=>"style=\"width:100%;flex-direction:column;\"", "Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi"=>"https://files.catbox.moe/9qq7gq.zip", "Sakka-san to Zashiki Warashi ga Kurasu Hon"=>"https://files.catbox.moe/zk0gkf.zip", "Sakka-san to Zashiki Warashi ga Kurasu Hon 2"=>"https://files.catbox.moe/6xya2e.zip", "Sakka-san to Zashiki Warashi ga Kurasu Hon 3"=>"https://files.catbox.moe/0b4gd4.zip", "Sakka-san to Zashiki Warashi ga Kurasu Hon 4"=>"https://files.catbox.moe/ey9l86.zip"}]}]}, {"title"=>"Kitsune no Ongaeshi!", "short"=>"KitsuneNoOngaeshi", "native"=>"狐の恩返しっ！", "front"=>false, "mu"=>176831, "img"=>"kitsuon.jpg", "author"=>"Farisu", "authorNative"=>"ふぁりす", "type"=>"Series", "socials"=>[{"Twitter"=>"https://twitter.com/Farisusan", "Pixiv"=>"https://www.pixiv.net/en/users/6006688"}], "purchase"=>[{"Pixiv"=>"https://www.pixiv.net/user/6006688/series/43337", "Nicovideo"=>"https://seiga.nicovideo.jp/comic/36984"}], "publication"=>"Hiatus", "translation"=>"Completed", "showchapter"=>false, "files"=>[{"Volume 1"=>[{"style"=>"style=\"width:75%\"", "Batch 1-10"=>"https://files.catbox.moe/2w2o66.zip", "Chapter 1"=>"https://files.catbox.moe/gh8l6x.zip", "Chapter 2"=>"https://files.catbox.moe/o55bq8.zip", "Chapter 3"=>"https://files.catbox.moe/pivk2b.zip", "Chapter 4"=>"https://files.catbox.moe/kutf2z.zip", "Chapter 5"=>"https://files.catbox.moe/l8rx3t.zip", "Chapter 6"=>"https://files.catbox.moe/4g7kks.zip", "Chapter 7"=>"https://files.catbox.moe/4kn57y.zip", "Chapter 8"=>"https://files.catbox.moe/bv6rwn.zip", "Chapter 9"=>"https://files.catbox.moe/paskj2.zip", "Chapter 10"=>"https://files.catbox.moe/5xz1st.zip"}]}]}, {"title"=>"Barikios Stuff", "short"=>"Barikios", "native"=>"", "front"=>false, "mu"=>nil, "img"=>"barikios.jpg", "author"=>"Barikios", "authorNative"=>"バリキオス", "type"=>"Oneshots", "socials"=>[{"Twitter"=>"https://twitter.com/Barikios", "Pixiv"=>"https://www.pixiv.net/en/users/651648"}], "purchase"=>[{"Melonbooks"=>"https://www.melonbooks.co.jp/search/search.php?name=%E3%83%90%E3%83%AA%E3%82%AD%E3%82%AA%E3%82%B9&text_type=author"}], "publication"=>"Ongoing", "translation"=>"Hiatus", "showchapter"=>false, "files"=>[{"Oneshots"=>[{"Nienoki"=>"https://files.catbox.moe/0e12fs.zip"}]}, {"Short Stories"=>[{"Proof That Hell Exists"=>"https://files.catbox.moe/tujohv.png"}]}]}, {"title"=>"Oichii tte Yutte yo", "short"=>"OY", "native"=>"おいちいってゆってよ。", "front"=>false, "mu"=>nil, "img"=>"oy.jpg", "author"=>"Nanakamado Anno", "authorNative"=>"七竈アンノ", "type"=>"Series", "socials"=>[{"Twitter"=>"https://twitter.com/nanakamado_anno"}], "purchase"=>[{"Amazon"=>"https://www.amazon.co.jp/%25E3%2581%258A%25E3%2581%2584%25E3%2581%25A1%25E3%2581%2583%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%2586%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%2588%25E3%2580%2582-%25E5%2585%25A82%25E5%25B7%25BB/dp/B074CKCW2F", "BookWalker"=>"https://bookwalker.jp/series/22943/list/", "Kobo"=>"https://www.kobo.com/jp/en/search?query=%E3%81%8A%E3%81%84%E3%81%A1%E3%81%83%E3%81%A3%E3%81%A6%E3%82%86%E3%81%A3%E3%81%A6%E3%82%88%E3%80%82"}], "publication"=>"Completed", "translation"=>"Completed", "showchapter"=>false, "files"=>[{"Volume 1"=>[{"Chapter 1"=>"https://files.catbox.moe/uuuqws.zip", "Chapter 2"=>"https://files.catbox.moe/nwtzba.zip", "Chapter 3"=>"https://files.catbox.moe/zho3w5.zip", "Chapter 4"=>"https://files.catbox.moe/0a5tqy.zip"}]}, {"Volume 2"=>[{"Chapter 5"=>"https://files.catbox.moe/8xzn1h.zip", "Chapter 6"=>"https://files.catbox.moe/ezxm35.zip", "Chapter 7"=>"https://files.catbox.moe/etpslx.zip", "Chapter 8"=>"https://files.catbox.moe/qlx131.zip"}]}]}]
 <hr>
   <h2>series in data file</h2>
   
@@ -440,44 +510,50 @@
 
   <h2>chapters</h2>
   
+    title:<a class="nonStyled" target="_self" href="/chapters/2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4">2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4</a><br>
+    &nbsp;file:https://files.catbox.moe/s7pej0.zip<br>
+    idStr:81f171f85bfa5bd2dac356d8536ed79a
+<br>
+    &nbsp;&nbsp;md5:9366ac6a6be4ce49704be448e26515e0 <br><br>
+  
     title:<a class="nonStyled" target="_self" href="/chapters/2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3">2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3</a><br>
-    &nbsp;file:file/6yhAwBJK#onOjDR4g1Umg_PMEq5AgaJj8dMoZQn3dKs7hF70ttoY<br>
+    &nbsp;file:https://files.catbox.moe/0uat8r.zip<br>
     idStr:aa66df91e7b2ef89337f7977259c77e0
 <br>
     &nbsp;&nbsp;md5:e504d10606bbc85ff2f44b27bf357f02 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-08-19-1724055118917375200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 2">2024-08-19-1724055118917375200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 2</a><br>
-    &nbsp;file:file/n6ZFQAyR#lqsNwWelBPD8yhXol3-8vlp4z8I8InCXs5eb1b_YYJc<br>
+    &nbsp;file:https://files.catbox.moe/rkiyp0.zip<br>
     idStr:c520e6114ed0da5e7014cba21a5439a7
 <br>
     &nbsp;&nbsp;md5:0696c7b45c52b07674bc73e8d102deaf <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-08-12-1723449428772562500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 1">2024-08-12-1723449428772562500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 1</a><br>
-    &nbsp;file:file/f7wVWJjb#se_FOaz9eq_IBE2ApEI69eM8Q6DJj7XsQDnFTH4GGcM<br>
+    &nbsp;file:https://files.catbox.moe/9gv10y.zip<br>
     idStr:5d0ea6d386cf1edd7065292b05c3e333
 <br>
     &nbsp;&nbsp;md5:8aeebb0b8a3ce807ab20be0da145758e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-30-1711790223829697700-Ningyou no Asa - Volume 2 Chapter 10.5">2024-03-30-1711790223829697700-Ningyou no Asa - Volume 2 Chapter 10.5</a><br>
-    &nbsp;file:file/CmwjBZhS#BthovQMncblskmdIhC18eRliSkfryB3E6TaVCuDj8oE<br>
+    &nbsp;file:https://files.catbox.moe/adrw4r.zip<br>
     idStr:fb46aefd7a0dba80a4e5d452624a11c9
 <br>
     &nbsp;&nbsp;md5:0c85df29c2060e1558fdba02852eb9a8 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-30-1711790223828696600-Ningyou no Asa - Volume 2 Chapter 10">2024-03-30-1711790223828696600-Ningyou no Asa - Volume 2 Chapter 10</a><br>
-    &nbsp;file:file/ryZ2HYaC#0i6mhY-RaHfewtmNlizMVkP_eTB1aG27zwDjusZ2WxY<br>
+    &nbsp;file:https://files.catbox.moe/9d5xob.zip<br>
     idStr:27fd7e092240d63deba6a93a11432f57
 <br>
     &nbsp;&nbsp;md5:c4180bf3db619e3804c2d9b53a76f3f6 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-18-1710785791709527800-Ningyou no Asa - Volume 2 Chapter 8">2024-03-18-1710785791709527800-Ningyou no Asa - Volume 2 Chapter 8</a><br>
-    &nbsp;file:file/ziZ13BDb#41r0_Lu0wRrTmFaTrouEeSMETm1-Er9cM4ggP6nClao<br>
+    &nbsp;file:https://files.catbox.moe/xfrx38.zip<br>
     idStr:9717ad37cbc113ef688294af42f717f0
 <br>
     &nbsp;&nbsp;md5:04c28fff8fbaa57bb53a7151dbf58820 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-17-1710680448705401600-Ningyou no Asa - Volume 2 Chapter 9">2024-03-17-1710680448705401600-Ningyou no Asa - Volume 2 Chapter 9</a><br>
-    &nbsp;file:file/buxzFLCI#2KSJCE1nKC1dSrHbNMNoEE-7YGHCkU_ZPHVvG_2O7GA<br>
+    &nbsp;file:https://files.catbox.moe/iv7vf4.zip<br>
     idStr:3711f9d10663f2088110c9402b30d4e8
 <br>
     &nbsp;&nbsp;md5:469bdded51d2320d0a254f931a4f0223 <br><br>
@@ -489,31 +565,31 @@
     &nbsp;&nbsp;md5:3dceab96933048f754d4dcbfc9e3e8ee <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-17-1710680448700397200-Ningyou no Asa - Volume 2 Chapter 7">2024-03-17-1710680448700397200-Ningyou no Asa - Volume 2 Chapter 7</a><br>
-    &nbsp;file:file/vyxmEIwa#aZin4bdNDABT8uWTuciv1Ci4Gnb3WYF0pYVwUVvtARA<br>
+    &nbsp;file:https://files.catbox.moe/9z2y8s.zip<br>
     idStr:a5a0fef895b7f6e998b90a10d657d705
 <br>
     &nbsp;&nbsp;md5:b5cb09621bff5764687351e839235cf5 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-03-17-1710680340134223300-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 4">2024-03-17-1710680340134223300-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 4</a><br>
-    &nbsp;file:file/WiIQTAIA#UgznCBcQZJ_mgZtk76OX1DYFI_-9RIqaqC52UjaPXdk<br>
+    &nbsp;file:https://files.catbox.moe/ey9l86.zip<br>
     idStr:cf95924824f8581bc9ec8e2587f4a43e
 <br>
     &nbsp;&nbsp;md5:843aef6e743137cea90db44dafb2b81f <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2024-01-21-1705876466254491100-Oichii tte Yutte yo - Volume 2 Chapter 8">2024-01-21-1705876466254491100-Oichii tte Yutte yo - Volume 2 Chapter 8</a><br>
-    &nbsp;file:file/PqBEFI5B#euIIAECBCcWrv_4A2MDJiuIT5XFfNqomdJrz-fIFQYg<br>
+    &nbsp;file:https://files.catbox.moe/qlx131.zip<br>
     idStr:2cd5ba76206d302df9e8507c4908f60f
 <br>
     &nbsp;&nbsp;md5:22dcb47e315cf5ca1df0ed0c26ac7afc <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-12-11-1702305988286826600-Oichii tte Yutte yo - Volume 2 Chapter 7">2023-12-11-1702305988286826600-Oichii tte Yutte yo - Volume 2 Chapter 7</a><br>
-    &nbsp;file:file/qqY1XRhZ#5R2baq5gpEgKLlj5VrTWBlxMdAgtuchgJXs5N6FHm0Q<br>
+    &nbsp;file:https://files.catbox.moe/etpslx.zip<br>
     idStr:092a2b0207a32e5fac9a3b4c5dac1b6e
 <br>
     &nbsp;&nbsp;md5:706d23d4bfcbd66397831989fe741b7e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-11-13-1699905526208325700-Oichii tte Yutte yo - Volume 2 Chapter 6">2023-11-13-1699905526208325700-Oichii tte Yutte yo - Volume 2 Chapter 6</a><br>
-    &nbsp;file:file/LqxnkQoY#qEf7ztVps8Q5FZOsEEmIOdhkiV5pN6b37zfvlkMy09A<br>
+    &nbsp;file:https://files.catbox.moe/ezxm35.zip<br>
     idStr:0b7ad5bf6dbf4ee78a045e04108f546b
 <br>
     &nbsp;&nbsp;md5:e55b3d4424b7a5a1dcc3477eb70e5d09 <br><br>
@@ -525,19 +601,19 @@
     &nbsp;&nbsp;md5:a196c5d0cf08c30b7e98bf4f9ff8dc2a <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-10-30-1698697285154160400-Oichii tte Yutte yo - Volume 2 Chapter 5">2023-10-30-1698697285154160400-Oichii tte Yutte yo - Volume 2 Chapter 5</a><br>
-    &nbsp;file:file/K2RzwbLR#cJzh_6ucr6j8Ta4m7zE50xhbPROxxJ19vnEq5sgEHRU<br>
+    &nbsp;file:https://files.catbox.moe/8xzn1h.zip<br>
     idStr:19c1774e91130f24bd6f40e4d11647ec
 <br>
     &nbsp;&nbsp;md5:0931baa076ad5ae237e87432bbbc7719 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-10-15-1697368470476939400-Ningyou no Asa - Volume 2 Chapter 6">2023-10-15-1697368470476939400-Ningyou no Asa - Volume 2 Chapter 6</a><br>
-    &nbsp;file:file/OjolCDDQ#CoXZd8BnV9mBNLF91yIm7GNmyOPBvb_gNUtb6cnRNdk<br>
+    &nbsp;file:https://files.catbox.moe/hr50ls.zip<br>
     idStr:584548aba8bdf200c268c9916c7f1e22
 <br>
     &nbsp;&nbsp;md5:b503b59d27f1731e7db182d4827a7903 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-10-02-1696275292937047900-Oichii tte Yutte yo - Volume 1 Chapter 4">2023-10-02-1696275292937047900-Oichii tte Yutte yo - Volume 1 Chapter 4</a><br>
-    &nbsp;file:file/C7ZBFbZS#hw4nWRsWhHb-oaivQ3JLyGDweg65qa14HncDkqXhdWg<br>
+    &nbsp;file:https://files.catbox.moe/0a5tqy.zip<br>
     idStr:fdebbca52fdbb484f4f867d115d21936
 <br>
     &nbsp;&nbsp;md5:414d7c2dfa83a441a5f2064da8ae833f <br><br>
@@ -549,31 +625,31 @@
     &nbsp;&nbsp;md5:70dea494b036e4d9597018923e9d453f <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-09-24-1695539318386824600-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 3">2023-09-24-1695539318386824600-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 3</a><br>
-    &nbsp;file:file/jiAHSKDR#1yo6jNEfmBHLmn6ZDP-oyqgHX7ZDJ_4JCAMX32EG4eg<br>
+    &nbsp;file:https://files.catbox.moe/0b4gd4.zip<br>
     idStr:74ca89bf638327e8c1d54f44d7e8b3f9
 <br>
     &nbsp;&nbsp;md5:cb8b64a0592488c0f80bfc06f4385fcf <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-09-24-1695539318359295300-Ningyou no Asa - Volume 2 Chapter 5">2023-09-24-1695539318359295300-Ningyou no Asa - Volume 2 Chapter 5</a><br>
-    &nbsp;file:file/mi4HDRYA#RBOwMTW8S-iYyZuiMOQxn5yiM1ggTxt91T2ZOr7dGXc<br>
+    &nbsp;file:https://files.catbox.moe/kgpusg.zip<br>
     idStr:af137f6b7d6bd34bc38de1914edac167
 <br>
     &nbsp;&nbsp;md5:8e69198aebf8b220dbc75d2f2a7207fb <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-09-18-1695014503996708700-Oichii tte Yutte yo - Volume 1 Chapter 3">2023-09-18-1695014503996708700-Oichii tte Yutte yo - Volume 1 Chapter 3</a><br>
-    &nbsp;file:file/n3JiFJIJ#rrP4VkmTBjbirZtlkDvgkGmRpf6lokMFaU3zI-01VNQ<br>
+    &nbsp;file:https://files.catbox.moe/zho3w5.zip<br>
     idStr:ab76a021eaf7deb5f014ee2b2d04307a
 <br>
     &nbsp;&nbsp;md5:6ef23534ad0c7929548c58d434861ef1 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-09-07-1694038513632857400-Oichii tte Yutte yo - Volume 1 Chapter 2">2023-09-07-1694038513632857400-Oichii tte Yutte yo - Volume 1 Chapter 2</a><br>
-    &nbsp;file:file/vqBz1CLZ#U11DHiIUGi2-4tCcXQR_zfOW99d5lmIPSsE5RntbFcY<br>
+    &nbsp;file:https://files.catbox.moe/nwtzba.zip<br>
     idStr:894d6e131dc4a76a2955b486b8b982e7
 <br>
     &nbsp;&nbsp;md5:c5093734aa46a8fb0f483b64a49335e6 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-09-07-1694038513631855800-Oichii tte Yutte yo - Volume 1 Chapter 1">2023-09-07-1694038513631855800-Oichii tte Yutte yo - Volume 1 Chapter 1</a><br>
-    &nbsp;file:file/nnAXBIZJ#9r_QOnToy-aEqaiNtT9B9Tl5ErK8xLwZlJoAEzfVUH8<br>
+    &nbsp;file:https://files.catbox.moe/uuuqws.zip<br>
     idStr:976a7145d5815286c5fcb860fa09890f
 <br>
     &nbsp;&nbsp;md5:59ada682564edb6f50769a1d6c94bda0 <br><br>
@@ -591,37 +667,37 @@
     &nbsp;&nbsp;md5:3186d592365a8cef279fb8d9fe3d4458 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-08-13-1691932171115577300-Ningyou no Asa - Volume 1 Chapter 4.5">2023-08-13-1691932171115577300-Ningyou no Asa - Volume 1 Chapter 4.5</a><br>
-    &nbsp;file:file/H2IjwLpJ#742VMT1vC4bVwur0OeFr9CvZB3ztr-S0SyC5651QPb8<br>
+    &nbsp;file:https://files.catbox.moe/zqnfqn.zip<br>
     idStr:4b5c47a9095dfad3140e6999f3780d23
 <br>
     &nbsp;&nbsp;md5:ab0ae7af001b39045891fb6a80e6d73d <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-07-23-1690102207406313400-Ningyou no Asa - Volume 1 Chapter 4">2023-07-23-1690102207406313400-Ningyou no Asa - Volume 1 Chapter 4</a><br>
-    &nbsp;file:file/Dr51XA6A#fPCOnn9TDdwztWRNIO5UShKo8bJGgdfGygzMge6rJhM<br>
+    &nbsp;file:https://files.catbox.moe/p83xp8.zip<br>
     idStr:f7c328a5e46d585d62b3e06eed13ed45
 <br>
     &nbsp;&nbsp;md5:39d3871de975e2d5850be58626bc780a <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-07-23-1690101856147139000-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 2">2023-07-23-1690101856147139000-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon 2</a><br>
-    &nbsp;file:file/77I2WTxK#MoMdVOxD_IAvMGX10WEjRWpGwdK--cAzt0_Pf_KpgvM<br>
+    &nbsp;file:https://files.catbox.moe/6xya2e.zip<br>
     idStr:551756eb54877208f867bde10502ed79
 <br>
     &nbsp;&nbsp;md5:460e749e5445868c92d391dfbe24b7ce <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-07-02-1688280041966290200-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi">2023-07-02-1688280041966290200-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi no Manga Sono Ato no Ohanashi</a><br>
-    &nbsp;file:file/2vh3hDQb#WtB9tJlWVTVTnfRK2cZa9WO9ZJ5TzFe8qW0uG68z2wE<br>
+    &nbsp;file:https://files.catbox.moe/9qq7gq.zip<br>
     idStr:d2ba70bcc2a0893681680f42313d6f06
 <br>
     &nbsp;&nbsp;md5:eb94f576ef7be8c5f10473c8a776e592 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-07-02-1688280041958282800-Ningyou no Asa - Volume 1 Chapter 3">2023-07-02-1688280041958282800-Ningyou no Asa - Volume 1 Chapter 3</a><br>
-    &nbsp;file:file/OmAHDDxD#Mi2l8Xbx5Z43t0HZogS7rTfckMixsYleB_V5PNBS7EE<br>
+    &nbsp;file:https://files.catbox.moe/zf4foq.zip<br>
     idStr:670b5df76409c1c7629d8e5ae4f1207d
 <br>
     &nbsp;&nbsp;md5:002201259fd72d5959f2f4b8f4806775 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-06-11-1686505594679249200-Ningyou no Asa - Volume 1 Chapter 2">2023-06-11-1686505594679249200-Ningyou no Asa - Volume 1 Chapter 2</a><br>
-    &nbsp;file:file/ejpUXAzL#b00s2X389AvjfqSj5hp4lFgBENw8-woxj_FI-GdjNA8<br>
+    &nbsp;file:https://files.catbox.moe/54vgig.zip<br>
     idStr:ad13275af18f0457816faf140e7e77d2
 <br>
     &nbsp;&nbsp;md5:e5b5ad7377ab3fd0e69df28c9d8e9843 <br><br>
@@ -633,37 +709,37 @@
     &nbsp;&nbsp;md5:c187654e398510dbddb024945fdf5dab <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-05-14-1684040050580901300-Ningyou no Asa - Volume 1 Chapter 1">2023-05-14-1684040050580901300-Ningyou no Asa - Volume 1 Chapter 1</a><br>
-    &nbsp;file:file/76wVVZpR#jLuw9mC-dLJeHOnQ0LU8B2neWcuJZm2a0EZU8BoQLRc<br>
+    &nbsp;file:https://files.catbox.moe/plunm0.zip<br>
     idStr:45240d63293868505af24039771cf680
 <br>
     &nbsp;&nbsp;md5:2d084a1c295c3d3f38537c3db9ee2902 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-05-14-1684039755761318000-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon">2023-05-14-1684039755761318000-Mangaka-sensei to Zashiki Warashi - Afterstory Sakka-san to Zashiki Warashi ga Kurasu Hon</a><br>
-    &nbsp;file:file/zjpS3KTB#19i8NHORsxKpXHDgf-lVWYQwkCjd0SOjfOkM7gwkrYQ<br>
+    &nbsp;file:https://files.catbox.moe/zk0gkf.zip<br>
     idStr:42b9599503b2dae26369286265682182
 <br>
     &nbsp;&nbsp;md5:882de0985e33daf700711cfd04186ec1 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-04-02-1680418453616941900-Mangaka-sensei to Zashiki Warashi - Volume 4 Omake">2023-04-02-1680418453616941900-Mangaka-sensei to Zashiki Warashi - Volume 4 Omake</a><br>
-    &nbsp;file:file/37hhiTJQ#pJDxK2BudDGjxdWwkQmFvCMnZ0kSzKW8xs3pswIU3po<br>
+    &nbsp;file:https://files.catbox.moe/28wtbd.zip<br>
     idStr:fc5b4e1684d484fff1af6f32165d4976
 <br>
     &nbsp;&nbsp;md5:824d188158f594f9a6ef945d4d200e90 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-04-02-1680418114960504100-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 29">2023-04-02-1680418114960504100-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 29</a><br>
-    &nbsp;file:file/6v4F2DQY#JlFsCzeUidp_7f-SiPf9ijTfIRavLn23lP_OGnkwDjU<br>
+    &nbsp;file:https://files.catbox.moe/yu8ogn.zip<br>
     idStr:6be156440fc2b7bfc83341a009103669
 <br>
     &nbsp;&nbsp;md5:71c51641ca0f0b99d676ff0b15cf4d7e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-03-21-1679381848300563800-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 28">2023-03-21-1679381848300563800-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 28</a><br>
-    &nbsp;file:file/3mgSHJgS#W7gPGvWsebUjAUzWztWorAO-er1AChHSgBB6Hvo7qiM<br>
+    &nbsp;file:https://files.catbox.moe/0mveim.zip<br>
     idStr:c7b5eb58b1ecfc3382ee80313af2d382
 <br>
     &nbsp;&nbsp;md5:fd28b6387a03bb1c65f9b39ee48b08af <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-03-05-1678008245632747700-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 27">2023-03-05-1678008245632747700-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 27</a><br>
-    &nbsp;file:file/O2omhASQ#BWMqdHjYmmqnvLoUq_rdlyth56bg8RlNZpSukrUVrnY<br>
+    &nbsp;file:https://files.catbox.moe/qz40eq.zip<br>
     idStr:8be7090a6c00eccca58a9bfa140a6c28
 <br>
     &nbsp;&nbsp;md5:181b06ac66ff3426850e7449d2f6e031 <br><br>
@@ -675,67 +751,67 @@
     &nbsp;&nbsp;md5:775df84d2525191c050f3be232ed279b <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-19-1676797946566104300-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 26">2023-02-19-1676797946566104300-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 26</a><br>
-    &nbsp;file:file/3j5BFb7a#naq9_X2pjrQrOb5IYA5CFqYfkzTTPAD__qGEQBgpdno<br>
+    &nbsp;file:https://files.catbox.moe/2xl91p.zip<br>
     idStr:15f5d1bdd120f3a20720addf3569f4cf
 <br>
     &nbsp;&nbsp;md5:e2586812b3bb2ed34031c23f283b7890 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-05-1675586380994058500-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 25">2023-02-05-1675586380994058500-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 25</a><br>
-    &nbsp;file:file/TvJ2lD5J#6tcXK3fRvVTuLZDnd0oOLCC9dMxTLx9sszPF1QHqQmQ<br>
+    &nbsp;file:https://files.catbox.moe/6cdtax.zip<br>
     idStr:3ce010e7b1eeab00cb4a1fd677d1f8ae
 <br>
     &nbsp;&nbsp;md5:18d16131e9c220e598670f002c8d1d96 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337469934544000-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23">2023-02-02-1675337469934544000-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 23</a><br>
-    &nbsp;file:file/yj4AGLKY#7bDuKtuzct-hKMS-SvAHgf_rqUxlnsguxWg6MPepkdA<br>
+    &nbsp;file:https://files.catbox.moe/51k5nx.zip<br>
     idStr:2752ea684c71579a730b6b1b4fc70b7c
 <br>
     &nbsp;&nbsp;md5:e160a0b6218011b09455b0697b2bef8e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337469928549900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 22">2023-02-02-1675337469928549900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 22</a><br>
-    &nbsp;file:file/zvBUnQLR#1tbVkWeiSzMhhj7kxqvYW8YPzfxY6QkJ1XhgPwPUQsw<br>
+    &nbsp;file:https://files.catbox.moe/scacgr.zip<br>
     idStr:bb9e50e97f747bfa17475d2dfcc5fed1
 <br>
     &nbsp;&nbsp;md5:72dc00b87f96cb25e01e89aa0fd8056e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337469916562900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18">2023-02-02-1675337469916562900-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 18</a><br>
-    &nbsp;file:file/PuxiDJaa#tlnsmKnefD_eFngtb6kVj82rKgmD-z8D13bAjpPUjvc<br>
+    &nbsp;file:https://files.catbox.moe/f384uo.zip<br>
     idStr:6245e2d2ed7b440d84016b3773876319
 <br>
     &nbsp;&nbsp;md5:265323b3c95d6855341da079d2ccaad0 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337469915563800-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17">2023-02-02-1675337469915563800-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 17</a><br>
-    &nbsp;file:file/v2RySaCL#7kdsWTBkDVMOyajF2Y-0bkBH_GGf64uqMKx1zzxKBHo<br>
+    &nbsp;file:https://files.catbox.moe/42b253.zip<br>
     idStr:79969e0ad87fd6bb7460f5ad21bddab6
 <br>
     &nbsp;&nbsp;md5:6c27c8cdda4839276337aeb47ec8604e <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337469909570500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 15">2023-02-02-1675337469909570500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 15</a><br>
-    &nbsp;file:file/jn4mAQDa#AqcBiXmd852bLPCA4y0U66RZ45zfNJARfToD3H31M3I<br>
+    &nbsp;file:https://files.catbox.moe/45uqei.zip<br>
     idStr:1aea5145f7604f0a5cafa95161aa92e8
 <br>
     &nbsp;&nbsp;md5:39ec0cb6067df2b1cd912e12fe86176a <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337275052102300-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 14">2023-02-02-1675337275052102300-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 14</a><br>
-    &nbsp;file:file/i2QzmKRL#rtMpey8tTbqPKRPXQ-t4h4zHAvSj2jBoUh3fWStqATA<br>
+    &nbsp;file:https://files.catbox.moe/0qiz77.zip<br>
     idStr:3feb9414688ab6acf376b6d02054fb90
 <br>
     &nbsp;&nbsp;md5:9061fb1a9c678a3131e628233b5830a3 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337275040100500-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake">2023-02-02-1675337275040100500-Mangaka-sensei to Zashiki Warashi - Volume 1 Omake</a><br>
-    &nbsp;file:file/rrIVhKJY#FGfz05mp0FTKoicB4t39ee2kh8VXBRj5RO1x7zE49jc<br>
+    &nbsp;file:https://files.catbox.moe/juulpx.zip<br>
     idStr:9b86c24210bfae99e395ee0a34268f56
 <br>
     &nbsp;&nbsp;md5:eb07f1ace5a90e17b34d518476e73478 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-02-02-1675337275039101700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8">2023-02-02-1675337275039101700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 8</a><br>
-    &nbsp;file:file/fqhgARQY#eGPiP_-dQSiPoA0jyu_fFCtZNC_c7CXn5RqjosM7HFU<br>
+    &nbsp;file:https://files.catbox.moe/ttegph.zip<br>
     idStr:366287e0794664258f1da6dd0635fca0
 <br>
     &nbsp;&nbsp;md5:1f8e29128f128d04a4213c27dc13b81d <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2023-01-22-1674376992611230200-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 24">2023-01-22-1674376992611230200-Mangaka-sensei to Zashiki Warashi - Volume 4 Chapter 24</a><br>
-    &nbsp;file:file/LvxGma5Z#KNZSeTw10eipd4v-mKVjZ26XJ5fjqjuUQZj0AIl2BHM<br>
+    &nbsp;file:https://files.catbox.moe/92uhqk.zip<br>
     idStr:ad899f946c95d857d3de99a223131d0e
 <br>
     &nbsp;&nbsp;md5:3885889401a7e260d674e18636543ad0 <br><br>
@@ -753,7 +829,7 @@
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-12-25-1672007509998593600-Mangaka-sensei to Zashiki Warashi - Volume 3 Omake">2022-12-25-1672007509998593600-Mangaka-sensei to Zashiki Warashi - Volume 3 Omake</a><br>
-    &nbsp;file:file/yiBXgSbA#EyAldc7IEagCPcYnqo46IQLcCXfohiocAm0m0yXJXFw<br>
+    &nbsp;file:https://files.catbox.moe/ml58us.zip<br>
     idStr:df29c9854be6d6c59f4e41deca99eab9
 <br>
     &nbsp;&nbsp;md5:eb4df85a6de7d15954062c9bd8d379d9 <br><br>
@@ -765,19 +841,19 @@
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-11-27-1669536193089064200-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 21">2022-11-27-1669536193089064200-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 21</a><br>
-    &nbsp;file:file/rvhjVLzR#bLQt6HxI4HYE7wmEDQCszocfJhe4FTNOAOFUTSNmZHA<br>
+    &nbsp;file:https://files.catbox.moe/dyq0pd.zip<br>
     idStr:a39f0d59b97a9efd457fc621f48c9636
 <br>
     &nbsp;&nbsp;md5:42bd6008c32655896d212f2031423440 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-10-30-1667115553215320000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 20">2022-10-30-1667115553215320000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 20</a><br>
-    &nbsp;file:file/Lz4jnThR#yNQYUK-kV3yDkcs88ApN7bfITKRP6HnOvx-jO3CNswM<br>
+    &nbsp;file:https://files.catbox.moe/he061r.zip<br>
     idStr:461e0afc33ba3c28264cf7a2ee0ac6e3
 <br>
     &nbsp;&nbsp;md5:58a0b0330840f8a28a2e75b00ed1eb41 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-10-16-1665906094322238000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 19">2022-10-16-1665906094322238000-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 19</a><br>
-    &nbsp;file:#!byAiRCBT!aXvbxLtsTq4AJttE0wp35jjneJnDxO-eTIgZ_RclHps<br>
+    &nbsp;file:https://files.catbox.moe/yp4x06.zip<br>
     idStr:826cb667e4d90cfe1df326cdbb7e9748
 <br>
     &nbsp;&nbsp;md5:dc004bfc4724d4d322dad2108657999d <br><br>
@@ -801,13 +877,13 @@
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake">2022-09-08-1662653120152278100-Mangaka-sensei to Zashiki Warashi - Volume 2 Omake</a><br>
-    &nbsp;file:#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs<br>
+    &nbsp;file:https://files.catbox.moe/lbyg59.zip<br>
     idStr:43e01f04387bcdacccfda9f902bd0e32
 <br>
     &nbsp;&nbsp;md5:6b98d6d4ab2bf996089e3814c316c58c <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-09-04-1662288836788927500-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 16">2022-09-04-1662288836788927500-Mangaka-sensei to Zashiki Warashi - Volume 3 Chapter 16</a><br>
-    &nbsp;file:#!PngTWIqA!Cii7OWUy9AWaJiu0NN6aci5cC7KmLFXJwz43waqM-r0<br>
+    &nbsp;file:https://files.catbox.moe/p4h1ai.zip<br>
     idStr:652404e15b967963ecdb29966ab45397
 <br>
     &nbsp;&nbsp;md5:11af2e02f7c4748a1973a06db946eac4 <br><br>
@@ -837,37 +913,37 @@
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13">2022-07-24-1658644737896589700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 13</a><br>
-    &nbsp;file:#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk<br>
+    &nbsp;file:https://files.catbox.moe/4qfv3a.zip<br>
     idStr:05232be9b1ee7b3c68694024e9ec289b
 <br>
     &nbsp;&nbsp;md5:128eed0b6cfa77f9bfd23e1d68e02c39 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804466091500-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12">2022-06-26-1656231615305105700-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 12</a><br>
-    &nbsp;file:#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE<br>
+    &nbsp;file:https://files.catbox.moe/hy9n7q.zip<br>
     idStr:6de55b6ba178081da249ee7a55c8e1a3
 <br>
     &nbsp;&nbsp;md5:11ce058a27c7a2f70a7306578afc7761 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804461097900-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11">2022-06-12-1655035774619498600-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 11</a><br>
-    &nbsp;file:#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI<br>
+    &nbsp;file:https://files.catbox.moe/czv4a6.zip<br>
     idStr:4d90d62e78bb9ba0abd670ca0d7393b7
 <br>
     &nbsp;&nbsp;md5:4c66c3420a64cfab87aebdeff901ea33 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804454106800-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10">2022-05-29-1653807825327780400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 10</a><br>
-    &nbsp;file:#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus<br>
+    &nbsp;file:https://files.catbox.moe/w77du3.zip<br>
     idStr:b1e5829792dcb8ca557aef1e97b5a6a6
 <br>
     &nbsp;&nbsp;md5:b01153dee5fd2e8379793a2827f4a9ef <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804385998000-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1">2022-05-22-1653224882225110700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 1</a><br>
-    &nbsp;file:#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU<br>
+    &nbsp;file:https://files.catbox.moe/0fdk5k.zip<br>
     idStr:2c9c046ddfbfa6df32ac2f9f6d9e22ed
 <br>
     &nbsp;&nbsp;md5:631bd7d7d9b5361a1300a4288b33dffc <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804449109400-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9">2022-05-08-1652011803330910000-Mangaka-sensei to Zashiki Warashi - Volume 2 Chapter 9</a><br>
-    &nbsp;file:#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA<br>
+    &nbsp;file:https://files.catbox.moe/7radii.zip<br>
     idStr:9c9ac1bca0179c695ba66231bd6cb8f8
 <br>
     &nbsp;&nbsp;md5:c0e48415f4ed212d9f536d236a3b21c6 <br><br>
@@ -885,114 +961,117 @@
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804426132900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7">2022-04-10-1649575061908608200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 7</a><br>
-    &nbsp;file:#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g<br>
+    &nbsp;file:https://files.catbox.moe/z91enr.zip<br>
     idStr:465b03ecc2014e9973cdc759820fe7a2
 <br>
     &nbsp;&nbsp;md5:270ac688545a603fb91d137342909eb9 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804417617200-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6">2022-03-27-1648367425168439400-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 6</a><br>
-    &nbsp;file:#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0<br>
+    &nbsp;file:https://files.catbox.moe/ohpg7l.zip<br>
     idStr:b5d9575923924b7614aef7725c4a2e29
 <br>
     &nbsp;&nbsp;md5:24041d4b017adb7c977db858cd2a056c <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804409974100-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5">2022-03-13-1647157089276021900-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 5</a><br>
-    &nbsp;file:#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc<br>
+    &nbsp;file:https://files.catbox.moe/5fs2gt.zip<br>
     idStr:6c4a0af5db1df684339420eb41524fad
 <br>
     &nbsp;&nbsp;md5:c4ff333965a685e0320ed8f7459bd793 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804398985500-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4">2022-02-27-1645959455553418700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 4</a><br>
-    &nbsp;file:#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c<br>
+    &nbsp;file:https://files.catbox.moe/1rxb65.zip<br>
     idStr:84ff5ffab744c67368612cb494ae540a
 <br>
     &nbsp;&nbsp;md5:8d344f04de7212e2dc8575610ebb97b6 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804386996300-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3">2022-02-16-1645004412795653700-Mangaka-sensei to Zashiki Warashi - Volume 1 Chapter 3</a><br>
-    &nbsp;file:#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q<br>
+    &nbsp;file:https://files.catbox.moe/xsw18g.zip<br>
     idStr:8c73e7fc21c010297472f47a7f9ac667
 <br>
     &nbsp;&nbsp;md5:38ae5e00b76f1e797a649081ceeaf378 <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804546009400-Barikios Stuff - Short Stories Proof That Hell Exists">2022-02-08-1644352603587188500-Barikios Stuff - Short Stories Proof That Hell Exists</a><br>
-    &nbsp;file:file/iqxX3AqA#yLIm5pqjw2ryRPRALWAlT6ZffSwQkgedcduFd5Buki0<br>
+    &nbsp;file:https://files.catbox.moe/tujohv.png<br>
     idStr:96eb59734069416d109238174f0d9486
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804540016600-Barikios Stuff - Oneshots Nienoki">2022-02-08-1644352603584177400-Barikios Stuff - Oneshots Nienoki</a><br>
-    &nbsp;file:file/b7x3nCjD#bzR8TB3-NGguk_qGZp-Nbstq2vojayGkFhgge719Vcg<br>
+    &nbsp;file:https://files.catbox.moe/0e12fs.zip<br>
     idStr:0c34dc8295320c4d42531b88c982e9d3
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804534023000-Kitsune no Ongaeshi! - Volume 1 Chapter 10">2022-02-08-1644352603578184900-Kitsune no Ongaeshi! - Volume 1 Chapter 10</a><br>
-    &nbsp;file:file/mrhnDACQ#E5BkYKhPfHT8nVE_mouAd0U5p7E_JFSa7KxWcfhzzew<br>
+    &nbsp;file:https://files.catbox.moe/5xz1st.zip<br>
     idStr:4d8606b4c771d84438c60671dfe5daa3
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804530026700-Kitsune no Ongaeshi! - Volume 1 Chapter 9">2022-02-08-1644352603574187800-Kitsune no Ongaeshi! - Volume 1 Chapter 9</a><br>
-    &nbsp;file:file/uz4X3a7I#4KO9TtDO0rSo3r2NBszT4kPZg85OlRZVTC8VuXCCG4Y<br>
+    &nbsp;file:https://files.catbox.moe/paskj2.zip<br>
     idStr:b4cd177462febee5c9a236bfb94f1fcc
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804524032300-Kitsune no Ongaeshi! - Volume 1 Chapter 8">2022-02-08-1644352603569193800-Kitsune no Ongaeshi! - Volume 1 Chapter 8</a><br>
-    &nbsp;file:file/P6wDwQob#QqKAjtNrkavLYz-r_OnTjgXLOx-_WWfb_ehTKMzIN50<br>
+    &nbsp;file:https://files.catbox.moe/bv6rwn.zip<br>
     idStr:3c99ead16c19f95e50e06886d23fc269
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804519037400-Kitsune no Ongaeshi! - Volume 1 Chapter 7">2022-02-08-1644352603565198300-Kitsune no Ongaeshi! - Volume 1 Chapter 7</a><br>
-    &nbsp;file:file/L3wRgagK#-JRkcNvproKVpEvhda73U5i2YQ9UWRlJ_1Xh7vmZ8I0<br>
+    &nbsp;file:https://files.catbox.moe/4kn57y.zip<br>
     idStr:e1e42b8c879d036352ee699b8219372f
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804514042400-Kitsune no Ongaeshi! - Volume 1 Chapter 6">2022-02-08-1644352603559203900-Kitsune no Ongaeshi! - Volume 1 Chapter 6</a><br>
-    &nbsp;file:file/u25TxSBQ#9oC02SRer29VOJzQYkybImpo_MgveVmBjOX1gTv_O-4<br>
+    &nbsp;file:https://files.catbox.moe/4g7kks.zip<br>
     idStr:d4b3dc897d808e9e804a2b444fd38f76
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804507049900-Kitsune no Ongaeshi! - Volume 1 Chapter 5">2022-02-08-1644352603553209800-Kitsune no Ongaeshi! - Volume 1 Chapter 5</a><br>
-    &nbsp;file:file/zzpnmKKK#oUZ0PDZO8QAI1pb40SlkdQuCLCNQDGI1oJ0EQzzZPIk<br>
+    &nbsp;file:https://files.catbox.moe/l8rx3t.zip<br>
     idStr:30b2a58dcbb1189d8708fb8b89bc793f
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804501055800-Kitsune no Ongaeshi! - Volume 1 Chapter 4">2022-02-08-1644352603547230000-Kitsune no Ongaeshi! - Volume 1 Chapter 4</a><br>
-    &nbsp;file:file/K2h3FaYK#gIuKPzHNS2fWAehbiz7xZV4V3JLPCBv7Of5xcQMpT6M<br>
+    &nbsp;file:https://files.catbox.moe/kutf2z.zip<br>
     idStr:2123b4c99a640cbea40baca52e3ccc14
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804495063400-Kitsune no Ongaeshi! - Volume 1 Chapter 3">2022-02-08-1644352603541221900-Kitsune no Ongaeshi! - Volume 1 Chapter 3</a><br>
-    &nbsp;file:file/ivx3AYqK#mxi7xWBXnHoI7ICge6OD1nJThdNumBbAcNT27aXk2Kc<br>
+    &nbsp;file:https://files.catbox.moe/pivk2b.zip<br>
     idStr:0f522fa3acd8e2dea5befbd201813a93
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804489070000-Kitsune no Ongaeshi! - Volume 1 Chapter 2">2022-02-08-1644352603535227400-Kitsune no Ongaeshi! - Volume 1 Chapter 2</a><br>
-    &nbsp;file:file/OzpRhIgC#qgDuMecjPlAlmoqPCAVQx0oMdv2l3MomH5ozpkLtI9c<br>
+    &nbsp;file:https://files.catbox.moe/o55bq8.zip<br>
     idStr:8716ce32e0d11b26a13c668ff494cbc9
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804480079900-Kitsune no Ongaeshi! - Volume 1 Chapter 1">2022-02-08-1644352603525238100-Kitsune no Ongaeshi! - Volume 1 Chapter 1</a><br>
-    &nbsp;file:file/Tyh1iKhR#JztlhFr5OtyD-hT1Z1aHKihCkxwZSiXZNAE3zfaV97c<br>
+    &nbsp;file:https://files.catbox.moe/gh8l6x.zip<br>
     idStr:7fcf34c5d89cd380665bf727d21bd95c
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
     title:<a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804473085800-Kitsune no Ongaeshi! - Volume 1 Batch 1-10">2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10</a><br>
-    &nbsp;file:file/q3wnjCRT#GwOuY_5Y3fLpbEKk4OmStV-vikIipgbzJWUzrKufO9g<br>
+    &nbsp;file:https://files.catbox.moe/2w2o66.zip<br>
     idStr:c0e3c5901ad9d07c1a9ce849a6803506
 <br>
     &nbsp;&nbsp;md5: <br><br>
   
   <h3>ids</h3>
+  
+    idStr:81f171f85bfa5bd2dac356d8536ed79a
+<br>
   
     idStr:aa66df91e7b2ef89337f7977259c77e0
 <br>
@@ -1276,142 +1355,146 @@
   
     https://mega.nz/file/H3wmXAID#s0aWYlN8TmaWsJ8YEAkTv_SdWFNV5w3hnAbuxA8XNdI 9e06486b30286b040c5e759e922e5155<br>
   
-    https://mega.co.nz/#!GmoGRAaL!ofLZx2Bv_lRKWBL3CO6L-iamxRZhlQxmmqwEIR1SGhU 631bd7d7d9b5361a1300a4288b33dffc<br>
+    https://files.catbox.moe/0fdk5k.zip 631bd7d7d9b5361a1300a4288b33dffc<br>
   
-    https://mega.co.nz/#!Gyw2RKxQ!OoKr0qhvMQ4CZKf07qf-aTXhP3RoRsxqjF2vaQgbxt0 24041d4b017adb7c977db858cd2a056c<br>
+    https://files.catbox.moe/ohpg7l.zip 24041d4b017adb7c977db858cd2a056c<br>
   
-    https://mega.co.nz/#!jjgU1AjD!Lk7-XGmhptNNOa9uwmZeAZY2bUSSCI1IuTXyXUCBq1Q 38ae5e00b76f1e797a649081ceeaf378<br>
+    https://files.catbox.moe/xsw18g.zip 38ae5e00b76f1e797a649081ceeaf378<br>
   
-    https://mega.co.nz/#!LiQRRQYB!6TL0B-RJIlf5Ve2zBBeCVvcDzUcwl0QGTJB0VAfrM9c 8d344f04de7212e2dc8575610ebb97b6<br>
+    https://files.catbox.moe/1rxb65.zip 8d344f04de7212e2dc8575610ebb97b6<br>
   
-    https://mega.co.nz/#!qvojDIgC!qBovqGhR9cHO6mCY4Mci4q-NSUDMEqNxnC7gXqo2Ncc c4ff333965a685e0320ed8f7459bd793<br>
+    https://files.catbox.moe/5fs2gt.zip c4ff333965a685e0320ed8f7459bd793<br>
   
-    https://mega.co.nz/#!enZAAZKA!z8p0mEh6-HqgNJJ89LtDanIS_8yG-cS7GXCVnDJtm2g 270ac688545a603fb91d137342909eb9<br>
+    https://files.catbox.moe/z91enr.zip 270ac688545a603fb91d137342909eb9<br>
   
-    https://mega.nz/file/TvJ2lD5J#6tcXK3fRvVTuLZDnd0oOLCC9dMxTLx9sszPF1QHqQmQ 18d16131e9c220e598670f002c8d1d96<br>
+    https://files.catbox.moe/6cdtax.zip 18d16131e9c220e598670f002c8d1d96<br>
   
-    https://mega.nz/file/fqhgARQY#eGPiP_-dQSiPoA0jyu_fFCtZNC_c7CXn5RqjosM7HFU 1f8e29128f128d04a4213c27dc13b81d<br>
+    https://files.catbox.moe/ttegph.zip 1f8e29128f128d04a4213c27dc13b81d<br>
   
-    https://mega.nz/file/rrIVhKJY#FGfz05mp0FTKoicB4t39ee2kh8VXBRj5RO1x7zE49jc eb07f1ace5a90e17b34d518476e73478<br>
+    https://files.catbox.moe/juulpx.zip eb07f1ace5a90e17b34d518476e73478<br>
   
-    https://mega.co.nz/#!X75BkSiK!2vas653i04j3qNml2mH3mhryxo-_4zea-fwTC6wbqyA c0e48415f4ed212d9f536d236a3b21c6<br>
+    https://files.catbox.moe/7radii.zip c0e48415f4ed212d9f536d236a3b21c6<br>
   
-    https://mega.co.nz/#!7rIyWbYb!1VbI0XkQd17zX333R-Fb2mMbgaLpytgWgEadGNyGZus b01153dee5fd2e8379793a2827f4a9ef<br>
+    https://files.catbox.moe/w77du3.zip b01153dee5fd2e8379793a2827f4a9ef<br>
   
-    https://mega.co.nz/#!X25Wya6Y!bAZRhi216AHbZ2_6VFrTCfTsU7BkCvTmicAgCEQg8oI 4c66c3420a64cfab87aebdeff901ea33<br>
+    https://files.catbox.moe/czv4a6.zip 4c66c3420a64cfab87aebdeff901ea33<br>
   
-    https://mega.co.nz/#!PyA3ATAB!o1VQAzXapExKdzNi9xkK4ywg5DQR8sdXw7JgGumrRrE 11ce058a27c7a2f70a7306578afc7761<br>
+    https://files.catbox.moe/hy9n7q.zip 11ce058a27c7a2f70a7306578afc7761<br>
   
-    https://mega.co.nz/#!XiQnEQyD!BtTQW27gk0xC3z4onoVdJuTEjgCxL3S1qkiswShypJk 128eed0b6cfa77f9bfd23e1d68e02c39<br>
+    https://files.catbox.moe/4qfv3a.zip 128eed0b6cfa77f9bfd23e1d68e02c39<br>
   
-    https://mega.nz/file/i2QzmKRL#rtMpey8tTbqPKRPXQ-t4h4zHAvSj2jBoUh3fWStqATA 9061fb1a9c678a3131e628233b5830a3<br>
+    https://files.catbox.moe/0qiz77.zip 9061fb1a9c678a3131e628233b5830a3<br>
   
-    https://mega.nz/file/jn4mAQDa#AqcBiXmd852bLPCA4y0U66RZ45zfNJARfToD3H31M3I 39ec0cb6067df2b1cd912e12fe86176a<br>
+    https://files.catbox.moe/45uqei.zip 39ec0cb6067df2b1cd912e12fe86176a<br>
   
-    https://mega.co.nz/#!nnpBUAYB!_VDlK1NOXo9xHr8nczs4evdlrRv1m-rYp_XU8n3QcZs 6b98d6d4ab2bf996089e3814c316c58c<br>
+    https://files.catbox.moe/lbyg59.zip 6b98d6d4ab2bf996089e3814c316c58c<br>
   
-    https://mega.co.nz/#!PngTWIqA!Cii7OWUy9AWaJiu0NN6aci5cC7KmLFXJwz43waqM-r0 11af2e02f7c4748a1973a06db946eac4<br>
+    https://files.catbox.moe/p4h1ai.zip 11af2e02f7c4748a1973a06db946eac4<br>
   
-    https://mega.nz/file/v2RySaCL#7kdsWTBkDVMOyajF2Y-0bkBH_GGf64uqMKx1zzxKBHo 6c27c8cdda4839276337aeb47ec8604e<br>
+    https://files.catbox.moe/42b253.zip 6c27c8cdda4839276337aeb47ec8604e<br>
   
-    https://mega.nz/file/PuxiDJaa#tlnsmKnefD_eFngtb6kVj82rKgmD-z8D13bAjpPUjvc 265323b3c95d6855341da079d2ccaad0<br>
+    https://files.catbox.moe/f384uo.zip 265323b3c95d6855341da079d2ccaad0<br>
   
-    https://mega.co.nz/#!byAiRCBT!aXvbxLtsTq4AJttE0wp35jjneJnDxO-eTIgZ_RclHps dc004bfc4724d4d322dad2108657999d<br>
+    https://files.catbox.moe/yp4x06.zip dc004bfc4724d4d322dad2108657999d<br>
   
-    https://mega.nz/file/Lz4jnThR#yNQYUK-kV3yDkcs88ApN7bfITKRP6HnOvx-jO3CNswM 58a0b0330840f8a28a2e75b00ed1eb41<br>
+    https://files.catbox.moe/he061r.zip 58a0b0330840f8a28a2e75b00ed1eb41<br>
   
-    https://mega.nz/file/rvhjVLzR#bLQt6HxI4HYE7wmEDQCszocfJhe4FTNOAOFUTSNmZHA 42bd6008c32655896d212f2031423440<br>
+    https://files.catbox.moe/dyq0pd.zip 42bd6008c32655896d212f2031423440<br>
   
-    https://mega.nz/file/zvBUnQLR#1tbVkWeiSzMhhj7kxqvYW8YPzfxY6QkJ1XhgPwPUQsw 72dc00b87f96cb25e01e89aa0fd8056e<br>
+    https://files.catbox.moe/scacgr.zip 72dc00b87f96cb25e01e89aa0fd8056e<br>
   
-    https://mega.nz/file/yiBXgSbA#EyAldc7IEagCPcYnqo46IQLcCXfohiocAm0m0yXJXFw eb4df85a6de7d15954062c9bd8d379d9<br>
+    https://files.catbox.moe/ml58us.zip eb4df85a6de7d15954062c9bd8d379d9<br>
   
-    https://mega.nz/file/yj4AGLKY#7bDuKtuzct-hKMS-SvAHgf_rqUxlnsguxWg6MPepkdA e160a0b6218011b09455b0697b2bef8e<br>
+    https://files.catbox.moe/51k5nx.zip e160a0b6218011b09455b0697b2bef8e<br>
   
-    https://mega.nz/file/LvxGma5Z#KNZSeTw10eipd4v-mKVjZ26XJ5fjqjuUQZj0AIl2BHM 3885889401a7e260d674e18636543ad0<br>
+    https://files.catbox.moe/92uhqk.zip 3885889401a7e260d674e18636543ad0<br>
   
-    https://mega.nz/file/3j5BFb7a#naq9_X2pjrQrOb5IYA5CFqYfkzTTPAD__qGEQBgpdno e2586812b3bb2ed34031c23f283b7890<br>
+    https://files.catbox.moe/2xl91p.zip e2586812b3bb2ed34031c23f283b7890<br>
   
     https://mega.nz/file/P7RynCwR#dW-nS4X6UAKQ6qaQy3sfxnWu92FRpmXoqAbmK8kecdA 775df84d2525191c050f3be232ed279b<br>
   
-    https://mega.nz/file/O2omhASQ#BWMqdHjYmmqnvLoUq_rdlyth56bg8RlNZpSukrUVrnY 181b06ac66ff3426850e7449d2f6e031<br>
+    https://files.catbox.moe/qz40eq.zip 181b06ac66ff3426850e7449d2f6e031<br>
   
-    https://mega.nz/file/3mgSHJgS#W7gPGvWsebUjAUzWztWorAO-er1AChHSgBB6Hvo7qiM fd28b6387a03bb1c65f9b39ee48b08af<br>
+    https://files.catbox.moe/0mveim.zip fd28b6387a03bb1c65f9b39ee48b08af<br>
   
-    https://mega.nz/file/6v4F2DQY#JlFsCzeUidp_7f-SiPf9ijTfIRavLn23lP_OGnkwDjU 71c51641ca0f0b99d676ff0b15cf4d7e<br>
+    https://files.catbox.moe/yu8ogn.zip 71c51641ca0f0b99d676ff0b15cf4d7e<br>
   
-    https://mega.nz/file/37hhiTJQ#pJDxK2BudDGjxdWwkQmFvCMnZ0kSzKW8xs3pswIU3po 824d188158f594f9a6ef945d4d200e90<br>
+    https://files.catbox.moe/28wtbd.zip 824d188158f594f9a6ef945d4d200e90<br>
   
-    https://mega.nz/file/zjpS3KTB#19i8NHORsxKpXHDgf-lVWYQwkCjd0SOjfOkM7gwkrYQ 882de0985e33daf700711cfd04186ec1<br>
+    https://files.catbox.moe/zk0gkf.zip 882de0985e33daf700711cfd04186ec1<br>
   
-    https://mega.nz/file/76wVVZpR#jLuw9mC-dLJeHOnQ0LU8B2neWcuJZm2a0EZU8BoQLRc 2d084a1c295c3d3f38537c3db9ee2902<br>
+    https://files.catbox.moe/plunm0.zip 2d084a1c295c3d3f38537c3db9ee2902<br>
   
     https://mega.nz/file/rmpC0IpR#XcQ4eZ6hp6HP8WEHINNTZIFZCAcnGspDQFx1Yhdzs-Y c187654e398510dbddb024945fdf5dab<br>
   
-    https://mega.nz/file/ejpUXAzL#b00s2X389AvjfqSj5hp4lFgBENw8-woxj_FI-GdjNA8 e5b5ad7377ab3fd0e69df28c9d8e9843<br>
+    https://files.catbox.moe/54vgig.zip e5b5ad7377ab3fd0e69df28c9d8e9843<br>
   
-    https://mega.nz/file/2vh3hDQb#WtB9tJlWVTVTnfRK2cZa9WO9ZJ5TzFe8qW0uG68z2wE eb94f576ef7be8c5f10473c8a776e592<br>
+    https://files.catbox.moe/9qq7gq.zip eb94f576ef7be8c5f10473c8a776e592<br>
   
-    https://mega.nz/file/OmAHDDxD#Mi2l8Xbx5Z43t0HZogS7rTfckMixsYleB_V5PNBS7EE 002201259fd72d5959f2f4b8f4806775<br>
+    https://files.catbox.moe/zf4foq.zip 002201259fd72d5959f2f4b8f4806775<br>
   
-    https://mega.nz/file/77I2WTxK#MoMdVOxD_IAvMGX10WEjRWpGwdK--cAzt0_Pf_KpgvM 460e749e5445868c92d391dfbe24b7ce<br>
+    https://files.catbox.moe/6xya2e.zip 460e749e5445868c92d391dfbe24b7ce<br>
   
-    https://mega.nz/file/Dr51XA6A#fPCOnn9TDdwztWRNIO5UShKo8bJGgdfGygzMge6rJhM 39d3871de975e2d5850be58626bc780a<br>
+    https://files.catbox.moe/p83xp8.zip 39d3871de975e2d5850be58626bc780a<br>
   
-    https://mega.nz/file/H2IjwLpJ#742VMT1vC4bVwur0OeFr9CvZB3ztr-S0SyC5651QPb8 ab0ae7af001b39045891fb6a80e6d73d<br>
+    https://files.catbox.moe/zqnfqn.zip ab0ae7af001b39045891fb6a80e6d73d<br>
   
     https://mega.nz/file/a2gjkTSA#ZHywV1hy-kH82wqV1bIhw-MNZRabry6iApMknoMyOJI 3186d592365a8cef279fb8d9fe3d4458<br>
   
     https://mega.nz/file/zqRzEBBL#DhUC497FbJ6flg6ht-lLjB631fTVHCquTmmt4Iu0KDA 6f0ee8da4f1250f2edd8c154b66f164e<br>
   
-    https://mega.nz/file/vqBz1CLZ#U11DHiIUGi2-4tCcXQR_zfOW99d5lmIPSsE5RntbFcY c5093734aa46a8fb0f483b64a49335e6<br>
+    https://files.catbox.moe/nwtzba.zip c5093734aa46a8fb0f483b64a49335e6<br>
   
-    https://mega.nz/file/nnAXBIZJ#9r_QOnToy-aEqaiNtT9B9Tl5ErK8xLwZlJoAEzfVUH8 59ada682564edb6f50769a1d6c94bda0<br>
+    https://files.catbox.moe/uuuqws.zip 59ada682564edb6f50769a1d6c94bda0<br>
   
-    https://mega.nz/file/n3JiFJIJ#rrP4VkmTBjbirZtlkDvgkGmRpf6lokMFaU3zI-01VNQ 6ef23534ad0c7929548c58d434861ef1<br>
+    https://files.catbox.moe/zho3w5.zip 6ef23534ad0c7929548c58d434861ef1<br>
   
-    https://mega.nz/file/mi4HDRYA#RBOwMTW8S-iYyZuiMOQxn5yiM1ggTxt91T2ZOr7dGXc 8e69198aebf8b220dbc75d2f2a7207fb<br>
+    https://files.catbox.moe/kgpusg.zip 8e69198aebf8b220dbc75d2f2a7207fb<br>
   
-    https://mega.nz/file/jiAHSKDR#1yo6jNEfmBHLmn6ZDP-oyqgHX7ZDJ_4JCAMX32EG4eg cb8b64a0592488c0f80bfc06f4385fcf<br>
+    https://files.catbox.moe/0b4gd4.zip cb8b64a0592488c0f80bfc06f4385fcf<br>
   
     https://mega.nz/file/XjgBBD5I#_jMCLH9m9uJz9yMoODafNStb3vBRo78FHJ1_ZjvpKPo 70dea494b036e4d9597018923e9d453f<br>
   
-    https://mega.nz/file/C7ZBFbZS#hw4nWRsWhHb-oaivQ3JLyGDweg65qa14HncDkqXhdWg 414d7c2dfa83a441a5f2064da8ae833f<br>
+    https://files.catbox.moe/0a5tqy.zip 414d7c2dfa83a441a5f2064da8ae833f<br>
   
-    https://mega.nz/file/OjolCDDQ#CoXZd8BnV9mBNLF91yIm7GNmyOPBvb_gNUtb6cnRNdk b503b59d27f1731e7db182d4827a7903<br>
+    https://files.catbox.moe/hr50ls.zip b503b59d27f1731e7db182d4827a7903<br>
   
-    https://mega.nz/file/K2RzwbLR#cJzh_6ucr6j8Ta4m7zE50xhbPROxxJ19vnEq5sgEHRU 0931baa076ad5ae237e87432bbbc7719<br>
+    https://files.catbox.moe/8xzn1h.zip 0931baa076ad5ae237e87432bbbc7719<br>
   
     https://mega.nz/file/nvZVnYoR#GHE3AdoacQSTB9JQMTEzPiF0pIG9jzZ8NCwhTm8yBNQ a196c5d0cf08c30b7e98bf4f9ff8dc2a<br>
   
-    https://mega.nz/file/LqxnkQoY#qEf7ztVps8Q5FZOsEEmIOdhkiV5pN6b37zfvlkMy09A e55b3d4424b7a5a1dcc3477eb70e5d09<br>
+    https://files.catbox.moe/ezxm35.zip e55b3d4424b7a5a1dcc3477eb70e5d09<br>
   
-    https://mega.nz/file/qqY1XRhZ#5R2baq5gpEgKLlj5VrTWBlxMdAgtuchgJXs5N6FHm0Q 706d23d4bfcbd66397831989fe741b7e<br>
+    https://files.catbox.moe/etpslx.zip 706d23d4bfcbd66397831989fe741b7e<br>
   
-    https://mega.nz/file/PqBEFI5B#euIIAECBCcWrv_4A2MDJiuIT5XFfNqomdJrz-fIFQYg 22dcb47e315cf5ca1df0ed0c26ac7afc<br>
+    https://files.catbox.moe/qlx131.zip 22dcb47e315cf5ca1df0ed0c26ac7afc<br>
   
-    https://mega.nz/file/WiIQTAIA#UgznCBcQZJ_mgZtk76OX1DYFI_-9RIqaqC52UjaPXdk 843aef6e743137cea90db44dafb2b81f<br>
+    https://files.catbox.moe/ey9l86.zip 843aef6e743137cea90db44dafb2b81f<br>
   
-    https://mega.nz/file/vyxmEIwa#aZin4bdNDABT8uWTuciv1Ci4Gnb3WYF0pYVwUVvtARA b5cb09621bff5764687351e839235cf5<br>
+    https://files.catbox.moe/9z2y8s.zip b5cb09621bff5764687351e839235cf5<br>
   
     https://mega.nz/file/eigyFKhS#-iSdaWIf1b9hqt69QQPdqm3KoLxoUY7b5__5ODxp-s0 3dceab96933048f754d4dcbfc9e3e8ee<br>
   
-    https://mega.nz/file/buxzFLCI#2KSJCE1nKC1dSrHbNMNoEE-7YGHCkU_ZPHVvG_2O7GA 469bdded51d2320d0a254f931a4f0223<br>
+    https://files.catbox.moe/iv7vf4.zip 469bdded51d2320d0a254f931a4f0223<br>
   
-    https://mega.nz/file/ziZ13BDb#41r0_Lu0wRrTmFaTrouEeSMETm1-Er9cM4ggP6nClao 04c28fff8fbaa57bb53a7151dbf58820<br>
+    https://files.catbox.moe/xfrx38.zip 04c28fff8fbaa57bb53a7151dbf58820<br>
   
-    https://mega.nz/file/ryZ2HYaC#0i6mhY-RaHfewtmNlizMVkP_eTB1aG27zwDjusZ2WxY c4180bf3db619e3804c2d9b53a76f3f6<br>
+    https://files.catbox.moe/9d5xob.zip c4180bf3db619e3804c2d9b53a76f3f6<br>
   
-    https://mega.nz/file/CmwjBZhS#BthovQMncblskmdIhC18eRliSkfryB3E6TaVCuDj8oE 0c85df29c2060e1558fdba02852eb9a8<br>
+    https://files.catbox.moe/adrw4r.zip 0c85df29c2060e1558fdba02852eb9a8<br>
   
-    https://mega.nz/file/f7wVWJjb#se_FOaz9eq_IBE2ApEI69eM8Q6DJj7XsQDnFTH4GGcM 8aeebb0b8a3ce807ab20be0da145758e<br>
+    https://files.catbox.moe/9gv10y.zip 8aeebb0b8a3ce807ab20be0da145758e<br>
   
-    https://mega.nz/file/n6ZFQAyR#lqsNwWelBPD8yhXol3-8vlp4z8I8InCXs5eb1b_YYJc 0696c7b45c52b07674bc73e8d102deaf<br>
+    https://files.catbox.moe/rkiyp0.zip 0696c7b45c52b07674bc73e8d102deaf<br>
   
-    https://mega.nz/file/6yhAwBJK#onOjDR4g1Umg_PMEq5AgaJj8dMoZQn3dKs7hF70ttoY e504d10606bbc85ff2f44b27bf357f02<br>
+    https://files.catbox.moe/0uat8r.zip e504d10606bbc85ff2f44b27bf357f02<br>
+  
+    https://files.catbox.moe/s7pej0.zip 9366ac6a6be4ce49704be448e26515e0<br>
   
 <hr>
   <h2>blog</h2>
+  
+    title:<a class="nonStyled" target="_self" href="/blog/Update-to-Download-Links">Changed Download Links</a><br>
   
     title:<a class="nonStyled" target="_self" href="/blog/Completed-Ningyou-no-Asa">Completed Ningyou no Asa</a><br>
   
@@ -1438,7 +1521,9 @@
 <hr>
 <h2>tags</h2>
   
-    <h3>tag:Blog posts:11</h3>
+    <h3>tag:Blog posts:12</h3>
+    
+      <a class="nonStyled" target="_self" href="/blog/Update-to-Download-Links">Changed Download Links</a><br>
     
       <a class="nonStyled" target="_self" href="/blog/Completed-Ningyou-no-Asa">Completed Ningyou no Asa</a><br>
     
@@ -1488,7 +1573,9 @@
       <a class="nonStyled" target="_self" href="/chapters/2022-06-26-1656253804473085800-Kitsune no Ongaeshi! - Volume 1 Batch 1-10">2022-02-08-1644352603519244000-Kitsune no Ongaeshi! - Volume 1 Batch 1-10</a><br>
     
   
-    <h3>tag:chapterUpdate posts:92</h3>
+    <h3>tag:chapterUpdate posts:93</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4">2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4</a><br>
     
       <a class="nonStyled" target="_self" href="/chapters/2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3">2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3</a><br>
     
@@ -1877,7 +1964,9 @@
       <a class="nonStyled" target="_self" href="/chapters/2023-08-21-1692599295984205500-Oichii tte Yutte yo - Volume 1 Chapter 1">2023-08-21-1692599295984205500-Oichii tte Yutte yo - Volume 1 Chapter 1</a><br>
     
   
-    <h3>tag:Shinyuu_no_Musume_ni_Semarare_Komatteimasu posts:3</h3>
+    <h3>tag:Shinyuu_no_Musume_ni_Semarare_Komatteimasu posts:4</h3>
+    
+      <a class="nonStyled" target="_self" href="/chapters/2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4">2024-09-02-1725269681679332500-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 4</a><br>
     
       <a class="nonStyled" target="_self" href="/chapters/2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3">2024-08-26-1724656901424726200-Shinyuu no Musume ni Semarare Komatteimasu - Volume 1 Chapter 3</a><br>
     
@@ -1896,6 +1985,11 @@
 
 <br>
       </div>
+      <noscript>
+        <div>
+          JavaScript is unfortunately required to download chapters with the correct file-names.
+        </div>
+      </noscript>
 
       </div>
       <footer id="footer">
@@ -1904,7 +1998,7 @@
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-08-26 07:21</span>
+          <span style="font-size:8px;">2024-09-02 13:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

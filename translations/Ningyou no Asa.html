@@ -23,6 +23,64 @@
         background:black;
       }
     </style>
+    <script>
+      function zeroPad(number) {
+        let [integer, decimal] = number.split('.');
+        integer = integer.padStart(3, '0');
+        if (decimal) {
+          return `${integer}.${decimal}`;
+        }
+        return integer;
+      }
+    
+      async function downloadURL(uri, short, chapter, dlLink) {
+        const ext = uri.match(/\.[^\.\/]+$/);
+        console.log(short)
+        if (!ext) {
+          return
+        }
+        var name = ""
+        try {
+          chapterMatch = chapter.match(/\d+(\.\d+)?/)
+          name = short + zeroPad(chapterMatch[0])
+        }
+        catch {
+          name = short + "_" + chapter
+        }
+    
+        event.preventDefault();
+        console.log("Downloading " + uri + " as " + name)
+        const oldInnerHTML = dlLink.innerHTML;
+        dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(Connecting)</span>";
+        const response = await fetch(uri);
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+    
+        const res = new Response(new ReadableStream({
+          async start(controller) {
+            const reader = response.body.getReader();
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              loaded += value.byteLength;
+              dlLink.innerHTML = oldInnerHTML + " <span style='font-size:65%'>(" + (loaded/1000000).toFixed(2) + "/" + (total/1000000).toFixed(2) +"mb)</span>";
+              controller.enqueue(value);
+            }
+            controller.close();
+          },
+        }));
+        const blob = await res.blob();
+        const href = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = name + ext;
+        a.target="_blank"
+        a.href = href;
+        a.click();
+        a.href = "";
+        dlLink.innerHTML = oldInnerHTML;
+      }
+    </script>
     <title>Ningyou no Asa - neCo</title>
   </head>
   <!--
@@ -73,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-08-26-07-21">
+      <div class="refreshBanner ver4 Aver2024-09-02-13-43">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -93,8 +151,7 @@
   
   <a href="neco2.github.io/">neco2.github.io/</a>
 
- -->
-
+-->
 
 <div class="seriesContent">
 
@@ -247,13 +304,12 @@ Proofreader: Anon</p>
 <div class="feedLinkContainer" >
   <a title="Chapter updates and important announcements regarding this manga (delays etc)." target="_self" href="/feeds/rss-Ningyou no Asa.xml">Rss Feed</a>
   
-    <a style="margin-left:1em" target="_self" href="https://mega.nz/folder/quIGEa6a#ZzyZZeaX0xqVZnfKj3hODQ">Batch Downloads</a>
-  
 </div>
 <br>
 
 <div id="volumes">
   
+    
     
       
         <div class="volumeDiv" >
@@ -275,50 +331,54 @@ Proofreader: Anon</p>
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 1 | 2023-05-14 04:54:10 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/76wVVZpR#jLuw9mC-dLJeHOnQ0LU8B2neWcuJZm2a0EZU8BoQLRc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/plunm0.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 1" >
+Chapter 1"
+onClick="javascript:downloadURL('https://files.catbox.moe/plunm0.zip','NnA','Chapter 1',this);">
 
+  
+  
+  
+  
+  
+    Chapter 1
+  
 
-
-
-
-  Chapter 1
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-05-14 04:54:10 +0000<br>
     &nbsp;&nbsp;MD5: 2d084a1c295c3d3f38537c3db9ee2902
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/76wVVZpR#jLuw9mC-dLJeHOnQ0LU8B2neWcuJZm2a0EZU8BoQLRc"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/plunm0.zip"
 _download_="Ningyou_no_Asa
 
 Volume 1, 
-Chapter 1" >
+Chapter 1"
+onClick="javascript:downloadURL('https://files.catbox.moe/plunm0.zip','NnA','Chapter 1',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 1
+  
 
-
-
-
-
-  Chapter 1
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-05-14 04:54:10 +0000<br>
     &nbsp;&nbsp;MD5: 2d084a1c295c3d3f38537c3db9ee2902
   </div>
-
 
                     </span>
                     <small>
@@ -342,50 +402,54 @@ Chapter 1" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 2 | 2023-06-11 17:46:34 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/ejpUXAzL#b00s2X389AvjfqSj5hp4lFgBENw8-woxj_FI-GdjNA8"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/54vgig.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 2" >
+Chapter 2"
+onClick="javascript:downloadURL('https://files.catbox.moe/54vgig.zip','NnA','Chapter 2',this);">
 
+  
+  
+  
+  
+  
+    Chapter 2
+  
 
-
-
-
-  Chapter 2
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-06-11 07:09:50 +0000<br>
     &nbsp;&nbsp;MD5: e5b5ad7377ab3fd0e69df28c9d8e9843
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/ejpUXAzL#b00s2X389AvjfqSj5hp4lFgBENw8-woxj_FI-GdjNA8"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/54vgig.zip"
 _download_="Ningyou_no_Asa
 
 Volume 1, 
-Chapter 2" >
+Chapter 2"
+onClick="javascript:downloadURL('https://files.catbox.moe/54vgig.zip','NnA','Chapter 2',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 2
+  
 
-
-
-
-
-  Chapter 2
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-06-11 07:09:50 +0000<br>
     &nbsp;&nbsp;MD5: e5b5ad7377ab3fd0e69df28c9d8e9843
   </div>
-
 
                     </span>
                     <small>
@@ -409,50 +473,54 @@ Chapter 2" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 3 | 2023-07-02 06:40:41 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/OmAHDDxD#Mi2l8Xbx5Z43t0HZogS7rTfckMixsYleB_V5PNBS7EE"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/zf4foq.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 3" >
+Chapter 3"
+onClick="javascript:downloadURL('https://files.catbox.moe/zf4foq.zip','NnA','Chapter 3',this);">
 
+  
+  
+  
+  
+  
+    Chapter 3
+  
 
-
-
-
-  Chapter 3
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-07-02 06:40:41 +0000<br>
     &nbsp;&nbsp;MD5: 002201259fd72d5959f2f4b8f4806775
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/OmAHDDxD#Mi2l8Xbx5Z43t0HZogS7rTfckMixsYleB_V5PNBS7EE"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/zf4foq.zip"
 _download_="Ningyou_no_Asa
 
 Volume 1, 
-Chapter 3" >
+Chapter 3"
+onClick="javascript:downloadURL('https://files.catbox.moe/zf4foq.zip','NnA','Chapter 3',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 3
+  
 
-
-
-
-
-  Chapter 3
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-07-02 06:40:41 +0000<br>
     &nbsp;&nbsp;MD5: 002201259fd72d5959f2f4b8f4806775
   </div>
-
 
                     </span>
                     <small>
@@ -476,50 +544,54 @@ Chapter 3" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 4 | 2023-07-23 08:50:07 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/Dr51XA6A#fPCOnn9TDdwztWRNIO5UShKo8bJGgdfGygzMge6rJhM"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/p83xp8.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 4" >
+Chapter 4"
+onClick="javascript:downloadURL('https://files.catbox.moe/p83xp8.zip','NnA','Chapter 4',this);">
 
+  
+  
+  
+  
+  
+    Chapter 4
+  
 
-
-
-
-  Chapter 4
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-07-23 08:50:07 +0000<br>
     &nbsp;&nbsp;MD5: 39d3871de975e2d5850be58626bc780a
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/Dr51XA6A#fPCOnn9TDdwztWRNIO5UShKo8bJGgdfGygzMge6rJhM"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/p83xp8.zip"
 _download_="Ningyou_no_Asa
 
 Volume 1, 
-Chapter 4" >
+Chapter 4"
+onClick="javascript:downloadURL('https://files.catbox.moe/p83xp8.zip','NnA','Chapter 4',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 4
+  
 
-
-
-
-
-  Chapter 4
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-07-23 08:50:07 +0000<br>
     &nbsp;&nbsp;MD5: 39d3871de975e2d5850be58626bc780a
   </div>
-
 
                     </span>
                     <small>
@@ -543,50 +615,54 @@ Chapter 4" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 1, Chapter 4.5 | 2023-08-13 13:09:31 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/H2IjwLpJ#742VMT1vC4bVwur0OeFr9CvZB3ztr-S0SyC5651QPb8"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/zqnfqn.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 4.5" >
+Chapter 4.5"
+onClick="javascript:downloadURL('https://files.catbox.moe/zqnfqn.zip','NnA','Chapter 4.5',this);">
 
+  
+  
+  
+  
+  
+    Chapter 4.5
+  
 
-
-
-
-  Chapter 4.5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-08-13 13:09:31 +0000<br>
     &nbsp;&nbsp;MD5: ab0ae7af001b39045891fb6a80e6d73d
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/H2IjwLpJ#742VMT1vC4bVwur0OeFr9CvZB3ztr-S0SyC5651QPb8"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/zqnfqn.zip"
 _download_="Ningyou_no_Asa
 
 Volume 1, 
-Chapter 4.5" >
+Chapter 4.5"
+onClick="javascript:downloadURL('https://files.catbox.moe/zqnfqn.zip','NnA','Chapter 4.5',this);">
 
-  Volume 1,
+  
+    Volume 1,
+  
+  
+  
+  
+  
+    Chapter 4.5
+  
 
-
-
-
-
-  Chapter 4.5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-08-13 13:09:31 +0000<br>
     &nbsp;&nbsp;MD5: ab0ae7af001b39045891fb6a80e6d73d
   </div>
-
 
                     </span>
                     <small>
@@ -625,50 +701,54 @@ Chapter 4.5" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 5 | 2023-09-24 07:08:38 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/mi4HDRYA#RBOwMTW8S-iYyZuiMOQxn5yiM1ggTxt91T2ZOr7dGXc"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/kgpusg.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 5" >
+Chapter 5"
+onClick="javascript:downloadURL('https://files.catbox.moe/kgpusg.zip','NnA','Chapter 5',this);">
 
+  
+  
+  
+  
+  
+    Chapter 5
+  
 
-
-
-
-  Chapter 5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-09-24 07:08:38 +0000<br>
     &nbsp;&nbsp;MD5: 8e69198aebf8b220dbc75d2f2a7207fb
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/mi4HDRYA#RBOwMTW8S-iYyZuiMOQxn5yiM1ggTxt91T2ZOr7dGXc"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/kgpusg.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 5" >
+Chapter 5"
+onClick="javascript:downloadURL('https://files.catbox.moe/kgpusg.zip','NnA','Chapter 5',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 5
+  
 
-
-
-
-
-  Chapter 5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-09-24 07:08:38 +0000<br>
     &nbsp;&nbsp;MD5: 8e69198aebf8b220dbc75d2f2a7207fb
   </div>
-
 
                     </span>
                     <small>
@@ -692,50 +772,54 @@ Chapter 5" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 6 | 2023-10-15 11:14:30 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/OjolCDDQ#CoXZd8BnV9mBNLF91yIm7GNmyOPBvb_gNUtb6cnRNdk"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/hr50ls.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 6" >
+Chapter 6"
+onClick="javascript:downloadURL('https://files.catbox.moe/hr50ls.zip','NnA','Chapter 6',this);">
 
+  
+  
+  
+  
+  
+    Chapter 6
+  
 
-
-
-
-  Chapter 6
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-10-15 11:14:30 +0000<br>
     &nbsp;&nbsp;MD5: b503b59d27f1731e7db182d4827a7903
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/OjolCDDQ#CoXZd8BnV9mBNLF91yIm7GNmyOPBvb_gNUtb6cnRNdk"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/hr50ls.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 6" >
+Chapter 6"
+onClick="javascript:downloadURL('https://files.catbox.moe/hr50ls.zip','NnA','Chapter 6',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 6
+  
 
-
-
-
-
-  Chapter 6
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2023-10-15 11:14:30 +0000<br>
     &nbsp;&nbsp;MD5: b503b59d27f1731e7db182d4827a7903
   </div>
-
 
                     </span>
                     <small>
@@ -759,50 +843,54 @@ Chapter 6" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 7 | 2024-03-17 13:00:48 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/vyxmEIwa#aZin4bdNDABT8uWTuciv1Ci4Gnb3WYF0pYVwUVvtARA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/9z2y8s.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 7" >
+Chapter 7"
+onClick="javascript:downloadURL('https://files.catbox.moe/9z2y8s.zip','NnA','Chapter 7',this);">
 
+  
+  
+  
+  
+  
+    Chapter 7
+  
 
-
-
-
-  Chapter 7
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: b5cb09621bff5764687351e839235cf5
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/vyxmEIwa#aZin4bdNDABT8uWTuciv1Ci4Gnb3WYF0pYVwUVvtARA"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/9z2y8s.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 7" >
+Chapter 7"
+onClick="javascript:downloadURL('https://files.catbox.moe/9z2y8s.zip','NnA','Chapter 7',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 7
+  
 
-
-
-
-
-  Chapter 7
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: b5cb09621bff5764687351e839235cf5
   </div>
-
 
                     </span>
                     <small>
@@ -826,50 +914,54 @@ Chapter 7" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 8 | 2024-03-18 18:16:31 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/ziZ13BDb#41r0_Lu0wRrTmFaTrouEeSMETm1-Er9cM4ggP6nClao"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/xfrx38.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 8" >
+Chapter 8"
+onClick="javascript:downloadURL('https://files.catbox.moe/xfrx38.zip','NnA','Chapter 8',this);">
 
+  
+  
+  
+  
+  
+    Chapter 8
+  
 
-
-
-
-  Chapter 8
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: 04c28fff8fbaa57bb53a7151dbf58820
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/ziZ13BDb#41r0_Lu0wRrTmFaTrouEeSMETm1-Er9cM4ggP6nClao"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/xfrx38.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 8" >
+Chapter 8"
+onClick="javascript:downloadURL('https://files.catbox.moe/xfrx38.zip','NnA','Chapter 8',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 8
+  
 
-
-
-
-
-  Chapter 8
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: 04c28fff8fbaa57bb53a7151dbf58820
   </div>
-
 
                     </span>
                     <small>
@@ -893,50 +985,54 @@ Chapter 8" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 9 | 2024-03-17 13:00:48 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/buxzFLCI#2KSJCE1nKC1dSrHbNMNoEE-7YGHCkU_ZPHVvG_2O7GA"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/iv7vf4.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 9" >
+Chapter 9"
+onClick="javascript:downloadURL('https://files.catbox.moe/iv7vf4.zip','NnA','Chapter 9',this);">
 
+  
+  
+  
+  
+  
+    Chapter 9
+  
 
-
-
-
-  Chapter 9
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: 469bdded51d2320d0a254f931a4f0223
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/buxzFLCI#2KSJCE1nKC1dSrHbNMNoEE-7YGHCkU_ZPHVvG_2O7GA"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/iv7vf4.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 9" >
+Chapter 9"
+onClick="javascript:downloadURL('https://files.catbox.moe/iv7vf4.zip','NnA','Chapter 9',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 9
+  
 
-
-
-
-
-  Chapter 9
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-17 13:00:48 +0000<br>
     &nbsp;&nbsp;MD5: 469bdded51d2320d0a254f931a4f0223
   </div>
-
 
                     </span>
                     <small>
@@ -960,50 +1056,54 @@ Chapter 9" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 1;" title="Volume 2, Chapter 10 | 2024-03-30 09:17:03 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/ryZ2HYaC#0i6mhY-RaHfewtmNlizMVkP_eTB1aG27zwDjusZ2WxY"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/9d5xob.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 10" >
+Chapter 10"
+onClick="javascript:downloadURL('https://files.catbox.moe/9d5xob.zip','NnA','Chapter 10',this);">
 
+  
+  
+  
+  
+  
+    Chapter 10
+  
 
-
-
-
-  Chapter 10
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-30 09:17:03 +0000<br>
     &nbsp;&nbsp;MD5: c4180bf3db619e3804c2d9b53a76f3f6
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/ryZ2HYaC#0i6mhY-RaHfewtmNlizMVkP_eTB1aG27zwDjusZ2WxY"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/9d5xob.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 10" >
+Chapter 10"
+onClick="javascript:downloadURL('https://files.catbox.moe/9d5xob.zip','NnA','Chapter 10',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 10
+  
 
-
-
-
-
-  Chapter 10
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-30 09:17:03 +0000<br>
     &nbsp;&nbsp;MD5: c4180bf3db619e3804c2d9b53a76f3f6
   </div>
-
 
                     </span>
                     <small>
@@ -1027,50 +1127,54 @@ Chapter 10" >
                 
                 <div class="chapterEntry">
                   <span class="chapterTitleShort chapterDownload" style="grid-column: span 2;" title="Volume 2, Chapter 10.5 | 2024-03-30 09:17:03 +0000" class="chapterDownload">
-                    <a target="_self" class="dl_link" href="https://mega.nz/file/CmwjBZhS#BthovQMncblskmdIhC18eRliSkfryB3E6TaVCuDj8oE"
+                    <a target="_self" class="dl_link" href="https://files.catbox.moe/adrw4r.zip"
 _download_="Ningyou_no_Asa
 
 
-Chapter 10.5" >
+Chapter 10.5"
+onClick="javascript:downloadURL('https://files.catbox.moe/adrw4r.zip','NnA','Chapter 10.5',this);">
 
+  
+  
+  
+  
+  
+    Chapter 10.5
+  
 
-
-
-
-  Chapter 10.5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-30 09:17:03 +0000<br>
     &nbsp;&nbsp;MD5: 0c85df29c2060e1558fdba02852eb9a8
   </div>
-
 
                   </span>
                   <div class="chapterDetails">
                     <span class="chapterTitleLong">
-                      <a target="_self" class="dl_link" href="https://mega.nz/file/CmwjBZhS#BthovQMncblskmdIhC18eRliSkfryB3E6TaVCuDj8oE"
+                      <a target="_self" class="dl_link" href="https://files.catbox.moe/adrw4r.zip"
 _download_="Ningyou_no_Asa
 
 Volume 2, 
-Chapter 10.5" >
+Chapter 10.5"
+onClick="javascript:downloadURL('https://files.catbox.moe/adrw4r.zip','NnA','Chapter 10.5',this);">
 
-  Volume 2,
+  
+    Volume 2,
+  
+  
+  
+  
+  
+    Chapter 10.5
+  
 
-
-
-
-
-  Chapter 10.5
-
-</a>
+</a> 
 
   <div class="hash">
     Added: 2024-03-30 09:17:03 +0000<br>
     &nbsp;&nbsp;MD5: 0c85df29c2060e1558fdba02852eb9a8
   </div>
-
 
                     </span>
                     <small>
@@ -1095,6 +1199,11 @@ Chapter 10.5" >
 </div>
 <br>
       </div>
+      <noscript>
+        <div>
+          JavaScript is unfortunately required to download chapters with the correct file-names.
+        </div>
+      </noscript>
 
       </div>
       <footer id="footer">
@@ -1103,7 +1212,7 @@ Chapter 10.5" >
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-08-26 07:21</span>
+          <span style="font-size:8px;">2024-09-02 13:43</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>
