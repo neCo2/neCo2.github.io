@@ -131,7 +131,7 @@
         </div>
 
       </header>
-      <div class="refreshBanner ver4 Aver2024-10-27-22-16">
+      <div class="refreshBanner ver4 Aver2024-11-08-15-57">
         <div>
           If you are seeing this, please refresh the page without cache.<br>
           (ctrl+shift+r usually)
@@ -297,6 +297,66 @@
 </div>
 
 
+  <div id="announcements">
+  <style media="screen">
+    #announcements {
+      display: flex;
+      margin-top: 1em;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
+      max-width: 90%;
+      background: #ff00000c;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 120%;
+      animation-name: flash;
+      animation-duration: 2.5s;
+    }
+    @keyframes flash {
+      0%   { outline: red solid 3px; outline-offset: 1em; }
+      20%  { background: #ff00003a; }
+      30%  { background: #ff00003a; }
+      50%  { outline-offset: 0em; }
+      100% { background: parent; outline-offset: 0em; }
+    }
+    #infoTable {
+      float: right;
+      max-width: calc(100% - 1.5em);
+    }
+    #infoTable tr {
+      vertical-align: middle;
+    }
+    .infoSymbol {
+      font-size: 135%;
+      color: var(--page-text);
+      border: 2px solid var(--page-text);
+      border-radius: 50%;
+      text-align: center;
+      width: 1em;
+      height: 1em;
+      vertical-align: center;
+      display: inline-block;
+      line-height: 1em;
+      vertical-align: middle;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  </style>
+
+  <div title="Information" class="infoSymbol" style="margin-right:.5em;">i</div>
+  <table id="infoTable" style="vertical-align:top;display:inline-table;" cellpadding="0" cellspacing="0">
+    
+    
+      <tr>
+        <td>2024-11-06&nbsp;|&nbsp;</td>
+        <td><a target="_self" href="/blog/Shinmusu-Delayed">Shinmusu Chapter 9 Delay</a></td>
+      </tr>
+    
+  </table>
+</div>
+
+
 
 <div id="feeds" class="truncateBottom">
   <div id="colLeft" class="feed feed_updates">
@@ -324,7 +384,7 @@ Volume 1,
 Omake"
 onClick="javascript:downloadURL('https://files.catbox.moe/36yztg.zip','SMS','Omake',this);">
 
-  Shinyuu no Musume ni Semarare Komatteimasu  - Volume 1, Omake
+  Shinyuu no Musume ni Semarare Komatteimasu  - <span class="nobreak">Volume 1,</span> <span class="nobreak">Omake</span>
 
 </a> 
 
@@ -363,7 +423,7 @@ Volume 1,
 Chapter 8"
 onClick="javascript:downloadURL('https://files.catbox.moe/36ntbp.zip','SMS','Chapter 8',this);">
 
-  Shinyuu no Musume ni Semarare Komatteimasu  - Volume 1, Chapter 8
+  Shinyuu no Musume ni Semarare Komatteimasu  - <span class="nobreak">Volume 1,</span> <span class="nobreak">Chapter 8</span>
 
 </a> 
 
@@ -402,7 +462,7 @@ Volume 1,
 Chapter 7"
 onClick="javascript:downloadURL('https://files.catbox.moe/28u2m2.zip','SMS','Chapter 7',this);">
 
-  Shinyuu no Musume ni Semarare Komatteimasu  - Volume 1, Chapter 7
+  Shinyuu no Musume ni Semarare Komatteimasu  - <span class="nobreak">Volume 1,</span> <span class="nobreak">Chapter 7</span>
 
 </a> 
 
@@ -441,7 +501,7 @@ Volume 1,
 Chapter 1"
 onClick="javascript:downloadURL('https://files.catbox.moe/b84d82.zip','SMS','Chapter 1',this);">
 
-  Shinyuu no Musume ni Semarare Komatteimasu  - Volume 1, Chapter 1
+  Shinyuu no Musume ni Semarare Komatteimasu  - <span class="nobreak">Volume 1,</span> <span class="nobreak">Chapter 1</span>
 
 </a> 
 
@@ -480,7 +540,7 @@ Volume 1,
 Chapter 6"
 onClick="javascript:downloadURL('https://files.catbox.moe/pwban6.zip','SMS','Chapter 6',this);">
 
-  Shinyuu no Musume ni Semarare Komatteimasu  - Volume 1, Chapter 6
+  Shinyuu no Musume ni Semarare Komatteimasu  - <span class="nobreak">Volume 1,</span> <span class="nobreak">Chapter 6</span>
 
 </a> 
 
@@ -502,6 +562,9 @@ onClick="javascript:downloadURL('https://files.catbox.moe/pwban6.zip','SMS','Cha
   <div id="colRight" class="feed feed_blog">
     <h2>Recent Blog Posts <span class="subtitle"><a target="_self" href="feeds/rss-blogs.xml">[Feed]</a> <a target="_self" href="blog/">[show all]</a></span></h2>
     
+    
+      
+      
     
       
         
@@ -674,7 +737,7 @@ with you. Just throw me a mail and I'll probably notice within a couple weeks.
         </div>
         <span style="opacity:20%">
           May your path lea<a class="nonStyled" target="_self" href="debug">d</a> you to the gardens of eternal spring.
-          <span style="font-size:8px;">2024-10-27 22:16</span>
+          <span style="font-size:8px;">2024-11-08 15:57</span>
         </span>
         <span style="float:right;opacity:20%">
           <a target="_self" href="feeds">Feeds</a> - <a target="_self" href="contact">Contact</a>

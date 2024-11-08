@@ -1,5 +1,5 @@
 /*  */
-/*.ver2024-10-27-22-16*/
+/*.ver2024-11-08-15-57*/
 .ver4 {
   display: none;
 }
@@ -137,6 +137,11 @@ footer a:active,
   color: inherit;
   box-shadow: inset 0 -2px 0 #d50000f0;
   transition-duration: .12s;
+}
+
+
+.nobreak {
+  white-space: nowrap;
 }
 
 
