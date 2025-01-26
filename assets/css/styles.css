@@ -1,6 +1,12 @@
+/*
+---
+title: Main Stylesheet
+---
+*/
+
 /*  */
-/*.ver2025-01-20-08-16*/
-.ver4 {
+/*.ver{{ site.time | date: "%F-%H-%M" }}*/
+.ver5 {
   display: none;
 }
 
@@ -133,7 +139,8 @@ footer a:active,
 .styledLink:active,
 #contentContainer a:hover,
 #contentContainer a:active,
-#contentContainer a:focus {
+#contentContainer a:focus,
+.series_card:hover .maintitle {
   color: inherit;
   box-shadow: inset 0 -2px 0 #d50000f0;
   transition-duration: .12s;

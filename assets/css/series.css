@@ -109,7 +109,7 @@
 .series_card:not(:hover) .onImg_tr {
   visibility: visible;
   opacity: 1;
-  transition: opacity .08s linear;
+  transition: opacity .12s linear;
   /* transition-duration: .12s; */
 }
 
